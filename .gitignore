@@ -5,3 +5,4 @@ db.sqlite3
 *.pyc
 node_modules/
 hep_tests.py
+.env

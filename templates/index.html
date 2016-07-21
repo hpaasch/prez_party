@@ -2,4 +2,9 @@
 
 {% block content %}
   <h3>Howdy</h3>
+  <ul>
+  {% for tweet in tweet_list %}
+  <li>{{ tweet.text }} </li>
+  {% endfor %}
+</ul>
 {% endblock %}

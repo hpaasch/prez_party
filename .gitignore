@@ -4,3 +4,4 @@ db.sqlite3
 .direnv
 *.pyc
 node_modules/
+hep_tests.py

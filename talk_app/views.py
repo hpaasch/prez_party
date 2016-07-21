@@ -17,6 +17,8 @@ class IndexView(TemplateView):
                          tw_consumer_secret,
                          auth_type='oAuth2')
 
+        # input for candidate from button to then guide the code
+
         content = api.request('statuses/user_timeline', {'screen_name': '@hillaryclinton'})
 
         new_tweet_ids = []

@@ -37,7 +37,7 @@ class Profile(models.Model):
 class Question(models.Model):
     question_type = models.CharField(max_length=30)  # choices to come.
     intensity = models.CharField(max_length=20)
-    wonk_level = models.CharField(max_length=20)  
+    wonk_level = models.CharField(max_length=20)
     category = models.CharField(max_length=30)
     text = models.TextField(null=True, blank=True)
 
@@ -73,4 +73,4 @@ class Tweet(models.Model):
     favorite_count = models.IntegerField(null=True)
 
     class Meta:
-        ordering = ['created_at']
+        ordering = ['created']

@@ -1,12 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h3>Tweets from Hillary Clinton:</h3>
+  <h3>Tweets from the presidential candidates:</h3>
 
 <!-- Add buttons to pick candidate that will display -->>
-  <ul>
+
+
+<div class="panel panel-default">
   {% for tweet in tweet_list %}
-  <li>{{ tweet.text }} </li>
-  {% endfor %}
-</ul>
+       <div class="panel-heading">
+         <h3 class="panel-title">{{ tweet.username }} </h3>
+       </div>
+         <div class="panel-body">
+           <p>{{ tweet.text }}</p>
+
+         </div>
+     {% endfor %}
+   </div>
+
 {% endblock %}

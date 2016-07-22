@@ -10,21 +10,25 @@ from django.core.urlresolvers import reverse_lazy
 
 
 from talk_app.models import Tweet, DinnerParty
-
-tw_consumer_key = ''
-tw_consumer_secret = ''
+import os
 
 class IndexView(TemplateView):
     template_name = 'index.html'
 
     def get_context_data(request):
+
+        tw_consumer_key = os.getenv("tw_consumer_key")
+        tw_consumer_secret = os.getenv("tw_consumer_secret")
+        x_api_key = os.getenv("x_api_key")
+
+        print("JOEL", tw_consumer_key, tw_consumer_secret)
         api = TwitterAPI(tw_consumer_key,
                          tw_consumer_secret,
                          auth_type='oAuth2')
 
         # input for candidate from button to then guide the code
 
-        content = api.request('statuses/user_timeline', {'screen_name': '@hillaryclinton'})
+        content = api.request('statuses/user_timeline', {'screen_name': '@govgaryjohnson'})
 
         new_tweet_ids = []
         for tweet in content:

@@ -73,4 +73,4 @@ class Tweet(models.Model):
     favorite_count = models.IntegerField(null=True)
 
     class Meta:
-        ordering = ['created']
+        ordering = ['-created']

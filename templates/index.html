@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load tz %}
+
 
 {% block content %}
   <h3>Tweets from the presidential candidates:</h3>
@@ -9,7 +11,10 @@
 <div class="panel panel-default">
   {% for tweet in tweet_list %}
        <div class="panel-heading">
-         <h3 class="panel-title">{{ tweet.username }} </h3>
+         <h3 class="panel-title">{{ tweet.username }} {{ tweet.created_at }}
+           {% timezone 'America/New_York' %} {{ tweet.created|time:"g:iA"|lower }} {% endtimezone %} EST
+
+          </h3>
        </div>
          <div class="panel-body">
            <p>{{ tweet.text }}</p>

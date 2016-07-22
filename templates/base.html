@@ -1,13 +1,41 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Talk Party</title>
+    <title>Presidential Party</title>
+
+    <link rel="stylesheet" href="{% static "talk_app/css/bootstrap.css" %}" media="screen" title="bootstrap" charset="utf-8">
+    <link rel="stylesheet" href="{% static "talk_app/css/main.css" %}">
+
   </head>
   <body>
-{% block content %}
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
 
-{% endblock %}
+          <a class="btn btn-primary" href="{% url 'index_view' %}">Homepage</a>
 
+          {% if request.user.is_authenticated %}
+
+            <a class="btn btn-primary" href="{% url 'dinner_party_create_view' %}">Make a party</a>
+            <a class="btn btn-primary" href="{% url 'dinner_party_list_view' %}">View a party</a>
+
+            <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>
+
+          {% else %}
+
+            <a class="btn btn-primary" href="{% url 'login' %}">Sign In</a>
+
+          {% endif %}
+
+      </div>
+    </nav>
+    <div class="container">
+
+      {% block content %}
+        No content provided
+      {% endblock %}
+    </div>
   </body>
 </html>

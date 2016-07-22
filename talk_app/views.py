@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from TwitterAPI import TwitterAPI
 from bs4 import BeautifulSoup
 import requests
+from django.core.urlresolvers import reverse_lazy
 
-from talk_app.models import Tweet
+
+from talk_app.models import Tweet, DinnerParty
 
 tw_consumer_key = ''
 tw_consumer_secret = ''
@@ -45,3 +50,22 @@ class IndexView(TemplateView):
             }
 
         return context
+
+
+class DinnerPartyCreateView(CreateView):
+    template_name = 'party_create.html'
+    model = DinnerParty
+    fields = ['name', 'pundit', 'candidate']
+    success_url = reverse_lazy('index_view')
+
+    def form_valid(self, form):
+        dinnerparty = form.save(commit=False)
+        dinnerparty.host = self.request.user
+        return super().form_valid(form)
+
+
+class DinnerPartyListView(ListView):
+    template_name = 'view_party.html'
+    model = DinnerParty
+
+    # def get_context_data(request):

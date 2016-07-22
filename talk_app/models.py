@@ -5,8 +5,11 @@ class Candidate(models.Model):
     name = models.CharField(max_length=25)
     website = models.URLField()
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
-    affiliation = models.CharField(max_length=20)  # choices to come
+    affiliation = models.CharField(max_length=20)
+    office = models.CharField(max_length=20)
 
+    def __str__(self):
+        return self.name
 
 class Pundit(models.Model):
     name = models.CharField(max_length=25)
@@ -15,6 +18,8 @@ class Pundit(models.Model):
     employer = models.CharField(max_length=30)
     affiliation = models.CharField(max_length=20)  # choices to come
 
+    def __str__(self):
+        return self.name
 
 class Profile(models.Model):
     user = models.OneToOneField('auth.User')
@@ -31,16 +36,20 @@ class Profile(models.Model):
 
 class Question(models.Model):
     question_type = models.CharField(max_length=30)  # choices to come.
-    intensity = models.IntegerField()  # pick list of 1-5
-    wonk_level = models.IntegerField()  # pick list of 1-3
+    intensity = models.CharField(max_length=20)
+    wonk_level = models.CharField(max_length=20)  
     category = models.CharField(max_length=30)
+    text = models.TextField(null=True, blank=True)
 
 
 class DinnerParty(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, verbose_name='Give your party a name')
     host = models.ForeignKey('auth.User')
     pundit = models.ForeignKey(Pundit)
     candidate = models.ForeignKey(Candidate)
+
+    def __str__(self):
+        return self.name
 
 
 class Survey(models.Model):
@@ -48,7 +57,9 @@ class Survey(models.Model):
     host = models.ForeignKey('auth.User')
     discussion_level = models.IntegerField()
     change_mind = models.BooleanField()
+    changed = models.TextField(null=True, blank=True)
     made_choice = models.BooleanField()
+    chose = models.TextField(null=True, blank=True)
     top_area = models.CharField(max_length=30)  # choices to come
 
 
@@ -62,4 +73,4 @@ class Tweet(models.Model):
     favorite_count = models.IntegerField(null=True)
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['created_at']

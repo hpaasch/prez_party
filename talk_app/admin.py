@@ -11,7 +11,12 @@ class USFinanceAdmin(admin.ModelAdmin):
         list_display = ['name', 'party', 'total']
 
 
-admin.site.register(Tweet)
+class TweetAdmin(admin.ModelAdmin):
+        list_display = ['username', 'popular', 'created_at']
+        search_fields = ['username']
+
+
+admin.site.register(Tweet, TweetAdmin)
 admin.site.register(DinnerParty)
 admin.site.register(Candidate)
 admin.site.register(Pundit)

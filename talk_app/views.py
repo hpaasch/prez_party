@@ -5,7 +5,6 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from TwitterAPI import TwitterAPI
 from django.db.models import Sum
-# from bs4 import BeautifulSoup
 import requests
 from django.core.urlresolvers import reverse_lazy
 
@@ -52,16 +51,26 @@ class IndexView(TemplateView):
 
             for tweet in content:
                 if tweet['id'] not in old_tweet_ids:
-                    twt_id = tweet['id']
-                    username = tweet['user']['screen_name']
-                    created_at = tweet['created_at']
-                    text = tweet['text']
-                    retweet_count = tweet['retweet_count']
-                    Tweet.objects.create(twt_id=twt_id, username=username, created_at=created_at, text=text, retweet_count=retweet_count)
+                    popular = tweet['retweet_count'] + tweet['favorite_count']
+
+                    Tweet.objects.create(
+                        twt_id=tweet['id'],
+                        username=tweet['user']['screen_name'],
+                        created_at=tweet['created_at'],
+                        text=tweet['text'],
+                        retweet_count=tweet['retweet_count'],
+                        favorite_count=tweet['favorite_count'],
+                        popular = popular
+                        )
 
         tweet_list = Tweet.objects.all()
+        clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
+        trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
+
         context = {
             'tweet_list': tweet_list,
+            'clinton_popular': clinton_popular,
+            'trump_popular': trump_popular,
             }
 
         return context

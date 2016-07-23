@@ -71,9 +71,13 @@ class Tweet(models.Model):
     text = models.TextField()
     retweet_count = models.IntegerField(null=True)
     favorite_count = models.IntegerField(null=True)
+    popular = models.IntegerField(null=True)
 
     class Meta:
         ordering = ['-created']
+
+    def __str__(self):
+        return self.username
 
 
 class USFinance(models.Model):

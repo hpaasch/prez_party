@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col-md-6">
+  <h3>Anything surprise you here?</h3>
+  <p>
+    add voter registration breakdown
+  </p>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">${{ nc_total.total__sum|floatformat:0 }}: Raised in North Carolina</h3>
+      </div>
+      {% for item in clinton_list %}
+        {% if item.state == 'NC' %}
+          <div class="panel-body">
+            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+        {% endif %}
+      {% endfor %}
+      {% for item in trump_list %}
+        {% if item.state == 'NC' %}
+            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+</div>
+<div class="col-md-6">
+  <h3>What about South Carolina?</h3>
+  <p>
+    add voter registration breakdown
+  </p>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">${{ sc_total.total__sum|floatformat:0 }}: Raised in South Carolina</h3>
+      </div>
+      {% for item in clinton_list %}
+        {% if item.state == 'SC' %}
+          <div class="panel-body">
+            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+        {% endif %}
+      {% endfor %}
+      {% for item in trump_list %}
+        {% if item.state == 'SC' %}
+            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+</div>
+<p>
+  form at bottom to take input on reactions
+</p>
+{% endblock %}

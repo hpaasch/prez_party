@@ -4,12 +4,13 @@ from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from TwitterAPI import TwitterAPI
-from bs4 import BeautifulSoup
+from django.db.models import Sum
+# from bs4 import BeautifulSoup
 import requests
 from django.core.urlresolvers import reverse_lazy
 
 
-from talk_app.models import Tweet, DinnerParty
+from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance
 import os
 
 
@@ -20,7 +21,6 @@ class IndexView(TemplateView):
 
         tw_consumer_key = os.getenv("tw_consumer_key")
         tw_consumer_secret = os.getenv("tw_consumer_secret")
-        x_api_key = os.getenv("x_api_key")
 
         api = TwitterAPI(tw_consumer_key,
                          tw_consumer_secret,
@@ -31,6 +31,10 @@ class IndexView(TemplateView):
             '@realdonaldtrump',
             '@drjillstein',
             '@govgaryjohnson',
+            '@timkaine',
+            '@cherihonkala',
+            '@govbillweld',
+            '@mike_pence',
             ]
 
         for candidate in candidates:
@@ -79,4 +83,91 @@ class DinnerPartyListView(ListView):
     template_name = 'view_party.html'
     model = DinnerParty
 
-    # def get_context_data(request):
+
+class USFinanceListView(ListView):
+    model = USFinance
+    template_name = 'us_finance.html'
+
+    def get_context_data(request):
+        x_api_key = os.getenv("x_api_key")
+        us_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/totals.json'
+
+        headers = {
+            "X-API-Key": x_api_key
+            }
+
+        us_response = requests.get(us_url, headers=headers).json()
+        us_results = us_response['results']
+        us_total = 1363831  # libertarian
+        us_cash_on_hand = 0
+        for item in us_results:
+            us_total += item['total_receipts']
+            us_cash_on_hand += item['cash_on_hand']
+            USFinance.objects.update_or_create(
+                slug=item['slug'],
+                name=item['name'],
+                total=item['total_receipts'],
+                party=item['party'],
+                as_of=item['date_coverage_to'],
+                cash_on_hand=item['cash_on_hand'],
+                candidate_name=item['candidate_name'])
+        republican = USFinance.objects.filter(party='R')
+        r_total = USFinance.objects.filter(party='R').aggregate(Sum('total'))
+        democrat = USFinance.objects.filter(party='D')
+        d_total = USFinance.objects.filter(party='D').aggregate(Sum('total'))
+        libertarian = USFinance.objects.filter(party='L')
+        green = USFinance.objects.filter(party='G')
+        clinton = USFinance.objects.filter(slug='clinton')
+        trump = USFinance.objects.filter(slug='trump')
+        context = {
+            'republican': republican,
+            'r_total': r_total,
+            'democrat': democrat,
+            'd_total': d_total,
+            'libertarian': libertarian,
+            'green': green,
+            'clinton': clinton,
+            'trump': trump,
+            'us_total': us_total,
+            'us_cash_on_hand': us_cash_on_hand,
+            }
+        return context
+
+
+class StateFinanceListView(ListView):
+    model = StateFinance
+    template_name = 'state_finance.html'
+
+    def get_context_data(request):
+        x_api_key = os.getenv("x_api_key")
+
+        headers = {
+            "X-API-Key": x_api_key
+            }
+        states = ['NC', 'SC']
+        for state in states:
+            state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(state)
+            state_response = requests.get(state_url, headers=headers).json()
+            state_results = state_response['results']
+            state_total = 0
+            for item in state_results:
+                state_total += float(item['total'])
+                StateFinance.objects.update_or_create(
+                    full_name=item['full_name'],
+                    candidate=item['candidate'],
+                    party=item['party'],
+                    total=item['total'],
+                    contribution_count=item['contribution_count'],
+                    state=item['state'],
+                    )
+        nc_total = StateFinance.objects.filter(state='NC').aggregate(Sum('total'))
+        sc_total = StateFinance.objects.filter(state='SC').aggregate(Sum('total'))
+        clinton_list = StateFinance.objects.filter(full_name='Hillary Clinton')
+        trump_list = StateFinance.objects.filter(full_name='Donald J. Trump')
+        context = {
+            'nc_total': nc_total,
+            'sc_total': sc_total,
+            'clinton_list': clinton_list,
+            'trump_list': trump_list,
+            }
+        return context

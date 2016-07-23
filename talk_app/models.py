@@ -74,3 +74,43 @@ class Tweet(models.Model):
 
     class Meta:
         ordering = ['-created']
+
+
+class USFinance(models.Model):
+    slug = models.SlugField()
+    name = models.CharField(max_length=30)
+    party = models.CharField(max_length=5)
+    total = models.FloatField()
+    as_of = models.CharField(max_length=10)
+    cash_on_hand = models.FloatField()
+    candidate_name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.slug
+
+    class Meta:
+        ordering = ['-cash_on_hand']
+
+
+class StateFinance(models.Model):
+    full_name = models.CharField(max_length=30)
+    candidate = models.CharField(max_length=30)
+    party = models.CharField(max_length=3)
+    total = models.FloatField()
+    contribution_count = models.IntegerField()
+    state = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.full_name
+
+
+class ZIPFinance(models.Model):
+    full_name = models.CharField(max_length=30)
+    candidate = models.CharField(max_length=30)
+    party = models.CharField(max_length=3)
+    total = models.FloatField()
+    contribution_count = models.IntegerField()
+    zip_code = models.IntegerField()
+
+    def __str__(self):
+        return self.full_name

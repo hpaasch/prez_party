@@ -8,13 +8,17 @@ from django.db.models import Sum
 import requests
 from django.core.urlresolvers import reverse_lazy
 
-
 from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance
 import os
 
 
 class IndexView(TemplateView):
     template_name = 'index.html'
+
+
+
+class PopularTweetListView(TemplateView):
+    template_name = 'popular_tweets.html'
 
     def get_context_data(request):
 
@@ -66,15 +70,23 @@ class IndexView(TemplateView):
         tweet_list = Tweet.objects.all()
         clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
         trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
+        stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-popular')[:5]
+        johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
 
         context = {
             'tweet_list': tweet_list,
             'clinton_popular': clinton_popular,
             'trump_popular': trump_popular,
+            'stein_popular': stein_popular,
+            'johnson_popular': johnson_popular,
             }
 
         return context
 
+
+class TweetListView(ListView):
+    model = Tweet
+    template_name = 'tweets.html'
 
 class DinnerPartyCreateView(CreateView):
     template_name = 'party_create.html'
@@ -143,7 +155,7 @@ class USFinanceListView(ListView):
         return context
 
 
-class StateFinanceListView(ListView):
+class LocalFinanceListView(ListView):
     model = StateFinance
     template_name = 'state_finance.html'
 

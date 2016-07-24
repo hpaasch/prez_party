@@ -3,7 +3,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 
-from talk_app.views import IndexView, DinnerPartyCreateView, DinnerPartyListView, USFinanceListView, LocalFinanceListView, TweetListView, PopularTweetListView
+from talk_app.views import IndexView, DinnerPartyCreateView, DinnerPartyListView, USFinanceListView, LocalFinanceListView, TweetListView, PopularTweetListView, QuizCreateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -14,5 +14,6 @@ urlpatterns = [
     url(r'^finance/local/$', LocalFinanceListView.as_view(), name='local_finance_list_view'),
     url(r'^tweets/$', TweetListView.as_view(), name='tweet_list_view'),
     url(r'^tweets/popular/$', PopularTweetListView.as_view(), name='popular_tweet_list_view'),
+    url(r'^quiz/video/$', QuizCreateView.as_view(), name='quiz_create_view'),
 
 ]

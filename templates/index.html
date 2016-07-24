@@ -5,26 +5,23 @@
 {% block content %}
 <h1>Hey, watch this</h1>
 <form class="" action="" >
-
   <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
   <input class='btn btn-primary' type="submit" name="trump" value="Trump">
   <input class='btn btn-primary' type="submit" name="pundit" value="Pundit">
-
+  <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
 </form>
-
-<br>
 <br>
 <div class="embed-responsive embed-responsive-16by9">
-{% if candidate = 'clinton' %}
-<iframe class="embed-responsive-item" width="560" height="315" src={{ url }}  allowfullscreen></iframe>
+{% if video = 'clinton' %}
+<iframe class="embed-responsive-item" src={{ url }} ></iframe>
 {% endif %}
 
-{% if candidate = 'trump'  %}
-<iframe class="embed-responsive-item" width="560" height="315" src={{ url }}  allowfullscreen></iframe>
+{% if video = 'trump'  %}
+<iframe class="embed-responsive-item" src={{ url }} ></iframe>
 {% endif %}
 
-{% if candidate = 'pundit'  %}
-<iframe class="embed-responsive-item" width="560" height="315" src={{ url }}  allowfullscreen></iframe>
+{% if video = 'pundit'  %}
+<iframe class="embed-responsive-item" src={{ url }} ></iframe>
 {% endif %}
 </div>
 

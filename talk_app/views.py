@@ -5,10 +5,13 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from TwitterAPI import TwitterAPI
 from django.db.models import Sum
+from django import forms
+
 import requests
 from django.core.urlresolvers import reverse_lazy
 
-from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance
+from talk_app.forms import SurveyForm
+from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance, Survey
 import os
 
 
@@ -23,21 +26,33 @@ class IndexView(TemplateView):
         trump_url = 'https://www.youtube.com/embed/pWcez2OwT9s?rel=0&amp;showinfo=0'
         pundit_url = 'https://www.youtube.com/embed/A43vWc9vdqM?rel=0&amp;showinfo=0'
         url = ''
-        candidate = ''
+        video = ''
+        quiz = {}
         if clinton:
-            candidate = 'clinton'
+            video = 'clinton'
             url = clinton_url
         elif trump:
-            candidate = 'trump'
+            video = 'trump'
             url = trump_url
         elif pundit:
-            candidate = 'pundit'
+            video = 'pundit'
             url = pundit_url
+        elif quiz:
+            quiz = SurveyForm()
         context = {
-            'candidate': candidate,
+            'video': video,
             'url': url,
+            'quiz': quiz,
             }
         return context
+
+
+class QuizCreateView(CreateView):
+    model = Survey
+    template_name = 'quiz.html'
+    fields = ['discussion_level', 'change_mind', 'changed', 'made_choice', 'chose', 'top_area']
+    widgets = {'change_mind': forms.RadioSelect, 'made_choice': forms.RadioSelect}
+
 
 
 class PopularTweetListView(TemplateView):

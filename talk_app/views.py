@@ -50,9 +50,14 @@ class IndexView(TemplateView):
 class QuizCreateView(CreateView):
     model = Survey
     template_name = 'quiz.html'
-    fields = ['discussion_level', 'change_mind', 'changed', 'made_choice', 'chose', 'top_area']
+    fields = ['dinner', 'discussion_level', 'change_mind', 'changed', 'made_choice', 'chose', 'top_area']
     widgets = {'change_mind': forms.RadioSelect, 'made_choice': forms.RadioSelect}
+    success_url = reverse_lazy('us_finance_list_view')
 
+    def form_valid(self, form):
+        quiz = form.save(commit=False)  #  half saves it
+        quiz.host = self.request.user  #  attaches the user in the DB
+        return super().form_valid(form)  #  fully saves and creates
 
 
 class PopularTweetListView(TemplateView):

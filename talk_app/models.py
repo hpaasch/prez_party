@@ -62,6 +62,8 @@ class Survey(models.Model):
     chose = models.TextField(null=True, blank=True)
     top_area = models.CharField(max_length=30)  # choices to come
 
+    def __str__(self):
+        return self.dinner
 
 class Tweet(models.Model):
     twt_id = models.IntegerField()

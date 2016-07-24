@@ -3,87 +3,33 @@
 
 
 {% block content %}
-<h1>Social media fever</h1>
-<h5>(Popularity combines favorites and retweets)</h5>
-  <div class="col-md-6">
+<h1>Hey, watch this</h1>
+<form class="" action="" >
 
-    <h3>@HillaryClinton</h3>
-      <div class="panel panel-default">
-        {% for tweet in clinton_popular %}
-           <div class="panel-heading">
-             <h3 class="panel-title"> <li>{{ tweet.popular }} Popularity ({{ tweet.retweet_count }} retweets plus {{ tweet.favorite_count }} favorites)</li>
-             </h3>
-           </div>
-             <div class="panel-body">
-               <h4>{{ tweet.text }}</h4>
-               <p>{{ tweet.created_at }}
-                {% timezone 'America/New_York' %} {{ tweet.created|time:"g:iA"|lower }} {% endtimezone %} EST</p>
-             </div>
-         {% endfor %}
-       </div>
-   <h3>@GovGaryJohnson</h3>
-     <div class="panel panel-default">
-       {% for tweet in johnson_popular %}
-          <div class="panel-heading">
-            <h3 class="panel-title"> <li>{{ tweet.popular }} Popularity ({{ tweet.retweet_count }} retweets plus {{ tweet.favorite_count }} favorites)</li>
-            </h3>
-          </div>
-            <div class="panel-body">
-              <h4>{{ tweet.text }}</h4>
-              <p>{{ tweet.created_at }}
-               {% timezone 'America/New_York' %} {{ tweet.created|time:"g:iA"|lower }} {% endtimezone %} EST</p>
-            </div>
-        {% endfor %}
-      </div>
-    </div>
+  <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
+  <input class='btn btn-primary' type="submit" name="trump" value="Trump">
+  <input class='btn btn-primary' type="submit" name="pundit" value="Pundit">
 
-   <div class="col-md-6">
-     <h3>@realDonaldTrump</h3>
-       <div class="panel panel-default">
-         {% for tweet in trump_popular %}
-            <div class="panel-heading">
-              <h3 class="panel-title"> <li>{{ tweet.popular }} Popularity ({{ tweet.retweet_count }} retweets plus {{ tweet.favorite_count }} favorites)</li>
-              </h3>
-            </div>
-              <div class="panel-body">
-                <h4>{{ tweet.text }}</h4>
-                <p>{{ tweet.created_at }}
-                 {% timezone 'America/New_York' %} {{ tweet.created|time:"g:iA"|lower }} {% endtimezone %} EST</p>
-              </div>
-          {% endfor %}
-        </div>
-        <h3>@DrJillStein</h3>
-          <div class="panel panel-default">
-            {% for tweet in stein_popular %}
-               <div class="panel-heading">
-                 <h3 class="panel-title"> <li>{{ tweet.popular }} Popularity ({{ tweet.retweet_count }} retweets plus {{ tweet.favorite_count }} favorites)</li>
-                 </h3>
-               </div>
-                 <div class="panel-body">
-                   <h4>{{ tweet.text }}</h4>
-                   <p>{{ tweet.created_at }}
-                    {% timezone 'America/New_York' %} {{ tweet.created|time:"g:iA"|lower }} {% endtimezone %} EST</p>
-                 </div>
-             {% endfor %}
-           </div>
-    </div>
+</form>
+
+<br>
+<br>
+<div class="embed-responsive embed-responsive-16by9">
+{% if candidate = 'clinton' %}
+<iframe class="embed-responsive-item" width="560" height="315" src={{ url }}  allowfullscreen></iframe>
+{% endif %}
+
+{% if candidate = 'trump'  %}
+<iframe class="embed-responsive-item" width="560" height="315" src={{ url }}  allowfullscreen></iframe>
+{% endif %}
+
+{% if candidate = 'pundit'  %}
+<iframe class="embed-responsive-item" width="560" height="315" src={{ url }}  allowfullscreen></iframe>
+{% endif %}
+</div>
 
 
 
 
-<h3>A whole bunch of unfiltered tweets</h3>
-<div class="panel panel-default">
-  {% for tweet in tweet_list %}
-       <div class="panel-heading">
-         <h3 class="panel-title">{{ tweet.username }} {{ tweet.created_at }}
-           {% timezone 'America/New_York' %} {{ tweet.created|time:"g:iA"|lower }} {% endtimezone %} EST
-         </h3>
-       </div>
-         <div class="panel-body">
-           <p>{{ tweet.text }}</p>
-
-         </div>
-     {% endfor %}
-   </div>
 
 {% endblock %}

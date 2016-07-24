@@ -15,6 +15,29 @@ import os
 class IndexView(TemplateView):
     template_name = 'index.html'
 
+    def get_context_data(self, **kwargs):
+        clinton = self.request.GET.get('clinton')
+        trump = self.request.GET.get('trump')
+        pundit = self.request.GET.get('pundit')
+        clinton_url = 'https://www.youtube.com/embed/_j8xh_naQ6w?rel=0&amp;showinfo=0'
+        trump_url = 'https://www.youtube.com/embed/pWcez2OwT9s?rel=0&amp;showinfo=0'
+        pundit_url = 'https://www.youtube.com/embed/A43vWc9vdqM?rel=0&amp;showinfo=0'
+        url = ''
+        candidate = ''
+        if clinton:
+            candidate = 'clinton'
+            url = clinton_url
+        elif trump:
+            candidate = 'trump'
+            url = trump_url
+        elif pundit:
+            candidate = 'pundit'
+            url = pundit_url
+        context = {
+            'candidate': candidate,
+            'url': url,
+            }
+        return context
 
 
 class PopularTweetListView(TemplateView):

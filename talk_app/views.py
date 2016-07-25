@@ -10,7 +10,6 @@ from django import forms
 import requests
 from django.core.urlresolvers import reverse_lazy
 
-from talk_app.forms import SurveyForm
 from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance, Survey
 import os
 

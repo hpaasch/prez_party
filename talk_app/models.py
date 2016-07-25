@@ -66,7 +66,7 @@ class Survey(models.Model):
         return self.dinner
 
 class Tweet(models.Model):
-    twt_id = models.IntegerField()
+    twt_id = models.BigIntegerField()
     username = models.CharField(max_length=50)
     created = models.DateTimeField(auto_now_add=True)
     created_at = models.TextField()

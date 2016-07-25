@@ -3,6 +3,11 @@
 
 
 {% block content %}
+{% autoescape off %}
+{{ hrc_tweet }}
+
+{% endautoescape %}
+
 <h1>Social media fever</h1>
 <h5>(Popularity combines favorites and retweets)</h5>
   <div class="col-md-6">

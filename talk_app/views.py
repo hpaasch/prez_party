@@ -87,37 +87,39 @@ class PopularTweetListView(TemplateView):
 
             content = api.request('statuses/user_timeline', {'screen_name': candidate})
 
-            new_tweet_ids = []
+            # new_tweet_ids = []
+            # for tweet in content:
+            #     new_tweet_ids.append(tweet['id'])
+            #
+            # old_tweet_ids = []
+            # old_tweets = Tweet.objects.all()
+            # for tweet in old_tweets:
+            #     old_tweet_ids.append(tweet.twt_id)
+
             for tweet in content:
-                new_tweet_ids.append(tweet['id'])
+                Tweet.objects.update_or_create(
+                    twt_id = tweet['id'],
+                    defaults={
+                    'username': tweet['user']['screen_name'],
+                    'created_at': tweet['created_at'],
+                    'text': tweet['text'],
+                    'retweet_count': tweet['retweet_count'],
+                    'favorite_count': tweet['favorite_count'],
+                    'popular': (tweet['retweet_count'] + tweet['favorite_count']),
+                    })
 
-            old_tweet_ids = []
-            old_tweets = Tweet.objects.all()
-            for tweet in old_tweets:
-                old_tweet_ids.append(tweet.twt_id)
-
-            for tweet in content:
-                if tweet['id'] not in old_tweet_ids:
-                    # popular = tweet['retweet_count'] + tweet['favorite_count']
-
-                    Tweet.objects.create(
-                        twt_id=tweet['id'],
-                        username=tweet['user']['screen_name'],
-                        created_at=tweet['created_at'],
-                        text=tweet['text'],
-                        retweet_count=tweet['retweet_count'],
-                        favorite_count=tweet['favorite_count'],
-                        # popular = popular
-                        )
-
-        tweet_list = Tweet.objects.all()
-        clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-favorite_count')[:5]
-        trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-favorite_count')[:5]
-        stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-favorite_count')[:5]
-        johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-favorite_count')[:5]
-
+        clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
+        trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
+        stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-popular')[:5]
+        johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
+        hrc_ids = []
+        for tweet in clinton_popular:
+            hrc_ids.append(tweet.twt_id)
+        print(hrc_ids)
+        hrc_tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(hrc_ids[0])).json()["html"]
+        # cool_tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id=757250588446973952").json()["html"]
         context = {
-            'tweet_list': tweet_list,
+            'hrc_tweet': hrc_tweet,
             'clinton_popular': clinton_popular,
             'trump_popular': trump_popular,
             'stein_popular': stein_popular,
@@ -169,12 +171,14 @@ class USFinanceListView(ListView):
             us_cash_on_hand += item['cash_on_hand']
             USFinance.objects.update_or_create(
                 slug=item['slug'],
-                name=item['name'],
-                total=item['total_receipts'],
-                party=item['party'],
-                as_of=item['date_coverage_to'],
-                cash_on_hand=item['cash_on_hand'],
-                candidate_name=item['candidate_name'])
+                defaults = {
+                'name': item['name'],
+                'total': item['total_receipts'],
+                'party': item['party'],
+                'as_of': item['date_coverage_to'],
+                'cash_on_hand': item['cash_on_hand'],
+                'candidate_name': item['candidate_name'],
+                })
         republican = USFinance.objects.filter(party='R')
         r_total = USFinance.objects.filter(party='R').aggregate(Sum('total'))
         democrat = USFinance.objects.filter(party='D')

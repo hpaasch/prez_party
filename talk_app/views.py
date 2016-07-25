@@ -63,9 +63,10 @@ class PopularTweetListView(TemplateView):
     template_name = 'popular_tweets.html'
 
     def get_context_data(request):
-
-        tw_consumer_key = os.getenv("tw_consumer_key")
-        tw_consumer_secret = os.getenv("tw_consumer_secret")
+        tw_consumer_key = os.environ["tw_consumer_key"]
+        tw_consumer_secret = os.environ["tw_consumer_secret"]
+        # tw_consumer_key = os.getenv("tw_consumer_key")
+        # tw_consumer_secret = os.getenv("tw_consumer_secret")
 
         api = TwitterAPI(tw_consumer_key,
                          tw_consumer_secret,
@@ -152,7 +153,7 @@ class USFinanceListView(ListView):
     template_name = 'us_finance.html'
 
     def get_context_data(request):
-        x_api_key = os.getenv("x_api_key")
+        x_api_key = os.environ["x_api_key"]
         us_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/totals.json'
 
         headers = {
@@ -202,7 +203,7 @@ class LocalFinanceListView(ListView):
     template_name = 'state_finance.html'
 
     def get_context_data(request):
-        x_api_key = os.getenv("x_api_key")
+        x_api_key = os.environ["x_api_key"]
 
         headers = {
             "X-API-Key": x_api_key

@@ -62,9 +62,7 @@ class QuizCreateView(CreateView):
 class PopularTweetListView(TemplateView):
     template_name = 'popular_tweets.html'
 
-    def get_context_data(request):
-        # tw_consumer_key = os.environ["tw_consumer_key"]
-        # tw_consumer_secret = os.environ["tw_consumer_secret"]
+    def get_context_data(self, **kwargs):
         tw_consumer_key = os.getenv("tw_consumer_key")
         tw_consumer_secret = os.getenv("tw_consumer_secret")
 
@@ -84,18 +82,7 @@ class PopularTweetListView(TemplateView):
             ]
 
         for candidate in candidates:
-
             content = api.request('statuses/user_timeline', {'screen_name': candidate})
-
-            # new_tweet_ids = []
-            # for tweet in content:
-            #     new_tweet_ids.append(tweet['id'])
-            #
-            # old_tweet_ids = []
-            # old_tweets = Tweet.objects.all()
-            # for tweet in old_tweets:
-            #     old_tweet_ids.append(tweet.twt_id)
-
             for tweet in content:
                 Tweet.objects.update_or_create(
                     twt_id = tweet['id'],
@@ -112,14 +99,21 @@ class PopularTweetListView(TemplateView):
         trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
         stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-popular')[:5]
         johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
-        hrc_ids = []
-        for tweet in clinton_popular:
-            hrc_ids.append(tweet.twt_id)
-        print(hrc_ids)
-        hrc_tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(hrc_ids[0])).json()["html"]
-        # cool_tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id=757250588446973952").json()["html"]
+        clinton = self.request.GET.get('clinton')
+        trump = self.request.GET.get('trump')
+        tweet_ids = []
+        if clinton:
+            for tweet in clinton_popular:
+                tweet_ids.append(tweet.twt_id)
+        elif trump:
+            for tweet in trump_popular:
+                tweet_ids.append(tweet.twt_id)
+        candidate_list = []
+        for item in tweet_ids:
+            tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
+            candidate_list.append(tweet)
         context = {
-            'hrc_tweet': hrc_tweet,
+            'candidate_list': candidate_list,
             'clinton_popular': clinton_popular,
             'trump_popular': trump_popular,
             'stein_popular': stein_popular,

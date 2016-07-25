@@ -3,10 +3,18 @@
 
 
 {% block content %}
-{% autoescape off %}
-{{ hrc_tweet }}
+<form class="" action="" >
+  <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
+  <input class='btn btn-primary' type="submit" name="trump" value="Trump">
+  <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
+</form>
 
+{% autoescape off %}
+{% for tweet in candidate_list %}
+  {{ tweet }}
+{% endfor %}
 {% endautoescape %}
+{% endblock %}
 
 <h1>Social media fever</h1>
 <h5>(Popularity combines favorites and retweets)</h5>
@@ -72,5 +80,3 @@
              {% endfor %}
            </div>
     </div>
-
-{% endblock %}

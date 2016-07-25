@@ -49,7 +49,7 @@ class DinnerParty(models.Model):
     candidate = models.ForeignKey(Candidate)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Survey(models.Model):

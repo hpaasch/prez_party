@@ -63,10 +63,10 @@ class PopularTweetListView(TemplateView):
     template_name = 'popular_tweets.html'
 
     def get_context_data(request):
-        tw_consumer_key = os.environ["tw_consumer_key"]
-        tw_consumer_secret = os.environ["tw_consumer_secret"]
-        # tw_consumer_key = os.getenv("tw_consumer_key")
-        # tw_consumer_secret = os.getenv("tw_consumer_secret")
+        # tw_consumer_key = os.environ["tw_consumer_key"]
+        # tw_consumer_secret = os.environ["tw_consumer_secret"]
+        tw_consumer_key = os.getenv("tw_consumer_key")
+        tw_consumer_secret = os.getenv("tw_consumer_secret")
 
         api = TwitterAPI(tw_consumer_key,
                          tw_consumer_secret,
@@ -98,7 +98,7 @@ class PopularTweetListView(TemplateView):
 
             for tweet in content:
                 if tweet['id'] not in old_tweet_ids:
-                    popular = tweet['retweet_count'] + tweet['favorite_count']
+                    # popular = tweet['retweet_count'] + tweet['favorite_count']
 
                     Tweet.objects.create(
                         twt_id=tweet['id'],
@@ -107,14 +107,14 @@ class PopularTweetListView(TemplateView):
                         text=tweet['text'],
                         retweet_count=tweet['retweet_count'],
                         favorite_count=tweet['favorite_count'],
-                        popular = popular
+                        # popular = popular
                         )
 
         tweet_list = Tweet.objects.all()
-        clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
-        trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
-        stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-popular')[:5]
-        johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
+        clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-favorite_count')[:5]
+        trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-favorite_count')[:5]
+        stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-favorite_count')[:5]
+        johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-favorite_count')[:5]
 
         context = {
             'tweet_list': tweet_list,

@@ -14,6 +14,11 @@ from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFina
 import os
 
 
+def logout(request):
+    auth_logout(request)
+    return redirect('/')
+
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -107,6 +112,12 @@ class PopularTweetListView(TemplateView):
                 tweet_ids.append(tweet.twt_id)
         elif trump:
             for tweet in trump_popular:
+                tweet_ids.append(tweet.twt_id)
+        elif stein:
+            for tweet in stein_popular:
+                tweet_ids.append(tweet.twt_id)
+        elif johnson:
+            for tweet in johnson_popular:
                 tweet_ids.append(tweet.twt_id)
         candidate_list = []
         for item in tweet_ids:

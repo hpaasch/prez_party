@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'talk_app',
+    'social.apps.django_app.default',  # python social auth
+
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -51,6 +53,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',  # python social auth
 ]
 
 ROOT_URLCONF = 'prez_party.urls'
@@ -66,6 +69,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',  # python social auth
+                'social.apps.django_app.context_processors.login_redirect',  # python social auth
+
             ],
         },
     },
@@ -122,9 +128,25 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+# FROM HERE python social auth
+AUTHENTICATION_BACKENDS = (
+    'social.backends.twitter.TwitterOAuth',
+    'django.contrib.auth.backends.ModelBackend',
+    )
+SOCIAL_AUTH_TWITTER_KEY = os.getenv("tw_consumer_key")  # NEED SYNTAX for tw
+SOCIAL_AUTH_TWITTER_SECRET = os.getenv("tw_consumer_secret")
+print(SOCIAL_AUTH_TWITTER_KEY)
+print(SOCIAL_AUTH_TWITTER_SECRET)
+
+#RYlbTLhIUqtFpYYFdghiznECm
+#SzCXXGhmM9bgYdcme0x8SXA1vB9IRcfgeLIwfgzgpFP4i2nIZ9
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/party/view/'
+SOCIAL_AUTH_LOGIN_URL = '/party/view/'
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username']
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+# TO HERE python social auth
 
 USE_THOUSAND_SEPARATOR = True
-
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + "/static"

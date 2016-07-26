@@ -27,9 +27,9 @@
             {# <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>#}
 
           {% else %}#}
-
-            {# <a class="btn btn-primary" href="{% url 'login' %}">Sign In</a>#}
-            <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="" /></a>
+            <a class="btn btn-primary" href="{% url 'create_account_view' %}">Create Account</a>
+            <a class="btn btn-primary" href="{% url 'login' %}">Sign in with your PDP account</a>
+            <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">OR <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="" /></a>
 
           {% endif %}
 

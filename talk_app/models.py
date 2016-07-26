@@ -1,37 +1,65 @@
 from django.db import models
 
+CONSERVATIVE = 'Conservative'
+PROGESSIVE = 'Progressive'
+MIXED = 'Mixed'
+OTHER = 'Other'
+DEMOCRAT = 'Democrat'
+INDEPENDENT = 'Independent'
+REPUBLICAN = 'Republican'
+LIBERTARIAN = 'Libertarian'
+GREENPARTY = 'GreenParty'
+
 
 class Candidate(models.Model):
+    AFFILIATION_CHOICES = (
+        (DEMOCRAT, 'Democrat'),
+        (REPUBLICAN, 'Republican'),
+        (LIBERTARIAN, 'Libertarian'),
+        (GREENPARTY, 'GreenParty'),
+        )
     name = models.CharField(max_length=25)
     website = models.URLField()
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
-    affiliation = models.CharField(max_length=20)
+    affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20)
     office = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
 
 class Pundit(models.Model):
+    AFFILIATION_CHOICES = (
+        (DEMOCRAT, 'Democrat'),
+        (INDEPENDENT, 'Independent'),
+        (REPUBLICAN, 'Republican'),
+        (LIBERTARIAN, 'Libertarian'),
+        (GREENPARTY, 'GreenParty'),
+        )
     name = models.CharField(max_length=25)
     website = models.URLField()
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
     employer = models.CharField(max_length=30)
-    affiliation = models.CharField(max_length=20)  # choices to come
+    affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20)
 
     def __str__(self):
         return self.name
 
 class Profile(models.Model):
+    AFFILIATION_CHOICES = (
+        (DEMOCRAT, 'Democrat'),
+        (INDEPENDENT, 'Independent'),
+        (REPUBLICAN, 'Republican'),
+        (LIBERTARIAN, 'Libertarian'),
+        (GREENPARTY, 'GreenParty'),
+        )
     user = models.OneToOneField('auth.User')
-    friends = models.IntegerField(null=True, blank=True)
-    friend_mix = models.CharField(max_length=30, null=True, blank=True)  # choices to come
     occupation = models.CharField(max_length=30, null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     city = models.CharField(max_length=30, null=True, blank=True)
     state = models.CharField(max_length=30, null=True, blank=True)
     email = models.EmailField(max_length=50, null=True, blank=True)
-    registered = models.CharField(max_length=20)  # choices to come
-    affiliation = models.CharField(max_length=20)  # choices to come
+    registered = models.BooleanField()
+    affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20, null=True, blank=True)
 
 
 class Question(models.Model):
@@ -43,13 +71,24 @@ class Question(models.Model):
 
 
 class DinnerParty(models.Model):
-    name = models.CharField(max_length=30, verbose_name='Give your party a name')
+    AFFILIATION_CHOICES = (
+        (DEMOCRAT, 'Democrat'),
+        (INDEPENDENT, 'Independent'),
+        (REPUBLICAN, 'Republican'),
+        (LIBERTARIAN, 'Libertarian'),
+        (GREENPARTY, 'GreenParty'),
+        (MIXED, 'Mixed'),
+        )
+    party_name = models.CharField(max_length=30, verbose_name='Give your party a name')
     host = models.ForeignKey('auth.User')
     pundit = models.ForeignKey(Pundit)
     candidate = models.ForeignKey(Candidate)
+    friend_names = models.TextField(null=True, blank=True)
+    friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
+
 
     def __str__(self):
-        return str(self.name)
+        return str(self.party_name)
 
 
 class Survey(models.Model):

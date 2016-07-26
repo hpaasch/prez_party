@@ -2,10 +2,11 @@
 
 {% block content %}
   {% for item in object_list %}
-    <li>Name of your party: {{ item.name }}</li>
+    <li>Name of your party: {{ item.party_name }}</li>
     <li>Candidate: {{ item.candidate }}</li>
     <li>Pundit: {{ item.pundit }}</li>
+    <li>Friends: {{ item.friend_names }}</li>
+    <li>Friend mix: {{ item.friend_mix }}</li>
+    <br>
   {% endfor %}
-
-  
 {% endblock %}

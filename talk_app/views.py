@@ -6,12 +6,23 @@ from django.views.generic.detail import DetailView
 from TwitterAPI import TwitterAPI
 from django.db.models import Sum
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 import requests
 from django.core.urlresolvers import reverse_lazy
 
-from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance, Survey
+from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance, Survey, Profile
 import os
+
+class CreateAccountView(CreateView):
+    model = User
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+
+
+class ProfileView(ListView):
+    model = Profile
 
 
 class IndexView(TemplateView):
@@ -101,6 +112,8 @@ class PopularTweetListView(TemplateView):
         johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
         clinton = self.request.GET.get('clinton')
         trump = self.request.GET.get('trump')
+        stein = self.request.GET.get('stein')
+        johnson = self.request.GET.get('johnson')
         tweet_ids = []
         if clinton:
             for tweet in clinton_popular:
@@ -136,7 +149,7 @@ class TweetListView(ListView):
 class DinnerPartyCreateView(CreateView):
     template_name = 'party_create.html'
     model = DinnerParty
-    fields = ['name', 'pundit', 'candidate']
+    fields = ['party_name', 'pundit', 'candidate', 'friend_names', 'friend_mix']
     success_url = reverse_lazy('index_view')
 
     def form_valid(self, form):

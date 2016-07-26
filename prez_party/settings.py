@@ -133,13 +133,9 @@ AUTHENTICATION_BACKENDS = (
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
     )
-SOCIAL_AUTH_TWITTER_KEY = os.getenv("tw_consumer_key")  # NEED SYNTAX for tw
+SOCIAL_AUTH_TWITTER_KEY = os.getenv("tw_consumer_key")
 SOCIAL_AUTH_TWITTER_SECRET = os.getenv("tw_consumer_secret")
-print(SOCIAL_AUTH_TWITTER_KEY)
-print(SOCIAL_AUTH_TWITTER_SECRET)
 
-#RYlbTLhIUqtFpYYFdghiznECm
-#SzCXXGhmM9bgYdcme0x8SXA1vB9IRcfgeLIwfgzgpFP4i2nIZ9
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/party/view/'
 SOCIAL_AUTH_LOGIN_URL = '/party/view/'
 SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username']

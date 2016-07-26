@@ -14,11 +14,6 @@ from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFina
 import os
 
 
-def logout(request):
-    auth_logout(request)
-    return redirect('/')
-
-
 class IndexView(TemplateView):
     template_name = 'index.html'
 

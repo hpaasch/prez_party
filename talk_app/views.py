@@ -95,6 +95,11 @@ class PopularTweetListView(TemplateView):
             '@mike_pence',
             ]
 
+        clinton = self.request.GET.get('clinton')
+        trump = self.request.GET.get('trump')
+        stein = self.request.GET.get('stein')
+        johnson = self.request.GET.get('johnson')
+
         for candidate in candidates:
             content = api.request('statuses/user_timeline', {'screen_name': candidate})
             for tweet in content:
@@ -113,10 +118,7 @@ class PopularTweetListView(TemplateView):
         trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
         stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-popular')[:5]
         johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
-        clinton = self.request.GET.get('clinton')
-        trump = self.request.GET.get('trump')
-        stein = self.request.GET.get('stein')
-        johnson = self.request.GET.get('johnson')
+
         tweet_ids = []
         if clinton:
             for tweet in clinton_popular:

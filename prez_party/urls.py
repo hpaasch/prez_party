@@ -25,4 +25,4 @@ urlpatterns = [
     url(r'^tweets/popular/$', PopularTweetListView.as_view(), name='popular_tweet_list_view'),
     url(r'^quiz/video/$', QuizCreateView.as_view(), name='quiz_create_view'),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

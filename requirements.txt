@@ -10,3 +10,5 @@ TwitterAPI
 whitenoise
 pytz
 python-social-auth
+django-storages
+boto

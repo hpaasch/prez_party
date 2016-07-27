@@ -12,7 +12,8 @@ from django.contrib.auth.forms import UserCreationForm
 import requests
 from django.core.urlresolvers import reverse_lazy
 
-from talk_app.models import Tweet, DinnerParty, USFinance, StateFinance, ZIPFinance, Survey, Profile
+from talk_app.models import (Tweet, Candidate, DinnerParty, USFinance,
+                            StateFinance, ZIPFinance, Survey, Profile)
 import os
 
 class CreateAccountView(CreateView):
@@ -49,10 +50,12 @@ class IndexView(TemplateView):
             url = pundit_url
         elif quiz:
             quiz = SurveyForm()
+        photos = Candidate.objects.all()
         context = {
             'video': video,
             'url': url,
             'quiz': quiz,
+            'photos': photos,
             }
         return context
 

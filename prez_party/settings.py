@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import dj_database_url
+# from talk_app.custom_storages import StaticStorage
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'talk_app',
     'social.apps.django_app.default',  # python social auth
+    'storages',  # s3
 
 ]
 
@@ -142,12 +144,35 @@ SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username']
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 # TO HERE python social auth
 
-USE_THOUSAND_SEPARATOR = True
+# FROM HERE storage on AWS
+# get all the secret stuff from .envrc
+aws_bucket_name = os.environ.get('aws_bucket_name')
 
-STATIC_URL = '/static/'
+AWS_STORAGE_BUCKET_NAME = aws_bucket_name
+AWS_ACCESS_KEY_ID = os.getenv('aws_key')
+AWS_SECRET_ACCESS_KEY = os.getenv('aws_secret')
+
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(aws_bucket_name)
+
+if aws_bucket_name:
+    AWS_S3_FILE_OVERWRITE = False
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    STATIC_URL = "https://{}/".format(AWS_S3_CUSTOM_DOMAIN)
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') # errors on  ?????????
+# PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))  ??????????
+# STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),)  ??????????
 STATIC_ROOT = BASE_DIR + "/static"
-
-# Simplified static file serving.
-# https://warehouse.python.org/project/whitenoise/
-
+STATICFILES_LOCATION = 'static'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATIC_URL = '/static/'
+# TO HERE storage on AWS
+
+# STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+# STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR
+
+USE_THOUSAND_SEPARATOR = True

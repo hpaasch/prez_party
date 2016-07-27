@@ -27,6 +27,12 @@ class Candidate(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def photo_url(self):
+        if self.photo:
+            return self.photo.url
+        return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
+
 class Pundit(models.Model):
     AFFILIATION_CHOICES = (
         (DEMOCRAT, 'Democrat'),

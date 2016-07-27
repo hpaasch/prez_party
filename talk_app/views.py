@@ -165,6 +165,9 @@ class DinnerPartyListView(ListView):
     template_name = 'view_party.html'
     model = DinnerParty
 
+    def get_queryset(self):
+        return DinnerParty.objects.filter(host=self.request.user)
+
 
 class USFinanceListView(ListView):
     model = USFinance

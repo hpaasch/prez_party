@@ -14,10 +14,8 @@ import os
 import dj_database_url
 # from talk_app.custom_storages import StaticStorage
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -30,9 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -81,7 +77,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'prez_party.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
@@ -113,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -128,8 +122,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
 # FROM HERE python social auth
 AUTHENTICATION_BACKENDS = (
     'social.backends.twitter.TwitterOAuth',
@@ -145,7 +137,7 @@ SOCIAL_AUTH_URL_NAMESPACE = 'social'
 # TO HERE python social auth
 
 # FROM HERE storage on AWS
-# get all the secret stuff from .envrc
+# get all the secret stuff from hidden file
 aws_bucket_name = os.environ.get('aws_bucket_name')
 
 AWS_STORAGE_BUCKET_NAME = aws_bucket_name

@@ -11,6 +11,10 @@
   <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
 </form>
 <p>
+{% for photo in photos %}
+  <img src="{% get_media_prefix %}{{ photo.photo }}" class="img-responsive" alt="Responsive image">
+    {{ photo.photo }}
+  {% endfor %}
   {% for photo in photos %}
   <img src="{{ photo.photo_url }}" class="img-responsive" alt="Responsive image">
   <br>

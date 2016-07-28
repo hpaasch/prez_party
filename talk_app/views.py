@@ -100,49 +100,38 @@ class PopularTweetListView(TemplateView):
         # stein = self.request.GET.get('stein')
         # johnson = self.request.GET.get('johnson')
         candidate = self.request.GET.get('candidate')
-
-        content = api.request('statuses/user_timeline', {'screen_name': candidate})
-        for tweet in content:
-            Tweet.objects.update_or_create(
-                twt_id = tweet['id'],
-                defaults={
-                'username': tweet['user']['screen_name'],
-                'created_at': tweet['created_at'],
-                'text': tweet['text'],
-                'retweet_count': tweet['retweet_count'],
-                'favorite_count': tweet['favorite_count'],
-                'popular': (tweet['retweet_count'] + tweet['favorite_count']),
-                })
-
-        clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
-        trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
-        stein_popular = Tweet.objects.filter(username='DrJillStein').order_by('-popular')[:5]
-        johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
-
-        tweet_ids = []
-        if candidate == '@hillaryclinton':
-            for tweet in clinton_popular:
-                tweet_ids.append(tweet.twt_id)
-        elif candidate == '@realdonaldtrump':
-            for tweet in trump_popular:
-                tweet_ids.append(tweet.twt_id)
-        elif candidate == '@drjillstein':
-            for tweet in stein_popular:
-                tweet_ids.append(tweet.twt_id)
-        elif candidate == '@govgaryjohnson':
-            for tweet in johnson_popular:
-                tweet_ids.append(tweet.twt_id)
         candidate_list = []
-        for item in tweet_ids:
-            tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
-            candidate_list.append(tweet)
+        clinton_popular = []
+
+        if candidate:
+            content = api.request('statuses/user_timeline', {'screen_name': candidate})
+            for tweet in content:
+                Tweet.objects.update_or_create(
+                    twt_id = tweet['id'],
+                    defaults={
+                    'username': tweet['user']['screen_name'],
+                    'created_at': tweet['created_at'],
+                    'text': tweet['text'],
+                    'retweet_count': tweet['retweet_count'],
+                    'favorite_count': tweet['favorite_count'],
+                    'popular': (tweet['retweet_count'] + tweet['favorite_count']),
+                    })
+
+            clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
+
+            tweet_ids = []
+            if candidate == '@hillaryclinton':
+                for tweet in clinton_popular:
+                    tweet_ids.append(tweet.twt_id)
+
+            for item in tweet_ids:
+                tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
+                candidate_list.append(tweet)
         context = {
             'candidates': candidates,
             'candidate_list': candidate_list,
             'clinton_popular': clinton_popular,
-            'trump_popular': trump_popular,
-            'stein_popular': stein_popular,
-            'johnson_popular': johnson_popular,
+
             }
 
         return context

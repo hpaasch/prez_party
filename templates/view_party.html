@@ -7,9 +7,12 @@
     <li>Pundit: <a href="{{ item.pundit.website }}">{{ item.pundit }}</a></li>
     <li>Friends: {{ item.friend_names }}</li>
     <li>Friend mix: {{ item.friend_mix }}</li>
+    <li>{{ item.host }}</li>
     <a href="{% url 'video_list_view' %}" class='btn btn-danger btn-sm'>Start this party!</a>
     <br>
     <br>
     <br>
   {% endfor %}
+    <a href="{% url 'dinner_party_create_view' %}" class='btn btn-warning btn-sm'>Make a new party!</a>
+
 {% endblock %}

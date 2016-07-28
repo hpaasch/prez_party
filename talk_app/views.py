@@ -25,40 +25,40 @@ class CreateAccountView(CreateView):
 
 class ProfileView(ListView):
     model = Profile
+    template_name = 'talk_app/profile_list.html'
 
+    def get_queryset(self):
+        return DinnerParty.objects.filter(host=self.request.user)
 
 class IndexView(TemplateView):
     template_name = 'index.html'
 
+
+class DinnerPartyCreateView(CreateView):
+    template_name = 'party_create.html'
+    model = DinnerParty
+    fields = ['party_name', 'pundit', 'candidate', 'video', 'friend_names', 'friend_mix']
+    success_url = reverse_lazy('profile_view')
+
+    # this method is NOT yet allowing user to add a video to the party
     def get_context_data(self, **kwargs):
-        clinton = self.request.GET.get('clinton')
-        trump = self.request.GET.get('trump')
-        pundit = self.request.GET.get('pundit')
-        clinton_url = 'https://www.youtube.com/embed/_j8xh_naQ6w?rel=0&amp;showinfo=0'
-        trump_url = 'https://www.youtube.com/embed/pWcez2OwT9s?rel=0&amp;showinfo=0'
-        pundit_url = 'https://www.youtube.com/embed/A43vWc9vdqM?rel=0&amp;showinfo=0'
-        url = ''
-        video = ''
-        quiz = {}
-        if clinton:
-            video = 'clinton'
-            url = clinton_url
-        elif trump:
-            video = 'trump'
-            url = trump_url
-        elif pundit:
-            video = 'pundit'
-            url = pundit_url
-        elif quiz:
-            quiz = SurveyForm()
-        photos = Candidate.objects.all()
-        context = {
-            'video': video,
-            'url': url,
-            'quiz': quiz,
-            'photos': photos,
-            }
+        context = super().get_context_data(**kwargs)
+        context['video_form'] = Video.objects.all()
+        print(context)
         return context
+
+    def form_valid(self, form):
+        dinnerparty = form.save(commit=False)
+        dinnerparty.host = self.request.user
+        return super().form_valid(form)
+
+
+class DinnerPartyListView(ListView):
+    template_name = 'view_party.html'
+    model = DinnerParty
+
+    def get_queryset(self):
+        return DinnerParty.objects.filter(host=self.request.user)
 
 
 class VideoListView(ListView):
@@ -109,81 +109,6 @@ class VideoQuizCreateView(CreateView):
         quiz.host = self.request.user  #  attaches the user in the DB
         return super().form_valid(form)  #  fully saves and creates
 
-
-class PopularTweetListView(TemplateView):
-    template_name = 'popular_tweets.html'
-
-    def get_context_data(self, **kwargs):
-        tw_consumer_key = os.getenv("tw_consumer_key")
-        tw_consumer_secret = os.getenv("tw_consumer_secret")
-        api = TwitterAPI(tw_consumer_key,
-                         tw_consumer_secret,
-                         auth_type='oAuth2')
-
-        candidates = Candidate.objects.all()
-        candidate = self.request.GET.get('candidate')
-        popular_tweets = []
-        popular = []
-
-        if candidate:
-            candidate = candidate[1:]
-            content = api.request('statuses/user_timeline', {'screen_name': candidate})
-            for tweet in content:
-                Tweet.objects.update_or_create(
-                    twt_id = tweet['id'],
-                    defaults={
-                    'username': tweet['user']['screen_name'],
-                    'created_at': tweet['created_at'],
-                    'text': tweet['text'],
-                    'retweet_count': tweet['retweet_count'],
-                    'favorite_count': tweet['favorite_count'],
-                    'popular': (tweet['retweet_count'] + tweet['favorite_count']),
-                    })
-
-            popular = Tweet.objects.filter(username=candidate).order_by('-popular')[:5]
-            tweet_ids = []
-            for tweet in popular:
-                tweet_ids.append(tweet.twt_id)
-            for item in tweet_ids:
-                tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
-                popular_tweets.append(tweet)
-
-        context = {
-            'candidates': candidates,
-            'popular_tweets': popular_tweets,
-            }
-        return context
-
-
-class TweetListView(ListView):
-    model = Tweet
-    template_name = 'tweets.html'
-
-class DinnerPartyCreateView(CreateView):
-    template_name = 'party_create.html'
-    model = DinnerParty
-    fields = ['party_name', 'pundit', 'candidate', 'video', 'friend_names', 'friend_mix']
-    success_url = reverse_lazy('index_view')
-
-    # this method is NOT yet allowing user to add a video to the party
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['video_form'] = Video.objects.all()
-        print(context)
-        return context
-
-    def form_valid(self, form):
-        dinnerparty = form.save(commit=False)
-        dinnerparty.host = self.request.user
-        return super().form_valid(form)
-
-
-class DinnerPartyListView(ListView):
-    template_name = 'view_party.html'
-    model = DinnerParty
-
-    def get_queryset(self):
-        return DinnerParty.objects.filter(host=self.request.user)
 
 
 class USFinanceListView(ListView):
@@ -275,3 +200,54 @@ class LocalFinanceListView(ListView):
             'trump_list': trump_list,
             }
         return context
+
+
+class PopularTweetListView(TemplateView):
+    template_name = 'popular_tweets.html'
+
+    def get_context_data(self, **kwargs):
+        tw_consumer_key = os.getenv("tw_consumer_key")
+        tw_consumer_secret = os.getenv("tw_consumer_secret")
+        api = TwitterAPI(tw_consumer_key,
+                         tw_consumer_secret,
+                         auth_type='oAuth2')
+
+        candidates = Candidate.objects.all()
+        candidate = self.request.GET.get('candidate')
+        popular_tweets = []
+        popular = []
+
+        if candidate:
+            candidate = candidate[1:]
+            content = api.request('statuses/user_timeline', {'screen_name': candidate})
+            for tweet in content:
+                Tweet.objects.update_or_create(
+                    twt_id = tweet['id'],
+                    defaults={
+                    'username': tweet['user']['screen_name'],
+                    'created_at': tweet['created_at'],
+                    'text': tweet['text'],
+                    'retweet_count': tweet['retweet_count'],
+                    'favorite_count': tweet['favorite_count'],
+                    'popular': (tweet['retweet_count'] + tweet['favorite_count']),
+                    })
+
+            popular = Tweet.objects.filter(username=candidate).order_by('-popular')[:5]
+            tweet_ids = []
+            for tweet in popular:
+                tweet_ids.append(tweet.twt_id)
+            for item in tweet_ids:
+                tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
+                popular_tweets.append(tweet)
+
+        context = {
+            'candidates': candidates,
+            'popular_tweets': popular_tweets,
+            }
+        return context
+
+
+# this should go on a 'Go Deep' page that includes search plus links to candidate sites too
+class TweetListView(ListView):
+    model = Tweet
+    template_name = 'tweets.html'

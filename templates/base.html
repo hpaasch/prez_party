@@ -17,9 +17,7 @@
 
           {% if request.user.is_authenticated %}
 
-            <a class="btn btn-primary" href="{% url 'dinner_party_create_view' %}">Make a party</a>
-            <a class="btn btn-primary" href="{% url 'dinner_party_list_view' %}">View a party</a>
-            <a class="btn btn-primary" href="{% url 'us_finance_list_view' %}">National money</a>
+            <a class="btn btn-primary" href="{% url 'dinner_party_list_view' %}">View my parties</a>
             <a class="btn btn-primary" href="{% url 'local_finance_list_view' %}">Local money</a>
             <a class="btn btn-primary" href="{% url 'tweet_list_view' %}">All tweets</a>
             <a class="btn btn-primary" href="{% url 'popular_tweet_list_view' %}">Popular tweets</a>

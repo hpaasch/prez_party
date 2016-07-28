@@ -115,7 +115,7 @@ class DinnerParty(models.Model):
     friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
 
     def __str__(self):
-        return self.party_name
+        return str(self.party_name)
 
 
 class Survey(models.Model):

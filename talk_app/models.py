@@ -23,6 +23,7 @@ class Candidate(models.Model):
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20)
     office = models.CharField(max_length=20)
+    twt_username = models.CharField(max_length=20, default='BarackObama')
 
     def __str__(self):
         return self.name

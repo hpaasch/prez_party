@@ -63,17 +63,19 @@ class IndexView(TemplateView):
 
 class VideoListView(ListView):
     model = Video
+    template_name = 'video_list.html'
 
     def get_context_data(self, **kwargs):
         clinton = self.request.GET.get('clinton')
         trump = self.request.GET.get('trump')
         pundit = self.request.GET.get('pundit')
+        candidates = Candidate.objects.all()
         clinton_url = 'https://www.youtube.com/embed/_j8xh_naQ6w?rel=0&amp;showinfo=0'
-        trump_url = 'https://youtu.be/pWcez2OwT9s'
+        trump_url = 'https://www.youtube.com/embed/pWcez2OwT9s?rel=0&amp;showinfo=0'
         pundit_url = 'https://www.youtube.com/embed/A43vWc9vdqM?rel=0&amp;showinfo=0'
+        m_obama_url = 'https://www.youtube.com/watch?v=AaKju-TrEmU'
         url = ''
         video = ''
-        quiz = {}
         if clinton:
             video = 'clinton'
             url = clinton_url
@@ -83,13 +85,12 @@ class VideoListView(ListView):
         elif pundit:
             video = 'pundit'
             url = pundit_url
-        elif quiz:
-            quiz = SurveyForm()
+
         photos = Candidate.objects.all()
         context = {
+            'candidates': candidates,
             'video': video,
             'url': url,
-            'quiz': quiz,
             'photos': photos,
             }
         return context
@@ -163,7 +164,7 @@ class DinnerPartyCreateView(CreateView):
     fields = ['party_name', 'pundit', 'candidate', 'video', 'friend_names', 'friend_mix']
     success_url = reverse_lazy('index_view')
 
-    # this is NOT yet allowing user to add a video to the party
+    # this method is NOT yet allowing user to add a video to the party
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['video_form'] = Video.objects.all()

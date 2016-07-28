@@ -108,7 +108,6 @@ class DinnerParty(models.Model):
     friend_names = models.TextField(null=True, blank=True)
     friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
 
-
     def __str__(self):
         return str(self.party_name)
 

@@ -41,26 +41,4 @@
     {% endif %}
     </div>
 
-
 {% endblock %}
-<h1>Hey, watch this</h1>
-<form class="" action="" >
-  <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
-  <input class='btn btn-primary' type="submit" name="trump" value="Trump">
-  <input class='btn btn-primary' type="submit" name="pundit" value="Pundit">
-</form>
-
-<br>
-<div class="embed-responsive embed-responsive-16by9">
-{% if video == 'clinton' %}
-<iframe class="embed-responsive-item" src={{ url }} ></iframe>
-{% endif %}
-
-{% if video == 'trump'  %}
-<iframe class="embed-responsive-item" src={{ url }} ></iframe>
-{% endif %}
-
-{% if video == 'pundit'  %}
-<iframe class="embed-responsive-item" src={{ url }} ></iframe>
-{% endif %}
-</div>

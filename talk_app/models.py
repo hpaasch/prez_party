@@ -9,6 +9,12 @@ INDEPENDENT = 'Independent'
 REPUBLICAN = 'Republican'
 LIBERTARIAN = 'Libertarian'
 GREENPARTY = 'GreenParty'
+DEEP = 'Deep'
+MEDIUM = 'Medium'
+SHALLOW = 'Shallow'
+VALUES = 'Values'
+POLICY = 'Policy'
+PERSONAL_QUALITIES = 'Personal qualities'
 
 
 class Candidate(models.Model):
@@ -100,7 +106,7 @@ class DinnerParty(models.Model):
         (GREENPARTY, 'GreenParty'),
         (MIXED, 'Mixed'),
         )
-    party_name = models.CharField(max_length=30, verbose_name='Give your party a name')
+    party_name = models.CharField(max_length=30)
     host = models.ForeignKey('auth.User')
     pundit = models.ForeignKey(Pundit)
     candidate = models.ForeignKey(Candidate)
@@ -109,18 +115,28 @@ class DinnerParty(models.Model):
     friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
 
     def __str__(self):
-        return str(self.party_name)
+        return self.party_name
 
 
 class Survey(models.Model):
+    DISCUSSION_CHOICES = (
+        (DEEP, 'Deep'),
+        (MEDIUM, 'Medium'),
+        (SHALLOW, 'Shallow'),
+    )
+    TOPIC_CHOICES = (
+        (VALUES, 'Values'),
+        (POLICY, 'Policy'),
+        (PERSONAL_QUALITIES, 'Personal qualities'),
+    )
     dinner = models.ForeignKey(DinnerParty)
     host = models.ForeignKey('auth.User')
-    discussion_level = models.IntegerField()
+    discussion_intensity = models.CharField(choices=DISCUSSION_CHOICES, default=MEDIUM, max_length=40)
     change_mind = models.BooleanField()
-    changed = models.TextField(null=True, blank=True)
+    what_changed = models.TextField(null=True, blank=True)
     made_choice = models.BooleanField()
-    chose = models.TextField(null=True, blank=True)
-    top_area = models.CharField(max_length=30)  # choices to come
+    who_choose = models.TextField(null=True, blank=True)
+    top_topic = models.CharField(choices=TOPIC_CHOICES, default=POLICY, max_length=40)
 
     def __str__(self):
         return self.dinner

@@ -99,7 +99,8 @@ class VideoListView(ListView):
 class VideoQuizCreateView(CreateView):
     model = Survey
     template_name = 'quiz.html'
-    fields = ['dinner', 'discussion_level', 'change_mind', 'changed', 'made_choice', 'chose', 'top_area']
+    fields = ['dinner', 'discussion_intensity', 'change_mind', 'what_changed',
+            'made_choice', 'who_choose', 'top_topic']
     widgets = {'change_mind': forms.RadioSelect, 'made_choice': forms.RadioSelect}
     success_url = reverse_lazy('us_finance_list_view')
 

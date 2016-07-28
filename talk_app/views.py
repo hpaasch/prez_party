@@ -79,31 +79,17 @@ class PopularTweetListView(TemplateView):
     def get_context_data(self, **kwargs):
         tw_consumer_key = os.getenv("tw_consumer_key")
         tw_consumer_secret = os.getenv("tw_consumer_secret")
-
         api = TwitterAPI(tw_consumer_key,
                          tw_consumer_secret,
                          auth_type='oAuth2')
 
-        candidates = [
-            '@hillaryclinton',
-            '@realdonaldtrump',
-            '@drjillstein',
-            '@govgaryjohnson',
-            # '@timkaine',
-            # '@cherihonkala',
-            # '@govbillweld',
-            # '@mike_pence',
-            ]
-
-        # clinton = self.request.GET.get('clinton')
-        # trump = self.request.GET.get('trump')
-        # stein = self.request.GET.get('stein')
-        # johnson = self.request.GET.get('johnson')
+        candidates = Candidate.objects.all()
         candidate = self.request.GET.get('candidate')
-        candidate_list = []
-        clinton_popular = []
+        popular_tweets = []
+        popular = []
 
         if candidate:
+            candidate = candidate[1:]
             content = api.request('statuses/user_timeline', {'screen_name': candidate})
             for tweet in content:
                 Tweet.objects.update_or_create(
@@ -117,23 +103,18 @@ class PopularTweetListView(TemplateView):
                     'popular': (tweet['retweet_count'] + tweet['favorite_count']),
                     })
 
-            clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
-
+            popular = Tweet.objects.filter(username=candidate).order_by('-popular')[:5]
             tweet_ids = []
-            if candidate == '@hillaryclinton':
-                for tweet in clinton_popular:
-                    tweet_ids.append(tweet.twt_id)
-
+            for tweet in popular:
+                tweet_ids.append(tweet.twt_id)
             for item in tweet_ids:
                 tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
-                candidate_list.append(tweet)
+                popular_tweets.append(tweet)
+
         context = {
             'candidates': candidates,
-            'candidate_list': candidate_list,
-            'clinton_popular': clinton_popular,
-
+            'popular_tweets': popular_tweets,
             }
-
         return context
 
 

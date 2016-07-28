@@ -3,43 +3,35 @@
 
 
 {% block content %}
-<h1>Twitter as a campaign tool</h1>
-<h3>Donald Trump: <span>10.3 million</span> followers</h3>
-<h3>Hillary Clinton: <span>7.8 million</span> followers</h3>
-<h4>Click to see the candidate's most popular* recent tweets.</h4>
-<h5>(*Popular combines retweets and favorites to give an overall measure)</h5>
+<h1>They all tweet, though Trump was the early master.</h1>
+<h4>Which comments do people most engage with? Click on a candidate to see their Top 5 most popular.</h4>
    <div class="row">
    {% for candidate in candidates %}
-     <div class="col-md-2">
-       <div class="thumbnail">
-         <img src="http://www.chilton.govoffice.com/vertical/Sites/%7B7A9CA024-E5D7-4C94-90C4-41FD2C22F01F%7D/uploads/%7B110397B7-F29E-4D25-92DF-2F8521B2183D%7D.JPG" alt="">
-         <div class="caption">
-           <form class="" action="" >
-             <input class='btn btn-primary' type="submit" name="candidate" value="{{ candidate }}">
-           </form>
+      {% if candidate.office == 'President' %}
+       <div class="col-md-2">
+         <div class="thumbnail">
+           <img class="img-circle" src=" {{ candidate.photo_url }}" alt="">
+           <div class="caption">
+             <form class="" action="" >
+               <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
+             </form>
+             <h5>
+               {{ candidate.affiliation }}
+             </h5>
+           </div>
          </div>
        </div>
-     </div>
+     {% endif %}
    {% endfor %}
    </div>
    <h3>Review tweets then click when you're ready for discussion questions.</h3>
    <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
 
    {% autoescape off %}
-     {% for tweet in candidate_list %}
+     {% for tweet in popular_tweets %}
        {{ tweet }}
      {% endfor %}
    {% endautoescape %}
-
-
-<!--
-<form class="" action="" >
-  <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
-  <input class='btn btn-primary' type="submit" name="trump" value="Trump">
-  <input class='btn btn-primary' type="submit" name="stein" value="Stein">
-  <input class='btn btn-primary' type="submit" name="johnson" value="Johnson">
-  <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
-</form> -->
-
+<h6>(NOTE: Tweets are ranked with most popular at the top. Retweets and Likes are combined to give an overall measure)</h6>
 
 {% endblock %}

@@ -99,20 +99,20 @@ class PopularTweetListView(TemplateView):
         trump = self.request.GET.get('trump')
         stein = self.request.GET.get('stein')
         johnson = self.request.GET.get('johnson')
+        candidate = self.request.GET.get('candidate')
 
-        for candidate in candidates:
-            content = api.request('statuses/user_timeline', {'screen_name': candidate})
-            for tweet in content:
-                Tweet.objects.update_or_create(
-                    twt_id = tweet['id'],
-                    defaults={
-                    'username': tweet['user']['screen_name'],
-                    'created_at': tweet['created_at'],
-                    'text': tweet['text'],
-                    'retweet_count': tweet['retweet_count'],
-                    'favorite_count': tweet['favorite_count'],
-                    'popular': (tweet['retweet_count'] + tweet['favorite_count']),
-                    })
+        content = api.request('statuses/user_timeline', {'screen_name': candidate})
+        for tweet in content:
+            Tweet.objects.update_or_create(
+                twt_id = tweet['id'],
+                defaults={
+                'username': tweet['user']['screen_name'],
+                'created_at': tweet['created_at'],
+                'text': tweet['text'],
+                'retweet_count': tweet['retweet_count'],
+                'favorite_count': tweet['favorite_count'],
+                'popular': (tweet['retweet_count'] + tweet['favorite_count']),
+                })
 
         clinton_popular = Tweet.objects.filter(username='HillaryClinton').order_by('-popular')[:5]
         trump_popular = Tweet.objects.filter(username='realDonaldTrump').order_by('-popular')[:5]
@@ -120,7 +120,7 @@ class PopularTweetListView(TemplateView):
         johnson_popular = Tweet.objects.filter(username='GovGaryJohnson').order_by('-popular')[:5]
 
         tweet_ids = []
-        if clinton:
+        if candidate == '@hillaryclinton':
             for tweet in clinton_popular:
                 tweet_ids.append(tweet.twt_id)
         elif trump:
@@ -137,6 +137,7 @@ class PopularTweetListView(TemplateView):
             tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
             candidate_list.append(tweet)
         context = {
+            'candidates': candidates,
             'candidate_list': candidate_list,
             'clinton_popular': clinton_popular,
             'trump_popular': trump_popular,

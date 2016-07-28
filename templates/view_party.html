@@ -3,8 +3,8 @@
 {% block content %}
   {% for item in object_list %}
     <li>Name of your party: {{ item.party_name }}</li>
-    <li>Candidate: {{ item.candidate }}</li>
-    <li>Pundit: {{ item.pundit }}</li>
+    <li>Candidate: <a href='{{ item.candidate.website }}'>{{ item.candidate }}</a></li>
+    <li>Pundit: <a href="{{ item.pundit.website }}">{{ item.pundit }}</a></li>
     <li>Friends: {{ item.friend_names }}</li>
     <li>Friend mix: {{ item.friend_mix }}</li>
     <br>

@@ -3,18 +3,19 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from TwitterAPI import TwitterAPI
 from django.db.models import Sum
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
-import requests
 from django.core.urlresolvers import reverse_lazy
+from TwitterAPI import TwitterAPI
+import requests
+import os
 
 from talk_app.models import (Tweet, Candidate, DinnerParty, USFinance,
-                            StateFinance, ZIPFinance, Survey, Profile)
-import os
+                            StateFinance, ZIPFinance, Survey, Profile, Video)
+from talk_app.forms import VideoForm
+
 
 class CreateAccountView(CreateView):
     model = User
@@ -60,7 +61,41 @@ class IndexView(TemplateView):
         return context
 
 
-class QuizCreateView(CreateView):
+class VideoListView(ListView):
+    model = Video
+
+    def get_context_data(self, **kwargs):
+        clinton = self.request.GET.get('clinton')
+        trump = self.request.GET.get('trump')
+        pundit = self.request.GET.get('pundit')
+        clinton_url = 'https://www.youtube.com/embed/_j8xh_naQ6w?rel=0&amp;showinfo=0'
+        trump_url = 'https://youtu.be/pWcez2OwT9s'
+        pundit_url = 'https://www.youtube.com/embed/A43vWc9vdqM?rel=0&amp;showinfo=0'
+        url = ''
+        video = ''
+        quiz = {}
+        if clinton:
+            video = 'clinton'
+            url = clinton_url
+        elif trump:
+            video = 'trump'
+            url = trump_url
+        elif pundit:
+            video = 'pundit'
+            url = pundit_url
+        elif quiz:
+            quiz = SurveyForm()
+        photos = Candidate.objects.all()
+        context = {
+            'video': video,
+            'url': url,
+            'quiz': quiz,
+            'photos': photos,
+            }
+        return context
+
+
+class VideoQuizCreateView(CreateView):
     model = Survey
     template_name = 'quiz.html'
     fields = ['dinner', 'discussion_level', 'change_mind', 'changed', 'made_choice', 'chose', 'top_area']
@@ -125,8 +160,15 @@ class TweetListView(ListView):
 class DinnerPartyCreateView(CreateView):
     template_name = 'party_create.html'
     model = DinnerParty
-    fields = ['party_name', 'pundit', 'candidate', 'friend_names', 'friend_mix']
+    fields = ['party_name', 'pundit', 'candidate', 'video', 'friend_names', 'friend_mix']
     success_url = reverse_lazy('index_view')
+
+    # this is NOT yet allowing user to add a video to the party
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['video_form'] = Video.objects.all()
+        print(context)
+        return context
 
     def form_valid(self, form):
         dinnerparty = form.save(commit=False)

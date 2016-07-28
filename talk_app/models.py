@@ -75,6 +75,14 @@ class Profile(models.Model):
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20, null=True, blank=True)
 
 
+class Video(models.Model):
+    name = models.CharField(max_length=30)
+    url = models.URLField()
+    host = models.ForeignKey('auth.User')
+
+    def __str__(self):
+        return self.name
+
 class Question(models.Model):
     question_type = models.CharField(max_length=30)  # choices to come.
     intensity = models.CharField(max_length=20)
@@ -96,6 +104,7 @@ class DinnerParty(models.Model):
     host = models.ForeignKey('auth.User')
     pundit = models.ForeignKey(Pundit)
     candidate = models.ForeignKey(Candidate)
+    video = models.ForeignKey(Video, null=True, blank=True)
     friend_names = models.TextField(null=True, blank=True)
     friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
 
@@ -116,6 +125,7 @@ class Survey(models.Model):
 
     def __str__(self):
         return self.dinner
+
 
 class Tweet(models.Model):
     twt_id = models.BigIntegerField()

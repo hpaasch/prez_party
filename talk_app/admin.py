@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from talk_app.models import Tweet, DinnerParty, Candidate, Pundit, Question, Survey, USFinance, StateFinance, ZIPFinance
+from talk_app.models import (Tweet, DinnerParty, Candidate, Pundit, Question,
+                            Survey, USFinance, StateFinance, ZIPFinance, Video)
 
 
 class StateFinanceAdmin(admin.ModelAdmin):
@@ -20,6 +21,7 @@ admin.site.register(Tweet, TweetAdmin)
 admin.site.register(DinnerParty)
 admin.site.register(Candidate)
 admin.site.register(Pundit)
+admin.site.register(Video)
 admin.site.register(Question)
 admin.site.register(Survey)
 admin.site.register(USFinance, USFinanceAdmin)

@@ -89,16 +89,16 @@ class PopularTweetListView(TemplateView):
             '@realdonaldtrump',
             '@drjillstein',
             '@govgaryjohnson',
-            '@timkaine',
-            '@cherihonkala',
-            '@govbillweld',
-            '@mike_pence',
+            # '@timkaine',
+            # '@cherihonkala',
+            # '@govbillweld',
+            # '@mike_pence',
             ]
 
-        clinton = self.request.GET.get('clinton')
-        trump = self.request.GET.get('trump')
-        stein = self.request.GET.get('stein')
-        johnson = self.request.GET.get('johnson')
+        # clinton = self.request.GET.get('clinton')
+        # trump = self.request.GET.get('trump')
+        # stein = self.request.GET.get('stein')
+        # johnson = self.request.GET.get('johnson')
         candidate = self.request.GET.get('candidate')
 
         content = api.request('statuses/user_timeline', {'screen_name': candidate})
@@ -123,13 +123,13 @@ class PopularTweetListView(TemplateView):
         if candidate == '@hillaryclinton':
             for tweet in clinton_popular:
                 tweet_ids.append(tweet.twt_id)
-        elif trump:
+        elif candidate == '@realdonaldtrump':
             for tweet in trump_popular:
                 tweet_ids.append(tweet.twt_id)
-        elif stein:
+        elif candidate == '@drjillstein':
             for tweet in stein_popular:
                 tweet_ids.append(tweet.twt_id)
-        elif johnson:
+        elif candidate == '@govgaryjohnson':
             for tweet in johnson_popular:
                 tweet_ids.append(tweet.twt_id)
         candidate_list = []

@@ -10,11 +10,10 @@
 <h5>(*Popular combines retweets and favorites to give an overall measure)</h5>
    <div class="row">
    {% for candidate in candidates %}
-     <div class="col-sm-6 col-md-4">
+     <div class="col-md-2">
        <div class="thumbnail">
          <img src="http://www.chilton.govoffice.com/vertical/Sites/%7B7A9CA024-E5D7-4C94-90C4-41FD2C22F01F%7D/uploads/%7B110397B7-F29E-4D25-92DF-2F8521B2183D%7D.JPG" alt="">
          <div class="caption">
-           <h3>{{ candidate }}</h3>
            <form class="" action="" >
              <input class='btn btn-primary' type="submit" name="candidate" value="{{ candidate }}">
            </form>
@@ -23,21 +22,24 @@
      </div>
    {% endfor %}
    </div>
+   <h3>Review tweets then click when you're ready for discussion questions.</h3>
+   <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
+
+   {% autoescape off %}
+     {% for tweet in candidate_list %}
+       {{ tweet }}
+     {% endfor %}
+   {% endautoescape %}
 
 
-
-
+<!--
 <form class="" action="" >
   <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
   <input class='btn btn-primary' type="submit" name="trump" value="Trump">
   <input class='btn btn-primary' type="submit" name="stein" value="Stein">
   <input class='btn btn-primary' type="submit" name="johnson" value="Johnson">
   <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
-</form>
+</form> -->
 
-  {% autoescape off %}
-    {% for tweet in candidate_list %}
-      {{ tweet }}
-    {% endfor %}
-  {% endautoescape %}
+
 {% endblock %}

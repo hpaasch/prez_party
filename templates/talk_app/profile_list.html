@@ -2,17 +2,23 @@
 
 {% block content %}
   {% for item in object_list %}
-    <li>Name of your party: {{ item.party_name }}</li>
-    <li>Candidate: <a href='{{ item.candidate.website }}'>{{ item.candidate }}</a></li>
-    <li>Pundit: <a href="{{ item.pundit.website }}">{{ item.pundit }}</a></li>
-    <li>Friends: {{ item.friend_names }}</li>
-    <li>Friend mix: {{ item.friend_mix }}</li>
-    <li>{{ item.host }}</li>
-    <a href="{% url 'us_finance_list_view' %}" class='btn btn-danger btn-sm'>Start this party!</a>
+    <div class="partylist panel panel-default">
+      <div class="panel-body">
+        <dl>
+          <dd class="list">Name of your party: {{ item.party_name }}</dd>
+          <dd class="list">Candidate: <a href='{{ item.candidate.website }}'>{{ item.candidate }}</a></dd>
+          <dd class="list">Pundit: <a href="{{ item.pundit.website }}">{{ item.pundit }}</a></dd>
+          <dd class="list">Friends: {{ item.friend_names }}</dd>
+          <dd class="list">Friend mix: {{ item.friend_mix }}</dd>
+          <dd class="list">{{ item.host }}</dd>
+        </dl>
+        <a href="{% url 'us_finance_list_view' %}" class='btn btn-danger btn-sm'>Start this party!</a>
+      </div>
+    </div>
     <br>
     <br>
     <br>
   {% endfor %}
-    <a href="{% url 'dinner_party_create_view' %}" class='btn btn-warning btn-sm'>Make a new party!</a>
+    <a href="{% url 'dinner_party_create_view' %}" id="newparty" class='newparty btn btn-warning btn-sm'>Make a new party!</a>
 
 {% endblock %}

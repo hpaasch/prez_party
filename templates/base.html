@@ -7,30 +7,33 @@
     <title>Presidential Party</title>
 
     <link rel="stylesheet" href="{% static "talk_app/css/bootstrap.css" %}" media="screen" title="bootstrap" charset="utf-8">
+    <link rel="stylesheet" href="{% static "talk_app/css/main.css" %}" media="screen" charset="utf-8">
 
   </head>
   <body>
     <nav class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
+      <div class="container-fluid">
 
-          <a class="btn btn-primary" href="{% url 'index_view' %}">Homepage</a>
+          <a class="btn btn-primary col-md-1 col-xs-2" href="{% url 'index_view' %}">Homepage</a>
 
           {% if request.user.is_authenticated %}
 
-            <a class="btn btn-primary" href="{% url 'profile_view' %}">View my parties</a>
-            <a class="btn btn-primary" href="{% url 'logout' %}?next=/">Logout</a>
-            {# <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>#}
+            <a class="btn btn-primary col-md-1 col-xs-4" href="{% url 'profile_view' %}">View my parties</a>
+            <a class="btn btn-primary col-md-1 col-xs-2" href="{% url 'logout' %}?next=/">Logout</a>
+            {# <p class="navbar-text navbar-right col-md-2 col-xs-2">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>#}
 
-          {% else %}#}
-            <a class="btn btn-primary" href="{% url 'create_account_view' %}">Create Account</a>
-            <a class="btn btn-primary" href="{% url 'login' %}">Sign in with your PDP account</a>
-            <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">OR <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="" /></a>
+          {% else %}
+            <a class="btn btn-primary col-md-1 col-xs-3" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Twitter Sign In</a>
+            <a class="btn btn-primary col-md-1 col-xs-2" href="{% url 'login' %}">Sign In</a>
+            <a class="btn btn-primary col-md-1 col-xs-3" href="{% url 'create_account_view' %}">Create Account</a>
+
+            <!-- <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">OR <img src="https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png" alt="" /></a> -->
 
           {% endif %}
 
       </div>
     </nav>
-    <div class="container">
+    <div id="header" class="container-fluid">
 
       {% block content %}
         No content provided

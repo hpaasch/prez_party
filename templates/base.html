@@ -20,7 +20,7 @@
 
             <a class="btn btn-primary col-md-1 col-xs-4" href="{% url 'profile_view' %}">View my parties</a>
             <a class="btn btn-primary col-md-1 col-xs-2" href="{% url 'logout' %}?next=/">Logout</a>
-            {# <p class="navbar-text navbar-right col-md-2 col-xs-2">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>#}
+            <p class="navbar-text navbar-left col-md-2 col-xs-2">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>
 
           {% else %}
             <a class="btn btn-primary col-md-1 col-xs-3" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Twitter Sign In</a>

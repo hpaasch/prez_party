@@ -146,6 +146,9 @@ AWS_SECRET_ACCESS_KEY = os.getenv('aws_secret')
 
 AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(aws_bucket_name)
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATIC_URL = '/static/'
+
 if aws_bucket_name:
     AWS_S3_FILE_OVERWRITE = False
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
@@ -157,8 +160,7 @@ if aws_bucket_name:
 # STATICFILES_DIRS = (os.path.join(PROJECT_ROOT, 'static'),)  ??????????
 STATIC_ROOT = BASE_DIR + "/static"
 STATICFILES_LOCATION = 'static'
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-STATIC_URL = '/static/'
+
 # TO HERE storage on AWS
 
 # STATICFILES_STORAGE = 'custom_storages.StaticStorage'

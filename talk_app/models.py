@@ -139,7 +139,7 @@ class Survey(models.Model):
     top_topic = models.CharField(choices=TOPIC_CHOICES, default=POLICY, max_length=40)
 
     def __str__(self):
-        return self.dinner
+        return str(self.dinner)
 
 
 class Tweet(models.Model):

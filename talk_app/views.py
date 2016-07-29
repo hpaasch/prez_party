@@ -96,13 +96,13 @@ class VideoListView(ListView):
         return context
 
 
-class VideoQuizCreateView(CreateView):
+class QuizCreateView(CreateView):
     model = Survey
     template_name = 'quiz.html'
     fields = ['dinner', 'discussion_intensity', 'change_mind', 'what_changed',
             'made_choice', 'who_choose', 'top_topic']
     widgets = {'change_mind': forms.RadioSelect, 'made_choice': forms.RadioSelect}
-    success_url = reverse_lazy('us_finance_list_view')
+    success_url = reverse_lazy('index_view')
 
     def form_valid(self, form):
         quiz = form.save(commit=False)  #  half saves it
@@ -110,12 +110,11 @@ class VideoQuizCreateView(CreateView):
         return super().form_valid(form)  #  fully saves and creates
 
 
-
 class USFinanceListView(ListView):
     model = USFinance
     template_name = 'us_finance.html'
 
-    def get_context_data(request):
+    def get_context_data(self):
         x_api_key = os.environ["x_api_key"]
         us_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/totals.json'
 
@@ -140,18 +139,26 @@ class USFinanceListView(ListView):
                 'cash_on_hand': item['cash_on_hand'],
                 'candidate_name': item['candidate_name'],
                 })
-        republican = USFinance.objects.filter(party='R')
+        republican = USFinance.objects.filter(party='R')[:2]
         r_total = USFinance.objects.filter(party='R').aggregate(Sum('total'))
-        democrat = USFinance.objects.filter(party='D')
+        democrat = USFinance.objects.filter(party='D')[:2]
         d_total = USFinance.objects.filter(party='D').aggregate(Sum('total'))
         libertarian = USFinance.objects.filter(party='L')
         green = USFinance.objects.filter(party='G')
         clinton = USFinance.objects.filter(slug='clinton')
         trump = USFinance.objects.filter(slug='trump')
+        republicans = self.request.GET.get('republicans')
+        democrats = self.request.GET.get('democrats')
+        party_compare = False
+        if republicans or democrats:
+            context = {
+                'party_compare': party_compare,
+
+                }
         context = {
             'republican': republican,
-            'r_total': r_total,
             'democrat': democrat,
+            'r_total': r_total,
             'd_total': d_total,
             'libertarian': libertarian,
             'green': green,

@@ -8,7 +8,7 @@ from django.contrib.auth.views import logout
 from talk_app.views import (CreateAccountView, ProfileView, IndexView,
                             DinnerPartyCreateView, DinnerPartyListView,
                             USFinanceListView, LocalFinanceListView,
-                            TweetListView, PopularTweetListView, VideoQuizCreateView,
+                            TweetListView, PopularTweetListView, QuizCreateView,
                             VideoListView)
 
 urlpatterns = [
@@ -26,6 +26,6 @@ urlpatterns = [
     url(r'^tweets/$', TweetListView.as_view(), name='tweet_list_view'),
     url(r'^tweets/popular/$', PopularTweetListView.as_view(), name='popular_tweet_list_view'),
     url(r'^video/$', VideoListView.as_view(), name='video_list_view'),
-    url(r'^video/quiz/$', VideoQuizCreateView.as_view(), name='video_quiz_create_view'),
+    url(r'^quiz/$', QuizCreateView.as_view(), name='quiz_create_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

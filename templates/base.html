@@ -17,10 +17,7 @@
 
           {% if request.user.is_authenticated %}
 
-            <a class="btn btn-primary" href="{% url 'dinner_party_list_view' %}">View my parties</a>
-            <a class="btn btn-primary" href="{% url 'local_finance_list_view' %}">Local money</a>
-            <a class="btn btn-primary" href="{% url 'tweet_list_view' %}">All tweets</a>
-            <a class="btn btn-primary" href="{% url 'popular_tweet_list_view' %}">Popular tweets</a>
+            <a class="btn btn-primary" href="{% url 'profile_view' %}">View my parties</a>
             <a class="btn btn-primary" href="{% url 'logout' %}?next=/">Logout</a>
             {# <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">{{ request.user }}</a></p>#}
 

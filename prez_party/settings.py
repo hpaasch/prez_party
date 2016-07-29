@@ -152,7 +152,7 @@ STATIC_URL = '/static/'
 if aws_bucket_name:
     AWS_S3_FILE_OVERWRITE = False
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    STATIC_URL = "https://{}/".format(AWS_S3_CUSTOM_DOMAIN)
+    # STATIC_URL = "https://{}/".format(AWS_S3_CUSTOM_DOMAIN)
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles') # errors on  ?????????

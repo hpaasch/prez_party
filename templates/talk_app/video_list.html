@@ -2,8 +2,8 @@
 {% load tz static %}
 
 {% block content %}
-  <h1>They all talk, and videos have a life of their own online.</h1>
-    <h4>Watch and talk. Then go on to the <a href='{% url 'us_finance_list_view' %}'>next subject</a>.</h4>
+  <h1>THIS WILL BE ONE KEYNOTE. with footer for more.They all talk, and videos have a life of their own online.</h1>
+    <h4>Watch and talk. Then go on to the <a href='{% url 'popular_tweet_list_view' %}'>Top tweets from your candidate</a>.</h4>
     <li><h4>Which video made you think the most about the future of America?</h4></li>
     <li><h4>Do you believe the candidates try to be honest? Or are they loose with the facts?</h4></li>
     <li><h4>Did you hear anything that surprised you?</h4></li>
@@ -28,6 +28,7 @@
       <input class='btn btn-primary' type="submit" name="trump" value="Trump">
       <input class='btn btn-primary' type="submit" name="pundit" value="Pundit">
     </form>
+    <h1>Maybe make this the keynote to watch while you eat the main course?</h1>
 
     <br>
     <div class="embed-responsive embed-responsive-16by9">
@@ -43,5 +44,4 @@
     <iframe class="embed-responsive-item" src={{ url }} ></iframe>
     {% endif %}
     </div>
-
 {% endblock %}

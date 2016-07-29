@@ -102,7 +102,7 @@ class QuizCreateView(CreateView):
     fields = ['dinner', 'discussion_intensity', 'change_mind', 'what_changed',
             'made_choice', 'who_choose', 'top_topic']
     widgets = {'change_mind': forms.RadioSelect, 'made_choice': forms.RadioSelect}
-    success_url = reverse_lazy('index_view')
+    success_url = reverse_lazy('party_over_view')
 
     def form_valid(self, form):
         quiz = form.save(commit=False)  #  half saves it
@@ -258,3 +258,7 @@ class PopularTweetListView(TemplateView):
 class TweetListView(ListView):
     model = Tweet
     template_name = 'tweets.html'
+
+
+class PartyOverView(TemplateView):
+    template_name = 'party_over.html'

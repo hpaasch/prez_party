@@ -65,6 +65,9 @@ class VideoListView(ListView):
     model = Video
     template_name = 'video_list.html'
 
+    # def get_queryset(self):
+    #     keynote = DinnerParty.objects.get()
+
     def get_context_data(self, **kwargs):
         clinton = self.request.GET.get('clinton')
         trump = self.request.GET.get('trump')
@@ -220,7 +223,8 @@ class PopularTweetListView(TemplateView):
                          auth_type='oAuth2')
 
         candidates = Candidate.objects.all()
-        candidate = self.request.GET.get('candidate')
+        candidate = '@realDonaldTrump'
+        # candidate = self.request.GET.get('candidate')
         popular_tweets = []
         popular = []
 

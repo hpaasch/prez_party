@@ -87,6 +87,7 @@ class Profile(models.Model):
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20, null=True, blank=True)
 
 
+# NOT USED YET
 class Video(models.Model):
     name = models.CharField(max_length=30)
     url = models.URLField()
@@ -95,6 +96,8 @@ class Video(models.Model):
     def __str__(self):
         return self.name
 
+
+# NOT USED YET
 class Question(models.Model):
     question_type = models.CharField(max_length=30)  # choices to come.
     intensity = models.CharField(max_length=20)
@@ -102,7 +105,7 @@ class Question(models.Model):
     category = models.CharField(max_length=30)
     text = models.TextField(null=True, blank=True)
 
-
+# NOT USED YET
 class Survey(models.Model):
     DISCUSSION_CHOICES = (
         (DEEP, 'Deep'),
@@ -123,10 +126,20 @@ class Survey(models.Model):
     top_topic = models.CharField(choices=TOPIC_CHOICES, default=POLICY, max_length=40)
 
     def __str__(self):
-        return self.host
+        return str(self.host)
 
 
 class DinnerParty(models.Model):
+    DISCUSSION_CHOICES = (
+        (DEEP, 'Deep'),
+        (MEDIUM, 'Medium'),
+        (SHALLOW, 'Shallow'),
+        )
+    TOPIC_CHOICES = (
+        (VALUES, 'Values'),
+        (POLICY, 'Policy'),
+        (PERSONAL_QUALITIES, 'Personal qualities'),
+        )
     AFFILIATION_CHOICES = (
         (DEMOCRAT, 'Democrat'),
         (INDEPENDENT, 'Independent'),
@@ -141,7 +154,13 @@ class DinnerParty(models.Model):
     candidate = models.ForeignKey(Candidate)
     friend_names = models.TextField(null=True, blank=True)
     friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
-    survey = models.ForeignKey(Survey, null=True)
+    question_one = models.CharField(choices=DISCUSSION_CHOICES, max_length=60, null=True)
+    question_two = models.CharField(choices=TOPIC_CHOICES, max_length=60, null=True)
+    question_three = models.CharField(max_length=60, null=True)
+    question_four = models.CharField(max_length=60, null=True)
+    question_five = models.CharField(max_length=60, null=True)
+    question_six = models.CharField(max_length=60, null=True)
+    question_seven = models.CharField(max_length=60, null=True)
 
     def __str__(self):
         return str(self.party_name)

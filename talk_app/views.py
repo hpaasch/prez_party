@@ -105,10 +105,10 @@ class VideoListView(ListView):
         return context
 
 
-class QuizCreateView(CreateView):
+class SurveyCreateView(CreateView):
     model = Survey
-    template_name = 'quiz.html'
-    fields = ['dinner', 'discussion_intensity', 'change_mind', 'what_changed',
+    template_name = 'survey.html'
+    fields = ['discussion_intensity', 'change_mind', 'what_changed',
             'made_choice', 'who_choose', 'top_topic']
     widgets = {'change_mind': forms.RadioSelect, 'made_choice': forms.RadioSelect}
     success_url = reverse_lazy('party_over_view')
@@ -293,7 +293,7 @@ class LocalFinanceDeepListView(ListView):
 
 
 class PopularTweetListView(TemplateView):
-    template_name = 'popular_tweets.html'
+    template_name = 'candidate_tweets.html'
 
     def get_context_data(self, **kwargs):
         tw_consumer_key = os.getenv("tw_consumer_key")
@@ -338,7 +338,6 @@ class PopularTweetListView(TemplateView):
         return context
 
 
-# this should go on a 'Go Deep' page that includes search plus links to candidate sites too
 class TweetListView(ListView):
     model = Tweet
     template_name = 'tweets.html'

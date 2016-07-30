@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load tz %}
+
+{% block content %}
+<h2>They all tweet. But what do they really say?</h2>
+<h3>Talk it over:</h3>
+<ul>
+  <li>Do you usually follow Twitter comments by candidates?</li>
+  <li>Describe the tone of comments?</li>
+  <li>How can this help shape voting?</li>
+</ul>
+  {% autoescape off %}
+    {% for tweet in popular_tweets %}
+     {{ tweet }}
+    {% endfor %}
+  {% endautoescape %}
+<h3><a href='{% url 'survey_create_view' %}'>Next:</a> Survey</h3>
+<h3><a href="{% url 'tweet_list_view' %}">Optional deep dive:</a> See more popular tweets from other candidates</h3>
+{% endblock %}

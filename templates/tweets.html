@@ -3,8 +3,9 @@
 
 
 {% block content %}
-MAYBE NOT USED IN THE MAIN
 <h1>All the presidential tweets</h1>
+<h3><a href='{% url 'survey_create_view' %}'>Next:</a> Survey</h3>
+
   <div class="col-md-6">
     <div class="panel panel-default">
       {% for tweet in object_list %}
@@ -19,4 +20,27 @@ MAYBE NOT USED IN THE MAIN
        {% endfor %}
      </div>
    </div>
+   <h3><a href='{% url 'candidate_keynote_view' %}'>Next:</a> Survey</h3>
+   <h4>Click on a candidate to see their Top 5 most popular.</h4>
+      <div class="row">
+      {% for candidate in candidates %}
+         {% if candidate.office == 'President' %}
+          <div class="col-md-2">
+            <div class="thumbnail">
+              <img class="img-circle" src=" {{ candidate.photo_url }}" alt="">
+              <div class="caption">
+                <form class="" action="" >
+                  <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
+                </form>
+                <h5>
+                  {{ candidate.affiliation }}
+                </h5>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+   <h6>(NOTE: Tweets are ranked with most popular at the top. Retweets and Likes are combined to give an overall measure)</h6>
+
 {% endblock %}

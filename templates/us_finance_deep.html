@@ -1,17 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Nearly $1 billion donated to 2016 presidential candidates</h2>
-<p>A little bit of history: In the 2000 election, Republican George W. Bush
-  raised $172 million, considerably more than Democrat Al Gore. Bush won a narrow election.
-</p>
-<h3>Talk it over. Then go on to the  <a href='{% url 'local_finance_list_view' %}'>local money</a>.</h3>
-<li><h4>What surprises you about the money that's been raised?</h4></li>
-<li><h4>Do you have concerns about how money is raised?</h4></li>
-<li><h4>Trump loaned his campaign $xx million. Clinton loaned hers zero. How should elections be paid for?</h4></li>
-
+<h2>A deeper look at how much has been raised so far by all 2016 presidential candidates</h2>
+<h3>Next: <a href='{% url 'local_finance_list_view' %}'>Local money</a></h3>
 <div class="col-md-6">
-  <h4>Republicans raised ${{ r_total.total__sum|floatformat:0 }}</h4>
+  <h3>Republicans raised ${{ r_total.total__sum|floatformat:0 }}</h3>
     {% for candidate in republican %}
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -22,22 +15,12 @@
       </div>
     </div>
     {% endfor %}
-    <h4>Green Party</h4>
-      {% for candidate in green %}
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">${{ candidate.total|floatformat:0 }}: {{ candidate.name }}</h3>
-          </div>
-          <div class="panel-body">
-            Cash on hand: ${{ candidate.cash_on_hand|floatformat:0 }}
-          </div>
-        </div>
-      {% endfor %}
+
 
 </div>
 
 <div class="col-md-6">
-  <h4>Democrats raised ${{ d_total.total__sum|floatformat:0 }}</h4>
+  <h3>Democrats raised ${{ d_total.total__sum|floatformat:0 }}</h3>
     {% for candidate in democrat %}
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -48,7 +31,7 @@
         </div>
       </div>
     {% endfor %}
-  <h4>Libertarian</h4>
+  <h3>Libertarian</h3>
     {% for candidate in libertarian %}
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -59,8 +42,18 @@
         </div>
       </div>
     {% endfor %}
+    <h3>Green Party</h3>
+      {% for candidate in green %}
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">${{ candidate.total|floatformat:0 }}: {{ candidate.name }}</h3>
+          </div>
+          <div class="panel-body">
+            Cash on hand: ${{ candidate.cash_on_hand|floatformat:0 }}
+          </div>
+        </div>
+      {% endfor %}
   </div>
-<h4>Candidates ranked below by cash on hand</h4>
 
-<h6>All data as of June 30, 2016. Does not include other fundraising entities, such as PACs.</h6>
+<h6>Candidates ranked by cash on hand. FEC data as of June 30, 2016, sourced from ProPublica. Does not include other fundraising entities, such as PACs.</h6>
 {% endblock %}

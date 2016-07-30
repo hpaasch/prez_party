@@ -278,6 +278,11 @@ class LocalFinanceListView(ListView):
         return context
 
 
+class LocalFinanceDeepListView(ListView):
+    model = ZIPFinance
+    template_name = 'local_finance.html'
+
+
 class PopularTweetListView(TemplateView):
     template_name = 'popular_tweets.html'
 

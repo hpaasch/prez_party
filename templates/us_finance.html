@@ -5,13 +5,12 @@
 <p>A little bit of history: In the 2000 election, Republican George W. Bush
   raised $172 million, considerably more than Democrat Al Gore. Bush won a narrow election.
 </p>
-<h3>Talk it over.</h3>
+<h3>Talk it over:</h3>
   <ul>
     <li><h4>What surprises you about the money that's been raised?</h4></li>
     <li><h4>Do you have concerns about how money is raised?</h4></li>
     <li><h4>Trump loaned his campaign $xx million. Clinton loaned hers zero. How should elections be paid for?</h4></li>
   </ul>
-<h3>Next: <a href='{% url 'local_finance_list_view' %}'>Local Money</a>.</h3>
 <div class="col-md-6">
     {% for candidate in republican %}
     <div class="panel panel-default">
@@ -75,7 +74,7 @@
       </div>
     {% endfor %}
   </div>
-<hp>Candidates ranked by cash on hand. All data as of June 30, 2016. Does not include other fundraising entities, such as PACs.</p>
-
-<h3><a href="#"></a>Go deeper: See how much was raised by all of the 2016 presidential candidates. </h3>
+<h6>FEC data as of June 30, 2016, sourced from ProPublica. Does not include other fundraising entities, such as PACs.</h6>
+<h3><a href='{% url 'local_finance_list_view' %}'>Next:</a> Local Money</h3>
+<h3><a href="{% url 'us_finance_deep_list_view' %}">Optional deep dive:</a> See how much was raised by all of the 2016 presidential candidates</h3>
 {% endblock %}

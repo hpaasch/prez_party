@@ -9,7 +9,7 @@ from talk_app.views import (CreateAccountView, ProfileView, IndexView,
                             DinnerPartyCreateView, DinnerPartyListView,
                             USFinanceListView, USFinanceDeepListView,
                             LocalFinanceListView, LocalFinanceDeepListView,
-                            TweetListView, PopularTweetListView, SurveyCreateView,
+                            TweetListView, PopularTweetListView, DinnerPartyUpdateView,
                             SurveyDetailView, VideoListView, CandidateKeynoteView,
                             PartyOverView)
 
@@ -31,8 +31,8 @@ urlpatterns = [
     url(r'^tweets/candidate/$', PopularTweetListView.as_view(), name='popular_tweet_list_view'),
     url(r'^video/$', VideoListView.as_view(), name='video_list_view'),
     url(r'^video/candidate/$', CandidateKeynoteView.as_view(), name='candidate_keynote_view'),
-    url(r'^survey/$', SurveyCreateView.as_view(), name='survey_create_view'),
-    url(r'^survey/(?P<pk>\d+)/$', SurveyDetailView.as_view(), name='survey_detail_view'),
+    url(r'^survey/(?P<pk>\d+)/$', DinnerPartyUpdateView.as_view(), name='survey_create_view'),
+    url(r'^survey/$', SurveyDetailView.as_view(), name='survey_detail_view'),
     url(r'^party/over/$', PartyOverView.as_view(), name='party_over_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

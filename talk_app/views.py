@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.db.models import Sum
@@ -105,27 +105,27 @@ class VideoListView(ListView):
         return context
 
 
-class SurveyCreateView(CreateView):
-    model = Survey
+class DinnerPartyUpdateView(UpdateView):
+    model = DinnerParty
     template_name = 'survey.html'
-    fields = ['discussion_intensity', 'change_mind', 'what_changed',
-            'made_choice', 'who_choose', 'top_topic']
-    widgets = {'change_mind': forms.RadioSelect, 'made_choice': forms.RadioSelect}
+    fields = ['question_one', 'question_two', 'question_three',
+            'question_four', 'question_five', 'question_six', 'question_seven']
+    widgets = {'question_one': forms.RadioSelect, 'question_two': forms.RadioSelect}
     success_url = reverse_lazy('party_over_view')
 
-    def form_valid(self, form):
-        quiz = form.save(commit=False)  #  half saves it
-        quiz.host = self.request.user  #  attaches the user in the DB
-        return super().form_valid(form)  #  fully saves and creates
+    # def form_valid(self, form):
+    #     quiz = form.save(commit=False)  #  half saves it
+    #     quiz.host = self.request.user  #  attaches the user in the DB
+    #     return super().form_valid(form)  #  fully saves and creates
 
 
 class SurveyDetailView(DetailView):
-    model = Survey
+    model = DinnerParty
     template_name = 'survey_detail.html'
 
     def get_queryset(self, **kwargs):
         survey_id = self.kwargs.get('pk', None)
-        return Survey.objects.filter(pk=survey_id)
+        return DinnerParty.objects.filter(pk=survey_id)
 
 
 class USFinanceDeepListView(ListView):

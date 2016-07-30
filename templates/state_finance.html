@@ -10,30 +10,45 @@
 </div>
 <div class="col-md-6">
   <h3>Talk it over. Then go on to the  <a href='{% url 'video_list_view' %}'>Keynote</a>.</h3>
-
-  <li><h4>Have you or anyone you know given or thought about giving to a candidate?</h4></li>
-  <li><h4>Any surprises for you in these numbers?</h4></li>
-  <li><h4>What role do you think money has in affecting whether people vote?</h4></li>
-  <p>
-    add voter registration breakdown
-  </p>
+  <h2>Less than 1 percent of contributions to Trump and Clinton is from the Carolinas.</h2>
+  <h3>Talk it over:</h3>
+  <ul>
+    <li>Have you or anyone you know given or thought about giving to a candidate?</li>
+    <li>Any surprises for you in these numbers?</li>
+    <li>What role do you think money has in affecting whether people vote?</li>
+  </ul>
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">${{ nc_total.total__sum|floatformat:0 }}: Raised in North Carolina</h3>
       </div>
+
       {% for item in clinton_list %}
         {% if item.state == 'NC' %}
           <div class="panel-body">
-            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+            <p>
+              ${{ item.total|floatformat:0 }} -- {{ item.full_name }}
+            </p>
         {% endif %}
       {% endfor %}
       {% for item in trump_list %}
         {% if item.state == 'NC' %}
-            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+        <p>
+          ${{ item.total|floatformat:0 }} -- {{ item.full_name }}
+        </p>
           </div>
         {% endif %}
       {% endfor %}
+      Voter breakdown, based on 2012 presidential election results:
+      <ul>
+        <li>48.3% (2.2 million) Democrat</li>
+        <li>50.4% (2.3 million) Republican</li>
+        <li>1.3% (56,500) All others</li>
+      </ul>
+
     </div>
+  </div>
+  <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">${{ sc_total.total__sum|floatformat:0 }}: Raised in South Carolina</h3>
@@ -41,18 +56,28 @@
       {% for item in clinton_list %}
         {% if item.state == 'SC' %}
           <div class="panel-body">
-            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+            <p>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </p>
         {% endif %}
       {% endfor %}
       {% for item in trump_list %}
         {% if item.state == 'SC' %}
-            <li>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </li>
+            <p>${{ item.total|floatformat:0 }} -- {{ item.full_name }} </p>
           </div>
         {% endif %}
       {% endfor %}
+      Voter breakdown, based on 2012 presidential election results:
+
+      <ul>
+        <li>44.1% (865,941) Democrat</li>
+        <li>54.6% (1.1 million) Republican</li>
+        <li>1.3% (26,500) All others</li>
+      </ul>
     </div>
 </div>
 <h1>Form will be here on how to search a ZIP Code or a city.</h1>
+  </div>
+<h3><a href='{% url 'candidate_keynote_view' %}'>Next:</a> Keynote</h3>
+<h3><a href="{% url 'local_finance_deep_list_view' %}">Optional deep dive:</a> See how much was contributed in any ZIP Code</h3>
 <div class="row">
   <div class="next2 col-md-12">
     <a href='{% url 'video_list_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>

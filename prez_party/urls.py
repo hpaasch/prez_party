@@ -7,9 +7,11 @@ from django.contrib.auth.views import logout
 
 from talk_app.views import (CreateAccountView, ProfileView, IndexView,
                             DinnerPartyCreateView, DinnerPartyListView,
-                            USFinanceListView, LocalFinanceListView,
-                            TweetListView, PopularTweetListView, QuizCreateView,
-                            VideoListView, PartyOverView)
+                            USFinanceListView, USFinanceDeepListView,
+                            LocalFinanceListView, LocalFinanceDeepListView,
+                            TweetListView, PopularTweetListView, DinnerPartyUpdateView,
+                            SurveyDetailView, VideoListView, CandidateKeynoteView,
+                            PartyOverView)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -22,11 +24,15 @@ urlpatterns = [
     url(r'^party/create/$', DinnerPartyCreateView.as_view(), name='dinner_party_create_view'),
     url(r'^party/view/$', DinnerPartyListView.as_view(), name='dinner_party_list_view'),
     url(r'^finance/national/$', USFinanceListView.as_view(), name='us_finance_list_view'),
+    url(r'^finance/national/deep/$', USFinanceDeepListView.as_view(), name='us_finance_deep_list_view'),
     url(r'^finance/local/$', LocalFinanceListView.as_view(), name='local_finance_list_view'),
+    url(r'^finance/local/deep/$', LocalFinanceDeepListView.as_view(), name='local_finance_deep_list_view'),
     url(r'^tweets/$', TweetListView.as_view(), name='tweet_list_view'),
-    url(r'^tweets/popular/$', PopularTweetListView.as_view(), name='popular_tweet_list_view'),
+    url(r'^tweets/candidate/$', PopularTweetListView.as_view(), name='popular_tweet_list_view'),
     url(r'^video/$', VideoListView.as_view(), name='video_list_view'),
-    url(r'^quiz/$', QuizCreateView.as_view(), name='quiz_create_view'),
+    url(r'^video/candidate/$', CandidateKeynoteView.as_view(), name='candidate_keynote_view'),
+    url(r'^survey/(?P<pk>\d+)/$', DinnerPartyUpdateView.as_view(), name='survey_create_view'),
+    url(r'^survey/$', SurveyDetailView.as_view(), name='survey_detail_view'),
     url(r'^party/over/$', PartyOverView.as_view(), name='party_over_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

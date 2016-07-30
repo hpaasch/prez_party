@@ -14,6 +14,8 @@
     <li><h4>Which video made you think the most about the future of America?</h4></li>
     <li><h4>Do you believe the candidates try to be honest? Or are they loose with the facts?</h4></li>
     <li><h4>Did you hear anything that surprised you?</h4></li>
+  <h2>Watch more videos. VIEW CODE UNDERWAY</h2>
+  <h3>Talk it over:</h3>
 <div class="row">
     {% for candidate in candidates %}
        {% if candidate.office == 'President' %}
@@ -23,6 +25,8 @@
             <div class="caption">
               <h5>
                 {{ candidate.name }} -- {{ candidate.affiliation }}
+                <br>
+                {{ candidate.video_two}}
               </h5>
             </div>
           </div>
@@ -35,9 +39,10 @@
       <input class='btn btn-primary' type="submit" name="trump" value="Trump">
       <input class='btn btn-primary' type="submit" name="pundit" value="Pundit">
     </form>
-    <h1>Maybe make this the keynote to watch while you eat the main course?</h1>
+    <h3><a href='{% url 'popular_tweet_list_view' %}'>Next:</a> Top Tweets from your candidate</h3>
 
     <br>
+
     <div class="embed-responsive embed-responsive-16by9">
     {% if video == 'clinton' %}
     <iframe class="embed-responsive-item" src={{ url }} ></iframe>
@@ -56,4 +61,7 @@
         <a href='{% url 'popular_tweet_list_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
       </div>
     </div>
+
+
+
 {% endblock %}

@@ -1,0 +1,18 @@
+
+{% extends "base.html" %}
+{% load tz static %}
+
+{% block content %}
+  <h2>And now, your Keynote Address: THIS NEEDS VIEW CODE MODIFIED </h2>
+    <h3>Talk it over:</h3>
+    <ul>
+      <li>What does this speech make you think the future of America?</li>
+      <li>Do you take every word as fact?</li>
+      <li>Did you hear anything that surprised you?</li>
+    </ul>
+  <div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src='https://www.youtube.com/embed/pWcez2OwT9s?rel=0&amp;showinfo=0' ></iframe>
+  </div>
+  <h3><a href='{% url 'popular_tweet_list_view' %}'>Next:</a> Top Tweets from your candidate</h3>
+  <h3><a href="{% url 'video_list_view' %}">Optional deep dive:</a> See videos from other presidential candidates</h3>
+{% endblock %}

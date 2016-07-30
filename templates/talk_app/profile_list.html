@@ -20,7 +20,7 @@
           <dd class="list">Friend mix: {{ item.friend_mix }}</dd>
         </dl>
         {% if item.survey == None %}
-        <a href="{% url 'us_finance_list_view' %}" class='btn btn-danger btn-sm'>Start this party!</a>
+        <a href="{% url 'pundit_tweet_list_view' %}" class='btn btn-danger btn-sm'>Start this party!</a>
         {% endif %}
         {% if item.survey != None %}
         <a href="{% url 'survey_detail_view' item.pk %}" class='btn btn-danger btn-sm'>Review party survey</a>

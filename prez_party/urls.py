@@ -7,6 +7,7 @@ from django.contrib.auth.views import logout
 
 from talk_app.views import (CreateAccountView, ProfileView, IndexView,
                             DinnerPartyCreateView, DinnerPartyListView,
+                            PunditTweetListView,
                             USFinanceListView, USFinanceDeepListView,
                             LocalFinanceListView, LocalFinanceDeepListView,
                             TweetListView, PopularTweetListView, DinnerPartyUpdateView,
@@ -23,6 +24,7 @@ urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index_view'),
     url(r'^party/create/$', DinnerPartyCreateView.as_view(), name='dinner_party_create_view'),
     url(r'^party/view/$', DinnerPartyListView.as_view(), name='dinner_party_list_view'),
+    url(r'^opening/$', PunditTweetListView.as_view(), name='pundit_tweet_list_view'),
     url(r'^finance/national/$', USFinanceListView.as_view(), name='us_finance_list_view'),
     url(r'^finance/national/deep/$', USFinanceDeepListView.as_view(), name='us_finance_deep_list_view'),
     url(r'^finance/local/$', LocalFinanceListView.as_view(), name='local_finance_list_view'),
@@ -32,7 +34,7 @@ urlpatterns = [
     url(r'^video/$', VideoListView.as_view(), name='video_list_view'),
     url(r'^video/candidate/$', CandidateKeynoteView.as_view(), name='candidate_keynote_view'),
     url(r'^survey/(?P<pk>\d+)/$', DinnerPartyUpdateView.as_view(), name='survey_create_view'),
-    url(r'^survey/$', SurveyDetailView.as_view(), name='survey_detail_view'),
+    # url(r'^survey/$', SurveyDetailView.as_view(), name='survey_detail_view'),
     url(r'^party/over/$', PartyOverView.as_view(), name='party_over_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

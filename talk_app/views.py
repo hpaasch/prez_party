@@ -12,7 +12,7 @@ from TwitterAPI import TwitterAPI
 import requests
 import os
 
-from talk_app.models import (Tweet, Candidate, DinnerParty, USFinance,
+from talk_app.models import (Tweet, Candidate, DinnerParty, Pundit, USFinance,
                             StateFinance, ZIPFinance, Survey, Profile, Video)
 from talk_app.forms import VideoForm
 
@@ -57,6 +57,12 @@ class DinnerPartyListView(ListView):
     def get_queryset(self):
         return DinnerParty.objects.filter(host=self.request.user)
 
+
+class PunditTweetListView(ListView):
+    model = Tweet
+    template_name = 'pundit.html'
+
+    # needs to make an API call for invited pundit's top tweets
 
 class CandidateKeynoteView(TemplateView):
     model = DinnerParty

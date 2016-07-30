@@ -1,8 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>A deeper look at how much has been raised so far by all 2016 presidential candidates</h2>
-<h3>Next: <a href='{% url 'local_finance_list_view' %}'>Local money</a></h3>
+<div class="row">
+  <div class="col-md-12">
+    <div class="header">
+      <img class="head col-xs-12 col-md-6 col-lg-8" src="/static/talk_app/img/natfin.png" />
+    </div>
+  </div>
+</div>
+<h2>Money raised by 25 presidential candidates for this election</h2>
+<p>A little bit of history: In the 2000 election, Republican George W. Bush
+  raised $172 million, considerably more than Democrat Al Gore. Bush won a narrow election.</p>
 <div class="col-md-6">
   <h3>Republicans raised ${{ r_total.total__sum|floatformat:0 }}</h3>
     {% for candidate in republican %}
@@ -56,4 +64,9 @@
   </div>
 
 <h6>Candidates ranked by cash on hand. FEC data as of June 30, 2016, sourced from ProPublica. Does not include other fundraising entities, such as PACs.</h6>
+<div class="row">
+  <div class="next2 col-md-12">
+    <a href='{% url 'local_finance_list_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+  </div>
+</div>
 {% endblock %}

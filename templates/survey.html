@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-
 <div class="row">
   <div class="col-md-12">
     <div class="header">
@@ -12,13 +11,21 @@
 <form class="" action="" method="post">
   <div class="form-group">
   {% csrf_token %}
-  {{ form.as_p }}
+  <ol>
+    <li>{{ form.question_one }}</li>
+    <li>{{ form.question_two }}</li>
+    <li>{{ form.question_three }}</li>
+    <li>{{ form.question_four }}</li>
+    <li>{{ form.question_five }}</li>
+    <li>{{ form.question_six }}</li>
+    <li>{{ form.question_seven }}</li>
+  </ol>
   <input class='btn btn-danger' type="submit" name="video_quiz" value="We're done!">
 </div>
 </form>
 <div class="row">
   <div class="next2 col-md-12">
-    <a href='{% url 'quiz_create_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+    <a href='{% url 'party_over_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
   </div>
 </div>
 {% endblock %}

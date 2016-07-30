@@ -60,7 +60,7 @@ div.container-fluid{
 }
 
 .header{
-  height: 250px;
+  height: 150px;
   background-color: #d33d3d;
 }
 
@@ -77,12 +77,8 @@ img.header{
   float: left;
 }
 
-.survey{
+.head{
   width: 45%;
-}
-
-.thanks{
-  width: 50%;
 }
 
 .card{

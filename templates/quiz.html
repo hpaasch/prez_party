@@ -2,12 +2,25 @@
 
 {% block content %}
 
-
+<div class="row">
+  <div class="col-md-12">
+    <div class="header">
+      <img class="survey col-xs-12 col-md-6 col-lg-8" src="/static/talk_app/img/survey.png" />
+    </div>
+  </div>
+</div>
 <form class="" action="" method="post">
+  <div class="form-group">
   {% csrf_token %}
   {{ form.as_p }}
   <input class='btn btn-danger' type="submit" name="video_quiz" value="We're done!">
+</div>
 </form>
+<div class="row">
+  <div class="next2 col-md-12">
+    <a href='{% url 'quiz_create_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+  </div>
+</div>
 {% endblock %}
 
 dinner

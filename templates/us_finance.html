@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="header">
+      <img class="col-xs-12 col-md-6 col-lg-8" src="/static/talk_app/img/natfin.png" />
+    </div>
+  </div>
+</div>
 <h2>Nearly $1 billion donated to 2016 presidential candidates</h2>
 <p>A little bit of history: In the 2000 election, Republican George W. Bush
   raised $172 million, considerably more than Democrat Al Gore. Bush won a narrow election.
@@ -63,5 +70,10 @@
 <h4>Candidates ranked below by cash on hand</h4>
 
 <h6>All data as of June 30, 2016. Does not include other fundraising entities, such as PACs.</h6>
+<div class="row">
+  <div class="next2 col-md-12">
+    <a href='{% url 'local_finance_list_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+  </div>
+</div>
 
 {% endblock %}

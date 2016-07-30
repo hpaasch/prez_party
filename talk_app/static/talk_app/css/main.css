@@ -1,3 +1,13 @@
+/*font-family: 'Noto Sans', sans-serif;
+font-family: 'Lora', serif; // nah
+font-family: 'Roboto Slab', serif;*/
+
+
+body{
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
 .logo{
   width: 100%;
 }
@@ -25,26 +35,90 @@ div.container-fluid{
 
 .btn{
   border-radius: 0;
-  background-color: rgb(191, 73, 77);
-  border-color: rgb(191, 73, 77);
+  background-color: #d33d3d;
+  border-color: #d33d3d;
   color: white;
 }
 
 .btn:hover{
-  background-color: rgb(74, 74, 101);
-  border-color: rgb(74, 74, 101);
+  background-color: #2d75bb;
+  border-color: #2d75bb;
 }
 
 .submitbtn{
-  background-color: rgb(191, 73, 77);
+  background-color: #d33d3d;
   border: none;
   color: white;
 }
 
 .submitbtn:hover{
-  background-color: rgb(74, 74, 101);
+  background-color: #2d75bb;
 }
 
 .partylist{
   margin-top: 20px;
+}
+
+.header{
+  height: 250px;
+  background-color: #d33d3d;
+}
+
+.profile-header{
+  height: 100px;
+  background-color: #2d75bb;
+  color: white;
+  text-align: center;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+
+img.header{
+  float: left;
+}
+
+.survey{
+  width: 45%;
+}
+
+.thanks{
+  width: 50%;
+}
+
+.card{
+  border: 1px solid black;
+  margin: 20px;
+  padding: 20px;
+}
+
+.next{
+  height: 100px;
+  background-color: #2d75bb;
+  color: white;
+}
+
+.next a{
+  color: white;
+  text-decoration: none;
+}
+
+.next:hover{
+ background-color: #d33d3d;
+}
+
+.arrow{
+  width: 10%;
+  float: right;
+}
+
+@media (min-width: 400px) and (max-width: 600px) {
+  .header{
+    height: 100px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 800px){
+  .header{
+    height: 150px;
+  }
 }

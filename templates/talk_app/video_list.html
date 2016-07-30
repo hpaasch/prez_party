@@ -2,6 +2,13 @@
 {% load tz static %}
 
 {% block content %}
+<div class="row">
+  <div class="col-md-12">
+    <div class="header">
+      <img class="col-xs-12 col-md-6 col-lg-8" src="/static/talk_app/img/keynote.png" />
+    </div>
+  </div>
+</div>
   <h1>THIS WILL BE ONE KEYNOTE. with footer for more.They all talk, and videos have a life of their own online.</h1>
     <h4>Watch and talk. Then go on to the <a href='{% url 'popular_tweet_list_view' %}'>Top tweets from your candidate</a>.</h4>
     <li><h4>Which video made you think the most about the future of America?</h4></li>
@@ -43,5 +50,10 @@
     {% if video == 'pundit'  %}
     <iframe class="embed-responsive-item" src={{ url }} ></iframe>
     {% endif %}
+    </div>
+    <div class="row">
+      <div class="next2 col-md-12">
+        <a href='{% url 'popular_tweet_list_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+      </div>
     </div>
 {% endblock %}

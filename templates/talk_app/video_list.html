@@ -2,17 +2,26 @@
 {% load tz static %}
 
 {% block content %}
-  <h1>And now, your Keynote Address:</h1>
-  <h2>Highlights from Donald Trump's speech at the RNC.</h2>
-    <h4>Watch the whole video and talk. </h4>
-    <li><h4>What does this speech make you think the future of America?</h4></li>
-    <li><h4>Do you take every word as fact?</h4></li>
-    <li><h4>Did you hear anything that surprised you?</h4></li>
-    <h3>Then go on to the <a href='{% url 'popular_tweet_list_view' %}'>Top Tweets from your candidate</a>.</h3>
-  <div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src='https://www.youtube.com/embed/pWcez2OwT9s?rel=0&amp;showinfo=0' ></iframe>
-  </div>
-<h3>Want to watch more? Click on the one you want.</h3>
+  <h2>Watch more videos. VIEW CODE UNDERWAY</h2>
+  <h3>Talk it over:</h3>
+<div class="row">
+    {% for candidate in candidates %}
+       {% if candidate.office == 'President' %}
+        <div class="col-md-2">
+          <div class="thumbnail">
+            <img class="img-circle" src=" {{ candidate.photo_url }}" alt="">
+            <div class="caption">
+              <h5>
+                {{ candidate.name }} -- {{ candidate.affiliation }}
+                <br>
+                {{ candidate.video_two}}
+              </h5>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+    </div>
     <form class="" action="" >
       <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
       <input class='btn btn-primary' type="submit" name="trump" value="Trump">
@@ -34,20 +43,7 @@
     <iframe class="embed-responsive-item" src={{ url }} ></iframe>
     {% endif %}
     </div>
+
+    <h3><a href='{% url 'popular_tweet_list_view' %}'>Next:</a> Top Tweets from your candidate</h3>
+
 {% endblock %}
-<div class="row">
-    {% for candidate in candidates %}
-       {% if candidate.office == 'President' %}
-        <div class="col-md-2">
-          <div class="thumbnail">
-            <img class="img-circle" src=" {{ candidate.photo_url }}" alt="">
-            <div class="caption">
-              <h5>
-                {{ candidate.name }} -- {{ candidate.affiliation }}
-              </h5>
-            </div>
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
-    </div>

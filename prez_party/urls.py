@@ -10,7 +10,8 @@ from talk_app.views import (CreateAccountView, ProfileView, IndexView,
                             USFinanceListView, USFinanceDeepListView,
                             LocalFinanceListView, LocalFinanceDeepListView,
                             TweetListView, PopularTweetListView, QuizCreateView,
-                            SurveyDetailView, VideoListView, PartyOverView)
+                            SurveyDetailView, VideoListView, CandidateKeynoteView,
+                            PartyOverView)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,6 +30,7 @@ urlpatterns = [
     url(r'^tweets/$', TweetListView.as_view(), name='tweet_list_view'),
     url(r'^tweets/popular/$', PopularTweetListView.as_view(), name='popular_tweet_list_view'),
     url(r'^video/$', VideoListView.as_view(), name='video_list_view'),
+    url(r'^video/keynote/$', CandidateKeynoteView.as_view(), name='candidate_keynote_view'),
     url(r'^quiz/$', QuizCreateView.as_view(), name='quiz_create_view'),
     url(r'^survey/(?P<pk>\d+)/$', SurveyDetailView.as_view(), name='survey_detail_view'),
     url(r'^party/over/$', PartyOverView.as_view(), name='party_over_view'),

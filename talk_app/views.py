@@ -58,6 +58,15 @@ class DinnerPartyListView(ListView):
         return DinnerParty.objects.filter(host=self.request.user)
 
 
+class CandidateKeynoteView(TemplateView):
+    model = DinnerParty
+    template_name = 'keynote.html'
+
+    def get_queryset(self):
+        # dinnerparty candidate video_one
+        return DinnerParty.objects.filter(candidate__name='Donald Trump')
+
+
 class VideoListView(ListView):
     model = Video
     template_name = 'video_list.html'

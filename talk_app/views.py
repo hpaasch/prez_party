@@ -30,6 +30,10 @@ class ProfileView(ListView):
     def get_queryset(self):
         return DinnerParty.objects.filter(host=self.request.user)
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['dinner_id'] = DinnerParty.objects.get(id=)
+
 class IndexView(TemplateView):
     template_name = 'index.html'
 
@@ -37,15 +41,8 @@ class IndexView(TemplateView):
 class DinnerPartyCreateView(CreateView):
     template_name = 'party_create.html'
     model = DinnerParty
-    fields = ['party_name', 'pundit', 'candidate', 'video', 'friend_names', 'friend_mix']
+    fields = ['party_name', 'pundit', 'candidate', 'friend_names', 'friend_mix']
     success_url = reverse_lazy('profile_view')
-
-    # this method is NOT yet allowing user to add a video to the party
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['video_form'] = Video.objects.all()
-        print(context)
-        return context
 
     def form_valid(self, form):
         dinnerparty = form.save(commit=False)
@@ -113,6 +110,75 @@ class QuizCreateView(CreateView):
         return super().form_valid(form)  #  fully saves and creates
 
 
+class SurveyDetailView(DetailView):
+    model = Survey
+    template_name = 'survey_detail.html'
+
+    def get_queryset(self, **kwargs):
+        survey_id = self.kwargs.get('pk', None)
+        return Survey.objects.filter(pk=survey_id)
+
+
+class USFinanceDeepListView(ListView):
+    model = USFinance
+    template_name = 'us_finance_deep.html'
+
+    def get_context_data(self):
+        x_api_key = os.environ["x_api_key"]
+        us_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/totals.json'
+
+        headers = {
+            "X-API-Key": x_api_key
+            }
+
+        us_response = requests.get(us_url, headers=headers).json()
+        us_results = us_response['results']
+        us_total = 1363831  # libertarian
+        us_cash_on_hand = 0
+        for item in us_results:
+            us_total += item['total_receipts']
+            us_cash_on_hand += item['cash_on_hand']
+            USFinance.objects.update_or_create(
+                slug=item['slug'],
+                defaults = {
+                'name': item['name'],
+                'total': item['total_receipts'],
+                'party': item['party'],
+                'as_of': item['date_coverage_to'],
+                'cash_on_hand': item['cash_on_hand'],
+                'candidate_name': item['candidate_name'],
+                })
+        republican = USFinance.objects.filter(party='R')
+        r_total = USFinance.objects.filter(party='R').aggregate(Sum('total'))
+        democrat = USFinance.objects.filter(party='D')
+        d_total = USFinance.objects.filter(party='D').aggregate(Sum('total'))
+        libertarian = USFinance.objects.filter(party='L')
+        green = USFinance.objects.filter(party='G')
+        clinton = USFinance.objects.filter(slug='clinton')
+        trump = USFinance.objects.filter(slug='trump')
+        republicans = self.request.GET.get('republicans')
+        democrats = self.request.GET.get('democrats')
+        party_compare = False
+        if republicans or democrats:
+            context = {
+                'party_compare': party_compare,
+
+                }
+        context = {
+            'republican': republican,
+            'democrat': democrat,
+            'r_total': r_total,
+            'd_total': d_total,
+            'libertarian': libertarian,
+            'green': green,
+            'clinton': clinton,
+            'trump': trump,
+            'us_total': us_total,
+            'us_cash_on_hand': us_cash_on_hand,
+            }
+        return context
+
+
 class USFinanceListView(ListView):
     model = USFinance
     template_name = 'us_finance.html'
@@ -142,9 +208,9 @@ class USFinanceListView(ListView):
                 'cash_on_hand': item['cash_on_hand'],
                 'candidate_name': item['candidate_name'],
                 })
-        republican = USFinance.objects.filter(party='R')[:2]
+        republican = USFinance.objects.filter(party='R')[:1]
         r_total = USFinance.objects.filter(party='R').aggregate(Sum('total'))
-        democrat = USFinance.objects.filter(party='D')[:2]
+        democrat = USFinance.objects.filter(party='D')[:1]
         d_total = USFinance.objects.filter(party='D').aggregate(Sum('total'))
         libertarian = USFinance.objects.filter(party='L')
         green = USFinance.objects.filter(party='G')

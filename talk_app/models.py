@@ -26,6 +26,9 @@ class Candidate(models.Model):
         )
     name = models.CharField(max_length=25)
     website = models.URLField()
+    video_one = models.CharField(max_length=50, null=True, blank=True)
+    video_two = models.CharField(max_length=50, null=True, blank=True)
+    video_three = models.CharField(max_length=50, null=True, blank=True)
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20)
     office = models.CharField(max_length=20)
@@ -50,6 +53,9 @@ class Pundit(models.Model):
         )
     name = models.CharField(max_length=25)
     website = models.URLField()
+    video_one = models.CharField(max_length=50, null=True, blank=True)
+    video_two = models.CharField(max_length=50, null=True, blank=True)
+    video_three = models.CharField(max_length=50, null=True, blank=True)
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
     employer = models.CharField(max_length=30)
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20)
@@ -97,6 +103,29 @@ class Question(models.Model):
     text = models.TextField(null=True, blank=True)
 
 
+class Survey(models.Model):
+    DISCUSSION_CHOICES = (
+        (DEEP, 'Deep'),
+        (MEDIUM, 'Medium'),
+        (SHALLOW, 'Shallow'),
+    )
+    TOPIC_CHOICES = (
+        (VALUES, 'Values'),
+        (POLICY, 'Policy'),
+        (PERSONAL_QUALITIES, 'Personal qualities'),
+    )
+    host = models.ForeignKey('auth.User')
+    discussion_intensity = models.CharField(choices=DISCUSSION_CHOICES, default=MEDIUM, max_length=40)
+    change_mind = models.BooleanField()
+    what_changed = models.TextField(null=True, blank=True)
+    made_choice = models.BooleanField()
+    who_choose = models.TextField(null=True, blank=True)
+    top_topic = models.CharField(choices=TOPIC_CHOICES, default=POLICY, max_length=40)
+
+    def __str__(self):
+        return self.host
+
+
 class DinnerParty(models.Model):
     AFFILIATION_CHOICES = (
         (DEMOCRAT, 'Democrat'),
@@ -110,36 +139,12 @@ class DinnerParty(models.Model):
     host = models.ForeignKey('auth.User')
     pundit = models.ForeignKey(Pundit)
     candidate = models.ForeignKey(Candidate)
-    video = models.ForeignKey(Video, null=True, blank=True)
     friend_names = models.TextField(null=True, blank=True)
     friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
+    survey = models.ForeignKey(Survey, null=True)
 
     def __str__(self):
         return str(self.party_name)
-
-
-class Survey(models.Model):
-    DISCUSSION_CHOICES = (
-        (DEEP, 'Deep'),
-        (MEDIUM, 'Medium'),
-        (SHALLOW, 'Shallow'),
-    )
-    TOPIC_CHOICES = (
-        (VALUES, 'Values'),
-        (POLICY, 'Policy'),
-        (PERSONAL_QUALITIES, 'Personal qualities'),
-    )
-    dinner = models.ForeignKey(DinnerParty)
-    host = models.ForeignKey('auth.User')
-    discussion_intensity = models.CharField(choices=DISCUSSION_CHOICES, default=MEDIUM, max_length=40)
-    change_mind = models.BooleanField()
-    what_changed = models.TextField(null=True, blank=True)
-    made_choice = models.BooleanField()
-    who_choose = models.TextField(null=True, blank=True)
-    top_topic = models.CharField(choices=TOPIC_CHOICES, default=POLICY, max_length=40)
-
-    def __str__(self):
-        return str(self.dinner)
 
 
 class Tweet(models.Model):

@@ -10,6 +10,7 @@ body{
 
 .logo{
   width: 100%;
+  margin-bottom: 0;
 }
 
 #header{
@@ -27,17 +28,51 @@ div.container-fluid{
   margin-bottom: 0;
 }
 
-.navbar a{
+.navbar .btn{
   margin-top: 20px;
   float: right;
   margin-right: 10px;
 }
 
-.btn{
+.topbtn{
+  border-radius: 0;
+  background-color: white;
+  border-color: white;
+  color: black;
+}
+
+.partybtn{
   border-radius: 0;
   background-color: #d33d3d;
   border-color: #d33d3d;
   color: white;
+}
+
+.user{
+  float: left;
+  color: white;
+  margin-top: 20px;
+}
+
+.user a{
+  text-decoration: none;
+  color: white;
+}
+
+.user dd{
+  display: inline;
+}
+
+.move{
+  margin-top: 20px;
+}
+
+h4.longer{
+  height:200px;
+}
+
+.user a:hover{
+  color: #d33d3d;
 }
 
 .btn:hover{
@@ -59,6 +94,51 @@ div.container-fluid{
   margin-top: 20px;
 }
 
+.thought{
+  background-color: #e3e3e3;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  vertical-align: middle;
+  margin-top: 0px;
+  font-size: 26px;
+  height: 146px;
+  color: white;
+  font-family: 'Roboto Slab', serif;
+}
+
+.talk{
+  background-color: #7499b7;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 10px;
+  color: white;
+  margin-bottom: 40px;
+  font-family: 'Roboto Slab', serif;
+}
+
+.talk h3{
+  padding-left: 20px;
+}
+
+.small{
+  width: 11%;
+  float: left;
+}
+
+.comtweets{
+  border: 1px solid #e3e3e3;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+.list h4{
+  font-family: 'Roboto Slab', serif;
+  color: gray;
+}
+
 .header{
   height: 150px;
   background-color: #d33d3d;
@@ -66,10 +146,28 @@ div.container-fluid{
 
 .profile-header{
   height: 100px;
-  background-color: #2d75bb;
-  color: white;
+  color: black;
   text-align: center;
   font-family: 'Noto Sans', sans-serif;
+}
+
+.homequote{
+  font-family: 'Roboto Slab', serif;
+  background-color: #222222;
+  height: 200px;
+  color: white;
+}
+
+.homequote h1{
+  margin: 0;
+  padding-top: 40px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
+.homequote h3{
+  margin: 0;
+  text-align: center;
 }
 
 
@@ -81,10 +179,14 @@ img.header{
   width: 45%;
 }
 
+.survey{
+  width: 30%;
+}
+
 .card{
-  border: 1px solid black;
   margin: 20px;
   padding: 20px;
+  border: 0.1px solid gray;
 }
 
 .next{
@@ -111,10 +213,60 @@ img.header{
   .header{
     height: 100px;
   }
+
+  .homequote{
+    height: 700px;
+  }
+
+  .small{
+    display: none;
+  }
+
+  .navbar{
+    height: 85px;
+  }
+
+  .navbar a{
+    font-size: 10px;
+  }
+  .head{
+    width: 100%;
+  }
+
+  .header{
+    height: 120px;
+  }
+  .arrow{
+    width: 30%;
+  }
+  .survey{
+    width: 85%;
+  }
+  .thought{
+    margin-top: 10px;
+  }
+
+
 }
 
 @media (min-width: 601px) and (max-width: 800px){
   .header{
+    height: 180px;
+  }
+  .head{
+    width: 100%;
+  }
+  .small{
+    display: none;
+  }
+
+}
+
+@media (min-width: 801px) and (max-width: 1000px){
+  .header{
     height: 150px;
+  }
+  .head{
+    width: 80%;
   }
 }

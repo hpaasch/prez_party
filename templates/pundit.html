@@ -4,23 +4,24 @@
 <div class="row">
   <div class="col-md-12">
     <div class="header">
-      <img class="head col-xs-12 col-md-6 col-lg-8" src="/static/talk_app/img/natfin.png" />
+      <img class="head col-xs-12 col-md-6 col-lg-8" src="/static/talk_app/img/comtweets.png" />
     </div>
   </div>
 </div>
-  <h2>This needs it's own header. Cuz the page is really tweets from a pundit</h2>
-  <h4>What's a pundit? Someone who thinks they know stuff that the rest of us should listen to</h2>
-<ul>
-  {% for tweet in tweets %}
-  <li>{{ tweet.text }}</li>
-  {% endfor %}
+  <h4 class="col-sm-12 col-md-8 col-lg-4 col-lg-offset-4 longer thought">What's a pundit? Someone who thinks they know stuff that the rest of us should listen to. Here's some recent thoughts from yours to start off your party.</h2>
+<div class="row">
+  <dl class="col-sm-12">
+    {% for tweet in tweets %}
+    <dd class="col-sm-12 col-md-8 col-lg-5 comtweets">{{ tweet.text }}</dd>
+    {% endfor %}
 
-</ul>
+  </dl>
+</div>
 
 
   {{ tweet.text }}
   <div class="row">
-    <div class="next2 col-md-12">
+    <div class="move next2 col-sm-12">
       <a href='{% url 'us_finance_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
     </div>
   </div>

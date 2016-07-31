@@ -8,14 +8,20 @@
     </div>
   </div>
 </div>
-<h2>Nearly $1 billion donated to 2016 presidential candidates</h2>
 
-<h3>Talk it over:</h3>
-  <ul>
-    <li><h4>What surprises you about the money that's been raised?</h4></li>
-    <li><h4>Do you have concerns about how money is raised?</h4></li>
-    <li><h4>Trump loaned his campaign $xx million. Clinton loaned hers zero. How should elections be paid for?</h4></li>
-  </ul>
+<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought">Nearly $1 billion donated to 2016 presidential candidates</h4>
+
+<div class="row">
+
+<div class="talk col-sm-6">
+    <h3>Talk It Over</h3>
+      <ol>
+        <li>What surprises you about the money thats been raised?</li>
+        <li>Do you have concerns about how money is raised?</li>
+        <li>Trump loaned his campaign $xx million. Clinton loaned hers zero. How should elections be paid for?</li>
+      </ol>
+  </div>
+</div>
 <div class="col-md-6">
     {% for candidate in republican %}
     <div class="panel panel-default">
@@ -82,7 +88,7 @@
 <h6>FEC data as of June 30, 2016, sourced from ProPublica. Does not include other fundraising entities, such as PACs.</h6>
 <h3><a href="{% url 'us_finance_deep_list_view' party_id %}">Optional deep dive:</a> See how much was raised by all of the 2016 presidential candidates</h3>
 <div class="row">
-  <div class="next2 col-md-12">
+  <div class="move next2 col-md-12">
     <a href='{% url 'local_finance_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
   </div>
 </div>

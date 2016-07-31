@@ -18,15 +18,20 @@
 
           {% if request.user.is_authenticated %}
 
-            <a class="btn btn-primary col-md-1 col-xs-4" href="{% url 'profile_view' %}">My parties</a>
-            <a class="btn btn-primary col-md-1 col-xs-2" href="{% url 'logout' %}?next=/">Logout</a>
-            <p class="navbar-text navbar-left col-md-2 col-xs-2">Signed in as <a href="{% url 'profile_view' %}" class="navbar-link">{{ request.user }}</a></p>
+            <a class="topbtn btn btn-primary col-md-1 col-xs-4" href="{% url 'profile_view' %}">My parties</a>
+            <a class="topbtn btn btn-primary col-md-1 col-xs-2" href="{% url 'logout' %}?next=/">Logout</a>
+            <img class="small" src="/static/talk_app/img/hope2logo.png" />
+            <dl class="user col-md-2 col-xs-2">
+              <dd>Signed in as: </dd>
+              <dd><a href="{% url 'profile_view' %}">{{ request.user }}</a></dd>
+            </dl>
 
           {% else %}
-            <a class="btn btn-primary col-md-1 col-xs-2" href="{% url 'index_view' %}">Homepage</a>
-            <a class="btn btn-primary col-md-1 col-xs-3" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Twitter Sign In</a>
-            <a class="btn btn-primary col-md-1 col-xs-2" href="{% url 'login' %}">Sign In</a>
-            <a class="btn btn-primary col-md-1 col-xs-3" href="{% url 'create_account_view' %}">Create Account</a>
+            <a class="topbtn btn btn-primary col-md-1 col-xs-2" href="{% url 'index_view' %}">Homepage</a>
+            <a class="topbtn btn btn-primary col-md-1 col-xs-3" href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Twitter Sign In</a>
+            <a class="topbtn btn btn-primary col-md-1 col-xs-2" href="{% url 'login' %}">Sign In</a>
+            <a class="topbtn btn btn-primary col-md-1 col-xs-3" href="{% url 'create_account_view' %}">Create Account</a>
+            <img class="small" src="/static/talk_app/img/hope2logo.png" />
 
 
           {% endif %}

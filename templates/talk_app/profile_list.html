@@ -9,28 +9,28 @@
     </div>
   </div>
   {% for party in object_list %}
-
     <div class="partylist">
       <div class="wrapper">
         <div class="card col-md-3">
           <dl>
-            <dd class="list">Name of your party: {{ party.party_name }}</dd>
-            <dd class="list">Candidate: <a href='{{ item.candidate.website }}'>{{ party.candidate }}</a></dd>
-            <dd class="list">Pundit: <a href="{{ item.pundit.website }}">{{ party.pundit }}</a></dd>
-            <dd class="list">Friends: {{ party.friend_names }}</dd>
-            <dd class="list">Friend mix: {{ party.friend_mix }} {{ party.host }}</dd>
+            <dd class="list"><h4>Name of your party: </h4> {{ party.party_name }}</dd>
+            <dd class="list"><h4>Candidate: </h4><a href='{{ item.candidate.website }}'>{{ party.candidate }}</a></dd>
+            <dd class="list"><h4>Pundit: </h4><a href="{{ item.pundit.website }}">{{ party.pundit }}</a></dd>
+            <dd class="list"><h4>Friends: </h4>{{ party.friend_names }}</dd>
+            <dd class="list"><h4>Friend mix: </h4>{{ party.friend_mix }} {{ party.host }}</dd>
           </dl>
           {% if party.survey == None %}
-          <a href="{% url 'pundit_tweet_list_view' party.pk %}" class='btn btn-danger btn-sm'>Start this party!</a>
+          <a href="{% url 'pundit_tweet_list_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Start this party!</a>
           {% endif %}
           {% if party.survey != None %}
-          <a href="{% url 'survey_detail_view' party.pk %}" class='btn btn-danger btn-sm'>Review party survey</a>
+          <a href="{% url 'survey_detail_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Review party survey</a>
           {% endif %}
         </div>
       </div>
     </div>
   {% endfor %}
-  <div class="col-md-12">
-    <a href="{% url 'dinner_party_create_view' %}" id="newparty" class='newparty btn btn-warning btn-sm'>Make a new party!</a>
+    <div class="col-md-12">
+      <a href="{% url 'dinner_party_create_view' %}" id="newparty" class='partybtn newparty btn btn-warning btn-sm'>Make a new party!</a>
+    </div>
   </div>
 {% endblock %}

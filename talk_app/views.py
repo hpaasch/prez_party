@@ -80,6 +80,12 @@ class CandidateKeynoteView(TemplateView):
         # dinnerparty candidate video_one
         return DinnerParty.objects.filter(candidate__name='Donald Trump')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+        context['party_id'] = party_id
+        return context
+
 
 class VideoListView(ListView):
     model = Video
@@ -325,7 +331,7 @@ class LocalFinanceDeepListView(ListView):
         context = {
             'party_id': party_id
             }
-        return
+        return context
 
 
 class PopularTweetListView(TemplateView):

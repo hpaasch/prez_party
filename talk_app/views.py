@@ -65,6 +65,7 @@ class PunditTweetListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
+        context['party_id'] = party_id
         party = DinnerParty.objects.get(id=party_id)
         context['tweets'] = Tweet.objects.filter(username=party.candidate.twt_username)[:5]
         return context
@@ -88,6 +89,8 @@ class VideoListView(ListView):
     #     keynote = DinnerParty.objects.get()
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
         clinton = self.request.GET.get('clinton')
         trump = self.request.GET.get('trump')
         pundit = self.request.GET.get('pundit')
@@ -110,6 +113,7 @@ class VideoListView(ListView):
 
         photos = Candidate.objects.all()
         context = {
+            'party_id': party_id,
             'candidates': candidates,
             'video': video,
             'url': url,
@@ -145,7 +149,9 @@ class USFinanceDeepListView(ListView):
     model = USFinance
     template_name = 'us_finance_deep.html'
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
         x_api_key = os.environ["x_api_key"]
         us_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/totals.json'
 
@@ -187,6 +193,7 @@ class USFinanceDeepListView(ListView):
 
                 }
         context = {
+            'party_id': party_id,
             'republican': republican,
             'democrat': democrat,
             'r_total': r_total,
@@ -205,7 +212,10 @@ class USFinanceListView(ListView):
     model = USFinance
     template_name = 'us_finance.html'
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+
         x_api_key = os.environ["x_api_key"]
         us_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/totals.json'
 
@@ -247,6 +257,7 @@ class USFinanceListView(ListView):
 
                 }
         context = {
+            'party_id': party_id,
             'republican': republican,
             'democrat': democrat,
             'r_total': r_total,
@@ -265,7 +276,10 @@ class LocalFinanceListView(ListView):
     model = StateFinance
     template_name = 'state_finance.html'
 
-    def get_context_data(request):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+
         x_api_key = os.environ["x_api_key"]
 
         headers = {
@@ -292,6 +306,7 @@ class LocalFinanceListView(ListView):
         clinton_list = StateFinance.objects.filter(full_name='Hillary Clinton')
         trump_list = StateFinance.objects.filter(full_name='Donald J. Trump')
         context = {
+            'party_id': party_id,
             'nc_total': nc_total,
             'sc_total': sc_total,
             'clinton_list': clinton_list,
@@ -303,6 +318,14 @@ class LocalFinanceListView(ListView):
 class LocalFinanceDeepListView(ListView):
     model = ZIPFinance
     template_name = 'local_finance.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+        context = {
+            'party_id': party_id
+            }
+        return
 
 
 class PopularTweetListView(TemplateView):

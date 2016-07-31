@@ -13,10 +13,9 @@
 <h3>Talk it over:</h3>
 
   <h4>zip code lookup to come here</h3>
-  <h3><a href='{% url 'candidate_keynote_view' %}'>Next:</a> Keynote</h3>
   <div class="row">
     <div class="next2 col-md-12">
-      <a href='{% url 'candidate_keynote_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+      <a href='{% url 'candidate_keynote_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
     </div>
   </div>
 {% endblock %}

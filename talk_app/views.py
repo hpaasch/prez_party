@@ -17,11 +17,15 @@ from talk_app.models import (Tweet, Candidate, DinnerParty, Pundit, USFinance,
 from talk_app.forms import VideoForm
 
 
+class IndexView(TemplateView):
+    template_name = 'index.html'
+    # add a little more explanation
+
 class CreateAccountView(CreateView):
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
-
+    # add explanation
 
 class ProfileView(ListView):
     model = Profile
@@ -30,12 +34,8 @@ class ProfileView(ListView):
     def get_queryset(self):
         return DinnerParty.objects.filter(host=self.request.user)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['dinner_id'] = DinnerParty.objects.get(id=)
-
-class IndexView(TemplateView):
-    template_name = 'index.html'
+    # HTML shows all profile fields: occupation, age, city, state, email, registered and affliation.
+    # buttons  switch out to review the survey instead of start party
 
 
 class DinnerPartyCreateView(CreateView):
@@ -48,14 +48,6 @@ class DinnerPartyCreateView(CreateView):
         dinnerparty = form.save(commit=False)
         dinnerparty.host = self.request.user
         return super().form_valid(form)
-
-# NOT USED?
-# class DinnerPartyListView(ListView):
-#     template_name = 'view_party.html'
-#     model = DinnerParty
-#
-#     def get_queryset(self):
-#         return DinnerParty.objects.filter(host=self.request.user)
 
 
 class PunditTweetListView(ListView):
@@ -84,6 +76,8 @@ class CandidateKeynoteView(TemplateView):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
         context['party_id'] = party_id
+        party = DinnerParty.objects.get(id=party_id)
+        context['video'] = party.video_one
         return context
 
 
@@ -347,38 +341,43 @@ class PopularTweetListView(TemplateView):
                          tw_consumer_secret,
                          auth_type='oAuth2')
 
-        candidates = Candidate.objects.all()
-        candidate = '@realDonaldTrump'
+        # candidates = Candidate.objects.all()
+        # candidate = '@realDonaldTrump'
         # candidate = self.request.GET.get('candidate')
-        popular_tweets = []
+        party = DinnerParty.objects.get(id=party_id)
+        candidate = party.candidate.twt_username
+
+        # if candidate:
+        #     candidate = candidate[1:]
+
+        content = api.request('statuses/user_timeline', {'screen_name': candidate})
+        for tweet in content:
+            Tweet.objects.update_or_create(
+                twt_id = tweet['id'],
+                defaults={
+                'username': tweet['user']['screen_name'],
+                'created_at': tweet['created_at'],
+                'text': tweet['text'],
+                'retweet_count': tweet['retweet_count'],
+                'favorite_count': tweet['favorite_count'],
+                'popular': (tweet['retweet_count'] + tweet['favorite_count']),
+                })
+
         popular = []
+        popular = Tweet.objects.filter(username=candidate).order_by('-popular')[:5]
 
-        if candidate:
-            candidate = candidate[1:]
-            content = api.request('statuses/user_timeline', {'screen_name': candidate})
-            for tweet in content:
-                Tweet.objects.update_or_create(
-                    twt_id = tweet['id'],
-                    defaults={
-                    'username': tweet['user']['screen_name'],
-                    'created_at': tweet['created_at'],
-                    'text': tweet['text'],
-                    'retweet_count': tweet['retweet_count'],
-                    'favorite_count': tweet['favorite_count'],
-                    'popular': (tweet['retweet_count'] + tweet['favorite_count']),
-                    })
+        tweet_ids = []  # collecting the IDs to feed into the twitter api
+        for tweet in popular:
+            tweet_ids.append(tweet.twt_id)
 
-            popular = Tweet.objects.filter(username=candidate).order_by('-popular')[:5]
-            tweet_ids = []
-            for tweet in popular:
-                tweet_ids.append(tweet.twt_id)
-            for item in tweet_ids:
-                tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
-                popular_tweets.append(tweet)
+        popular_tweets = []
+        for item in tweet_ids:
+            tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
+            popular_tweets.append(tweet)
 
         context = {
             'party_id': party_id,
-            'candidates': candidates,
+            # 'candidates': candidates,
             'popular_tweets': popular_tweets,
             }
         return context

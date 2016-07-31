@@ -95,7 +95,7 @@ class PunditTweetListView(ListView):
         top_tweets = popular_tweets(party.pundit.twt_username)
         context = {
             'party_id': party_id,
-            'tweets': top_tweets,
+            'popular_tweets': top_tweets,
             }
         return context
 
@@ -104,16 +104,16 @@ class CandidateKeynoteView(TemplateView):
     model = DinnerParty
     template_name = 'keynote.html'
 
-    def get_queryset(self):
-        # dinnerparty candidate video_one
-        return DinnerParty.objects.filter(candidate__name='Donald Trump')
+    # def get_queryset(self):
+    #     # dinnerparty candidate video_one
+    #     return DinnerParty.objects.filter(candidate__name='Donald Trump')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
         context['party_id'] = party_id
         party = DinnerParty.objects.get(id=party_id)
-        context['video'] = party.video_one
+        context['video'] = party.candidate.video_one
         return context
 
 

@@ -49,18 +49,25 @@ class DinnerPartyCreateView(CreateView):
         dinnerparty.host = self.request.user
         return super().form_valid(form)
 
-
-class DinnerPartyListView(ListView):
-    template_name = 'view_party.html'
-    model = DinnerParty
-
-    def get_queryset(self):
-        return DinnerParty.objects.filter(host=self.request.user)
+# NOT USED?
+# class DinnerPartyListView(ListView):
+#     template_name = 'view_party.html'
+#     model = DinnerParty
+#
+#     def get_queryset(self):
+#         return DinnerParty.objects.filter(host=self.request.user)
 
 
 class PunditTweetListView(ListView):
     model = Tweet
     template_name = 'pundit.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+        party = DinnerParty.objects.get(id=party_id)
+        context['tweets'] = Tweet.objects.filter(username=party.candidate.twt_username)[:5]
+        return context
 
     # needs to make an API call for invited pundit's top tweets
 

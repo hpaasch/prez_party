@@ -6,7 +6,7 @@ from django.contrib.auth.views import logout
 
 
 from talk_app.views import (CreateAccountView, ProfileView, IndexView,
-                            DinnerPartyCreateView, DinnerPartyListView,
+                            DinnerPartyCreateView,
                             PunditTweetListView,
                             USFinanceListView, USFinanceDeepListView,
                             LocalFinanceListView, LocalFinanceDeepListView,
@@ -23,8 +23,8 @@ urlpatterns = [
     url(r'accounts/profile/$', ProfileView.as_view(), name='profile_view'),
     url(r'^$', IndexView.as_view(), name='index_view'),
     url(r'^party/create/$', DinnerPartyCreateView.as_view(), name='dinner_party_create_view'),
-    url(r'^party/view/$', DinnerPartyListView.as_view(), name='dinner_party_list_view'),
-    url(r'^opening/$', PunditTweetListView.as_view(), name='pundit_tweet_list_view'),
+    # url(r'^party/view/$', DinnerPartyListView.as_view(), name='dinner_party_list_view'),
+    url(r'^opening/(?P<pk>\d+)/$', PunditTweetListView.as_view(), name='pundit_tweet_list_view'),
     url(r'^finance/national/$', USFinanceListView.as_view(), name='us_finance_list_view'),
     url(r'^finance/national/deep/$', USFinanceDeepListView.as_view(), name='us_finance_deep_list_view'),
     url(r'^finance/local/$', LocalFinanceListView.as_view(), name='local_finance_list_view'),

@@ -54,15 +54,59 @@ class PunditTweetListView(ListView):
     model = Tweet
     template_name = 'pundit.html'
 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     party_id = self.kwargs.get('pk', None)
+    #     context['party_id'] = party_id
+    #     party = DinnerParty.objects.get(id=party_id)
+    #     tweeter = party.pundit.twt_username
+    #     context['tweets'] = Tweet.objects.filter(username=tweeter)[:5]
+    #     return context
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
-        context['party_id'] = party_id
         party = DinnerParty.objects.get(id=party_id)
-        context['tweets'] = Tweet.objects.filter(username=party.candidate.twt_username)[:5]
+        tweeter = party.pundit.twt_username
+
+        tw_consumer_key = os.getenv("tw_consumer_key")
+        tw_consumer_secret = os.getenv("tw_consumer_secret")
+        api = TwitterAPI(tw_consumer_key,
+                         tw_consumer_secret,
+                         auth_type='oAuth2')
+
+        content = api.request('statuses/user_timeline', {'screen_name': tweeter})
+        for tweet in content:
+            Tweet.objects.update_or_create(
+                twt_id = tweet['id'],
+                defaults={
+                'username': tweet['user']['screen_name'],
+                'created_at': tweet['created_at'],
+                'text': tweet['text'],
+                'retweet_count': tweet['retweet_count'],
+                'favorite_count': tweet['favorite_count'],
+                'popular': (tweet['retweet_count'] + tweet['favorite_count']),
+                })
+
+        popular = []
+        popular = Tweet.objects.filter(username=tweeter).order_by('-popular')[:5]
+
+        tweet_ids = []  # collecting the IDs to feed into the twitter api
+        for tweet in popular:
+            tweet_ids.append(tweet.twt_id)
+
+        popular_tweets = []
+        for item in tweet_ids:
+            tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
+            popular_tweets.append(tweet)
+
+        context = {
+            'party_id': party_id,
+            'tweets': popular_tweets,
+            }
         return context
 
-    # needs to make an API call for invited pundit's top tweets
 
 class CandidateKeynoteView(TemplateView):
     model = DinnerParty
@@ -334,6 +378,8 @@ class PopularTweetListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
+        party = DinnerParty.objects.get(id=party_id)
+        tweeter = party.candidate.twt_username
 
         tw_consumer_key = os.getenv("tw_consumer_key")
         tw_consumer_secret = os.getenv("tw_consumer_secret")
@@ -341,16 +387,7 @@ class PopularTweetListView(TemplateView):
                          tw_consumer_secret,
                          auth_type='oAuth2')
 
-        # candidates = Candidate.objects.all()
-        # candidate = '@realDonaldTrump'
-        # candidate = self.request.GET.get('candidate')
-        party = DinnerParty.objects.get(id=party_id)
-        candidate = party.candidate.twt_username
-
-        # if candidate:
-        #     candidate = candidate[1:]
-
-        content = api.request('statuses/user_timeline', {'screen_name': candidate})
+        content = api.request('statuses/user_timeline', {'screen_name': tweeter})
         for tweet in content:
             Tweet.objects.update_or_create(
                 twt_id = tweet['id'],
@@ -364,7 +401,62 @@ class PopularTweetListView(TemplateView):
                 })
 
         popular = []
-        popular = Tweet.objects.filter(username=candidate).order_by('-popular')[:5]
+        popular = Tweet.objects.filter(username=tweeter).order_by('-popular')[:5]
+
+        tweet_ids = []  # collecting the IDs to feed into the twitter api
+        for tweet in popular:
+            tweet_ids.append(tweet.twt_id)
+
+        popular_tweets = []
+        for item in tweet_ids:
+            tweet = requests.get("https://api.twitter.com/1.1/statuses/oembed.json?id={}".format(item)).json()["html"]
+            popular_tweets.append(tweet)
+
+        context = {
+            'party_id': party_id,
+            'popular_tweets': popular_tweets,
+            }
+        return context
+
+
+class TweetListView(ListView):
+    model = Tweet
+    template_name = 'tweets.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+
+        tw_consumer_key = os.getenv("tw_consumer_key")
+        tw_consumer_secret = os.getenv("tw_consumer_secret")
+        api = TwitterAPI(tw_consumer_key,
+                         tw_consumer_secret,
+                         auth_type='oAuth2')
+
+        # candidates = Candidate.objects.all()
+        # candidate = '@realDonaldTrump'
+        # candidate = self.request.GET.get('candidate')
+        party = DinnerParty.objects.get(id=party_id)
+        tweeter = party.candidate.twt_username
+
+        # if candidate:
+        #     candidate = candidate[1:]
+
+        content = api.request('statuses/user_timeline', {'screen_name': tweeter})
+        for tweet in content:
+            Tweet.objects.update_or_create(
+                twt_id = tweet['id'],
+                defaults={
+                'username': tweet['user']['screen_name'],
+                'created_at': tweet['created_at'],
+                'text': tweet['text'],
+                'retweet_count': tweet['retweet_count'],
+                'favorite_count': tweet['favorite_count'],
+                'popular': (tweet['retweet_count'] + tweet['favorite_count']),
+                })
+
+        popular = []
+        popular = Tweet.objects.filter(username=tweeter).order_by('-popular')[:5]
 
         tweet_ids = []  # collecting the IDs to feed into the twitter api
         for tweet in popular:
@@ -381,18 +473,6 @@ class PopularTweetListView(TemplateView):
             'popular_tweets': popular_tweets,
             }
         return context
-
-
-class TweetListView(ListView):
-    model = Tweet
-    template_name = 'tweets.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        party_id = self.kwargs.get('pk', None)
-        context['party_id'] = party_id
-        return context
-
 
 class PartyOverView(TemplateView):
     template_name = 'party_over.html'

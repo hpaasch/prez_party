@@ -59,6 +59,7 @@ class Pundit(models.Model):
     photo = models.ImageField(upload_to='photos', null=True, blank=True)
     employer = models.CharField(max_length=30)
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20)
+    twt_username = models.CharField(max_length=20, default='BarackObama')
 
     def __str__(self):
         return self.name

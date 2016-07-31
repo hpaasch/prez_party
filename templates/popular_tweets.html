@@ -32,7 +32,6 @@
    {% endfor %}
    </div>
    <h3>Review tweets then click when you're ready for discussion questions.</h3>
-   <a href='{% url 'quiz_create_view' %}' class='btn btn-primary'>Quiz</a>
 
    {% autoescape off %}
      {% for tweet in popular_tweets %}
@@ -41,9 +40,11 @@
    {% endautoescape %}
 <h6>(NOTE: Tweets are ranked with most popular at the top. Retweets and Likes are combined to give an overall measure)</h6>
 <h1>Want to see more? Click here to see the Top 50 most popular tweets from all four presidential candidates.</h1>
+<h3><a href="{% url 'tweet_list_view' party_id %}">Optional deep dive:</a> See more tweets by all of the 2016 presidential candidates</h3>
+
 <div class="row">
   <div class="next2 col-md-12">
-    <a href='{% url 'quiz_create_view' %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+    <a href='{% url 'survey_create_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
   </div>
 </div>
 {% endblock %}

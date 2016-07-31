@@ -329,7 +329,7 @@ class LocalFinanceDeepListView(ListView):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
         context = {
-            'party_id': party_id
+            'party_id': party_id,
             }
         return context
 
@@ -338,6 +338,9 @@ class PopularTweetListView(TemplateView):
     template_name = 'candidate_tweets.html'
 
     def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+
         tw_consumer_key = os.getenv("tw_consumer_key")
         tw_consumer_secret = os.getenv("tw_consumer_secret")
         api = TwitterAPI(tw_consumer_key,
@@ -374,6 +377,7 @@ class PopularTweetListView(TemplateView):
                 popular_tweets.append(tweet)
 
         context = {
+            'party_id': party_id,
             'candidates': candidates,
             'popular_tweets': popular_tweets,
             }
@@ -383,6 +387,12 @@ class PopularTweetListView(TemplateView):
 class TweetListView(ListView):
     model = Tweet
     template_name = 'tweets.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+        context['party_id'] = party_id
+        return context
 
 
 class PartyOverView(TemplateView):

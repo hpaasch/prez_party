@@ -21,10 +21,10 @@
      {{ tweet }}
     {% endfor %}
   {% endautoescape %}
-<h3><a href="{% url 'tweet_list_view' %}">Optional deep dive:</a> See more popular tweets from other candidates</h3>
+<h3><a href="{% url 'tweet_list_view' party_id %}">Optional deep dive:</a> See more popular tweets from other candidates</h3>
 <div class="row">
   <div class="next2 col-md-12">
-    <a href='#'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+    <a href='{% url 'survey_create_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
   </div>
 </div>
 {% endblock %}

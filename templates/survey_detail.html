@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h3>  {{ object.host }}
-</h3>
-<h1>{{ object.discussion_intensity }}</h1>
+  <h3>Party name: {{ object.party_name }}</h3>
+<h4>Friends: {{ object.friend_names }}</h4>
+<h4>Overall discussion intensity: {{ object.question_one }}</h4>
+<h4>Topic with the best discussion: {{ object.question_two }}</h4>
+<h4>This part helped people talk the most: {{ object.question_one }}</h4>
+<h4>This made us laugh: {{ object.question_one }}</h4>
+<h4>This made us angry: {{ object.question_one }}</h4>
+<h4>Something we learned: {{ object.question_one }}</h4>
+<h4>Did anyone change their mind about whether to vote? {{ object.question_one }}</h4>
+<h4>Did anyone change their mind about who to vote for? {{ object.question_one }}</h4>
+<h4>What would've improved the quality of the discussion? {{ object.question_one }}</h4>
 {% endblock %}

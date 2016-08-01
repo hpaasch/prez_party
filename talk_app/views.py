@@ -59,7 +59,6 @@ class CreateAccountView(CreateView):
     model = User
     form_class = UserCreationForm
     success_url = reverse_lazy('login')
-    # add explanation
 
 class ProfileView(ListView):
     model = Profile
@@ -94,6 +93,7 @@ class PunditTweetListView(ListView):
         party = DinnerParty.objects.get(id=party_id)
         top_tweets = popular_tweets(party.pundit.twt_username)
         context = {
+            'pundit': party.pundit.twt_username,
             'party_id': party_id,
             'popular_tweets': top_tweets,
             }

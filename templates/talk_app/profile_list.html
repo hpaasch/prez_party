@@ -19,10 +19,10 @@
             <dd class="list"><h4>Friends: </h4>{{ party.friend_names }}</dd>
             <dd class="list"><h4>Friend mix: </h4>{{ party.friend_mix }} {{ party.host }}</dd>
           </dl>
-          {% if party.survey == None %}
+          {% if party.question_one == None %}
           <a href="{% url 'pundit_tweet_list_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Start this party!</a>
           {% endif %}
-          {% if party.survey != None %}
+          {% if party.question_one != None %}
           <a href="{% url 'survey_detail_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Review party survey</a>
           {% endif %}
         </div>

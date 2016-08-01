@@ -67,9 +67,7 @@ class ProfileView(ListView):
     def get_queryset(self):
         return DinnerParty.objects.filter(host=self.request.user)
 
-    # HTML shows all profile fields: occupation, age, city, state, email, registered and affliation.
-    # buttons  switch out to review the survey instead of start party
-
+    # HTML: show all profile fields: occupation, age, city, state, email, registered and affliation.
 
 class DinnerPartyCreateView(CreateView):
     template_name = 'party_create.html'
@@ -358,8 +356,45 @@ class LocalFinanceDeepListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
+
+        x_api_key = os.environ["x_api_key"]
+
+        headers = {
+            "X-API-Key": x_api_key
+            }
+        state = 'NC'
+        # get input
+        zips = 28037
+        zip_code = self.request.GET.get('zip')
+        if zip_code:
+            state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(state)
+            zip_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/zips/{}.json'.format(zip_code)
+            state_response = requests.get(state_url, headers=headers).json()
+            zip_response = requests.get(zip_url, headers=headers).json()
+            state_results = state_response['results']
+            zip_results = zip_response['results']
+            state_total = 0
+            zip_total = 0
+            for item in state_results:
+                state_total += float(item['total'])
+                StateFinance.objects.update_or_create(
+                    full_name=item['full_name'],
+                    candidate=item['candidate'],
+                    party=item['party'],
+                    total=item['total'],
+                    contribution_count=item['contribution_count'],
+                    state=item['state'],
+                    )
+        nc_total = StateFinance.objects.filter(state='NC').aggregate(Sum('total'))
+        sc_total = StateFinance.objects.filter(state='SC').aggregate(Sum('total'))
+        clinton_list = StateFinance.objects.filter(full_name='Hillary Clinton')
+        trump_list = StateFinance.objects.filter(full_name='Donald J. Trump')
         context = {
             'party_id': party_id,
+            'nc_total': nc_total,
+            'sc_total': sc_total,
+            'clinton_list': clinton_list,
+            'trump_list': trump_list,
             }
         return context
 

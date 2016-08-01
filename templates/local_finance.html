@@ -8,11 +8,23 @@
     </div>
   </div>
 </div>
-<h2>See how much the candidates raised in your ZIP Code.</h2>
+<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought"> Something about local money
+ </h4>
+ <div class="row">
 
-<h3>Talk it over:</h3>
-
-  <h4>zip code lookup to come here</h3>
+ <div class="talk col-sm-6">
+     <h3>Talk It Over: In your own area</h3>
+       <ol>
+         <li>What surprises you about the money that's been raised?</li>
+         <li>Do you have concerns about how money is raised?</li>
+         <li>Trump loaned his campaign $45 million. Clinton loaned her's zero. How should candidates use personal wealth?</li>
+       </ol>
+   </div>
+ </div>
+ <form>
+    <input type="number" name="zip">
+    <input type="submit" value="Zip lookup">
+  </form>
   <div class="row">
     <div class="next2 col-md-12">
       <a href='{% url 'candidate_keynote_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>

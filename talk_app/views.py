@@ -363,8 +363,6 @@ class LocalFinanceDeepListView(ListView):
             "X-API-Key": x_api_key
             }
         state = 'NC'
-        # get input
-        zips = 28037
         zip_code = self.request.GET.get('zip')
         if zip_code:
             zip_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/zips/{}.json'.format(zip_code)
@@ -400,15 +398,14 @@ class LocalFinanceDeepListView(ListView):
         #             contribution_count=item['contribution_count'],
         #             state=item['state'],
         #             )
-        # zip_report = ZIPFinance.objects.filter(zip_code=zip_code)
+        zip_report = ZIPFinance.objects.filter(zip_code=zip_code)
         # zip_total = ZIPFinance.objects.filter(zip_code=zip_code).aggregate(Sum('total'))
         # state_report = ZIPFinance.objects.filter(state=state)
         # state_total = ZIPFinance.objects.filter(state=state).aggregate(Sum('total'))
-        couch = 'soft'
         context = {
-            'couch': couch,
-            # 'zip_report': zip_report,
-            # 'zip_total': zip_total,
+            'zip_code': zip_code, # returning the get
+            'zip_report': zip_report,  # list
+            'zip_total': zip_total,  # a number
             # 'state_report': state_report,
             # 'state_total': state_total,
             }

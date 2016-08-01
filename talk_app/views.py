@@ -362,15 +362,15 @@ class LocalFinanceDeepListView(ListView):
         headers = {
             "X-API-Key": x_api_key
             }
-        state = 'NC'
         zip_code = self.request.GET.get('zip')
+        total = 0
         if zip_code:
+            total = 0
             zip_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/zips/{}.json'.format(zip_code)
             zip_response = requests.get(zip_url, headers=headers).json()
             zip_results = zip_response['results']
-            zip_total = 0
             for item in zip_results:
-                zip_total += float(item['total'])
+                total += float(item['total'])
                 ZIPFinance.objects.update_or_create(
                     full_name=item['full_name'],
                     candidate=item['candidate'],
@@ -379,34 +379,33 @@ class LocalFinanceDeepListView(ListView):
                     contribution_count=item['contribution_count'],
                     zip_code=item['zip'],
                     )
-        # if state:
-        #     state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(state)
-        #     zip_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/zips/{}.json'.format(zip_code)
-        #     state_response = requests.get(state_url, headers=headers).json()
-        #     zip_response = requests.get(zip_url, headers=headers).json()
-        #     state_results = state_response['results']
-        #     zip_results = zip_response['results']
-        #     state_total = 0
-        #     zip_total = 0
-        #     for item in state_results:
-        #         state_total += float(item['total'])
-        #         StateFinance.objects.update_or_create(
-        #             full_name=item['full_name'],
-        #             candidate=item['candidate'],
-        #             party=item['party'],
-        #             total=item['total'],
-        #             contribution_count=item['contribution_count'],
-        #             state=item['state'],
-        #             )
+
+        state = self.request.GET.get('state')
+        # state_total = 0
+        if state:
+            total = 0
+            state = state.upper()
+            state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(state)
+            state_response = requests.get(state_url, headers=headers).json()
+            state_results = state_response['results']
+            for item in state_results:
+                total += float(item['total'])
+                StateFinance.objects.update_or_create(
+                    full_name=item['full_name'],
+                    candidate=item['candidate'],
+                    party=item['party'],
+                    total=item['total'],
+                    contribution_count=item['contribution_count'],
+                    state=item['state'],
+                    )
         zip_report = ZIPFinance.objects.filter(zip_code=zip_code)
-        # zip_total = ZIPFinance.objects.filter(zip_code=zip_code).aggregate(Sum('total'))
-        # state_report = ZIPFinance.objects.filter(state=state)
-        # state_total = ZIPFinance.objects.filter(state=state).aggregate(Sum('total'))
+        state_report = StateFinance.objects.filter(state=state)
         context = {
             'zip_code': zip_code, # returning the get
             'zip_report': zip_report,  # list
-            'zip_total': zip_total,  # a number
-            # 'state_report': state_report,
+            'total': total,  # a number
+            'state': state,
+            'state_report': state_report,
             # 'state_total': state_total,
             }
         return context

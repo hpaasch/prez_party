@@ -367,34 +367,50 @@ class LocalFinanceDeepListView(ListView):
         zips = 28037
         zip_code = self.request.GET.get('zip')
         if zip_code:
-            state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(state)
             zip_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/zips/{}.json'.format(zip_code)
-            state_response = requests.get(state_url, headers=headers).json()
             zip_response = requests.get(zip_url, headers=headers).json()
-            state_results = state_response['results']
             zip_results = zip_response['results']
-            state_total = 0
             zip_total = 0
-            for item in state_results:
-                state_total += float(item['total'])
-                StateFinance.objects.update_or_create(
+            for item in zip_results:
+                zip_total += float(item['total'])
+                ZIPFinance.objects.update_or_create(
                     full_name=item['full_name'],
                     candidate=item['candidate'],
                     party=item['party'],
                     total=item['total'],
                     contribution_count=item['contribution_count'],
-                    state=item['state'],
+                    zip_code=item['zip'],
                     )
-        nc_total = StateFinance.objects.filter(state='NC').aggregate(Sum('total'))
-        sc_total = StateFinance.objects.filter(state='SC').aggregate(Sum('total'))
-        clinton_list = StateFinance.objects.filter(full_name='Hillary Clinton')
-        trump_list = StateFinance.objects.filter(full_name='Donald J. Trump')
+        # if state:
+        #     state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(state)
+        #     zip_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/zips/{}.json'.format(zip_code)
+        #     state_response = requests.get(state_url, headers=headers).json()
+        #     zip_response = requests.get(zip_url, headers=headers).json()
+        #     state_results = state_response['results']
+        #     zip_results = zip_response['results']
+        #     state_total = 0
+        #     zip_total = 0
+        #     for item in state_results:
+        #         state_total += float(item['total'])
+        #         StateFinance.objects.update_or_create(
+        #             full_name=item['full_name'],
+        #             candidate=item['candidate'],
+        #             party=item['party'],
+        #             total=item['total'],
+        #             contribution_count=item['contribution_count'],
+        #             state=item['state'],
+        #             )
+        # zip_report = ZIPFinance.objects.filter(zip_code=zip_code)
+        # zip_total = ZIPFinance.objects.filter(zip_code=zip_code).aggregate(Sum('total'))
+        # state_report = ZIPFinance.objects.filter(state=state)
+        # state_total = ZIPFinance.objects.filter(state=state).aggregate(Sum('total'))
+        couch = 'soft'
         context = {
-            'party_id': party_id,
-            'nc_total': nc_total,
-            'sc_total': sc_total,
-            'clinton_list': clinton_list,
-            'trump_list': trump_list,
+            'couch': couch,
+            # 'zip_report': zip_report,
+            # 'zip_total': zip_total,
+            # 'state_report': state_report,
+            # 'state_total': state_total,
             }
         return context
 

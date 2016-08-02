@@ -8,7 +8,21 @@
       </div>
     </div>
   </div>
-  
+  <p>Occupation: {{ occupation }}</p>
+  <p>Age: {{ age }}</p>
+  <p>Registered to vote: {{ registered }}</p>
+  <p>Affiliation: {{ affiliation }}</p>
+  <p>Email: {{ email }}</p>
+  <p>City: {{ city }}</p>
+  <p>State: {{ state }}</p>
+  <p></p>
+
+
+
+
+</p>
+  <a class='btn btn-primary' role='button' href="{% url 'profile_update_view' %}">Update profile</a>
+
   {% for party in object_list %}
     <div class="partylist">
       <div class="wrapper">

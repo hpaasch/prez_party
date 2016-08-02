@@ -66,7 +66,40 @@ class ProfileView(ListView):
     def get_queryset(self):
         return DinnerParty.objects.filter(host=self.request.user)
 
-    # HTML: show all profile fields: occupation, age, city, state, email, registered and affliation.
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["user"] = self.request.user
+        context["occupation"] = self.request.user.profile.occupation
+        context["age"] = self.request.user.profile.age
+        context["city"] = self.request.user.profile.city
+        context["state"] = self.request.user.profile.state
+        context["email"] = self.request.user.profile.email
+        context["registered"] = self.request.user.profile.registered
+        context["affiliation"] = self.request.user.profile.affiliation
+        return context
+
+
+class ProfileUpdateView(UpdateView):
+    # model = Profile
+    # template_name = 'talk_app/profile_update.html'
+    success_url = reverse_lazy('profile_view')
+    fields = ['occupation', 'age', 'affiliation', 'registered', 'email', 'city', 'state']
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["profile_form"] = EmployeeProfileUpdateForm(initial={
+    #         "nickname": self.request.user.employeeprofile.nickname,
+    #         "role": self.request.user.employeeprofile.role,
+    #         "preferred_language": self.request.user.employeeprofile.preferred_language,
+    #         })
+    #     return context
+
 
 class DinnerPartyCreateView(CreateView):
     template_name = 'party_create.html'

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <form class="" action="" method="post">
+{% csrf_token %}
+<p>{{ form.occupation }}</p>
+<p>{{ form.age }}</p>
+<p>{{ form.affiliation}}</p>
+<p>{{ form.registered}}</p>
+<p>{{ form.email }}</p>
+<p>{{ form.city }}</p>
+<p>{{ form.state }}</p>
+<input type="submit" name="profile_update" value="Update profile">
+  </form>
+{% endblock %}

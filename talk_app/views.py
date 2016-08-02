@@ -102,10 +102,6 @@ class CandidateKeynoteView(TemplateView):
     model = DinnerParty
     template_name = 'keynote.html'
 
-    # def get_queryset(self):
-    #     # dinnerparty candidate video_one
-    #     return DinnerParty.objects.filter(candidate__name='Donald Trump')
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
@@ -116,15 +112,13 @@ class CandidateKeynoteView(TemplateView):
 
 
 class VideoListView(ListView):
-    model = Video
-    template_name = 'video_list.html'
-
-    # def get_queryset(self):
-    #     keynote = DinnerParty.objects.get()
+    model = Candidate
+    template_name = 'talk_app/video_list.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
+
         clinton = self.request.GET.get('clinton')
         trump = self.request.GET.get('trump')
         pundit = self.request.GET.get('pundit')
@@ -145,13 +139,15 @@ class VideoListView(ListView):
             video = 'pundit'
             url = pundit_url
 
-        photos = Candidate.objects.all()
+        candidates = Candidate.objects.all()
+        pundits = Pundit.objects.all()
         context = {
             'party_id': party_id,
             'candidates': candidates,
-            'video': video,
-            'url': url,
-            'photos': photos,
+            'pundits': pundits,
+            # 'video': video,
+            # 'url': url,
+            # 'photos': photos,
             }
         return context
 

@@ -9,46 +9,39 @@
     </div>
   </div>
 </div>
-  <h2>Watch more videos. VIEW CODE UNDERWAY</h2>
+  <h2>Candidates and their running mates, plus commentators</h2>
 <div class="row">
     {% for candidate in candidates %}
-       {% if candidate.office == 'President' %}
-        <div class="col-md-2">
-          <div class="thumbnail">
-            <img  src=" {{ candidate.photo_url }}" alt="">
+
+        <div class="col-md-6 col-md-4">
+          <div class="gallery">
+            <iframe class="embed-responsive-item" src={{ candidate.video_two }} allowfullscreen></iframe>
             <div class="caption">
-              <h5>
-                {{ candidate.name }} -- {{ candidate.affiliation }}
-                <br>
-                {{ candidate.video_two}}
-              </h5>
+              <h5>{{ candidate.name }}</h5>
+              <h6>{{ candidate.affiliation }} for {{ candidate.office }}</h6>
+              <p>
+                ------------------------------
+              </p>
             </div>
           </div>
         </div>
-      {% endif %}
     {% endfor %}
-    </div>
-    <form class="" action="" >
-      <input class='btn btn-primary' type="submit" name="clinton" value="Clinton">
-      <input class='btn btn-primary' type="submit" name="trump" value="Trump">
-      <input class='btn btn-primary' type="submit" name="pundit" value="Pundit">
-    </form>
-
-    <br>
-
-    <div class="embed-responsive embed-responsive-16by9">
-    {% if video == 'clinton' %}
-    <iframe class="embed-responsive-item" src={{ url }} ></iframe>
-    {% endif %}
-
-    {% if video == 'trump'  %}
-    <iframe class="embed-responsive-item" src={{ url }} ></iframe>
-    {% endif %}
-
-    {% if video == 'pundit'  %}
-    <iframe class="embed-responsive-item" src={{ url }} ></iframe>
-    {% endif %}
-    </div>
+    <h2>Commentators</h2>
+    {% for pundit in pundits %}
+        <div class="col-md-6 col-md-4">
+          <div class="gallery">
+            <iframe class="embed-responsive-item" src={{ pundit.video_one }} allowfullscreen></iframe>
+            <div class="caption">
+              <h5>{{ pundit.name }}</h5>
+              <h6>Leans: {{ pundit.affiliation }}</h6>
+              <h6>Platforms: {{ pundit.employer }}</h6>
+              <p>
+                ------------------------------
+              </p>
+            </div>
+          </div>
+        </div>
+    {% endfor %}
     <div class="row">
       <div class="next2 col-md-12">
         <a href='{% url 'popular_tweet_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>

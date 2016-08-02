@@ -358,13 +358,16 @@ class LocalFinanceDeepListView(ListView):
         party_id = self.kwargs.get('pk', None)
 
         x_api_key = os.environ["x_api_key"]
-
         headers = {
             "X-API-Key": x_api_key
             }
+
         zip_code = self.request.GET.get('zip')
         total = 0
+        place = 'this place'
+        report = []
         if zip_code:
+            place = zip_code
             total = 0
             zip_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/zips/{}.json'.format(zip_code)
             zip_response = requests.get(zip_url, headers=headers).json()
@@ -379,13 +382,14 @@ class LocalFinanceDeepListView(ListView):
                     contribution_count=item['contribution_count'],
                     zip_code=item['zip'],
                     )
+            report = ZIPFinance.objects.filter(zip_code=zip_code)
 
         state = self.request.GET.get('state')
-        # state_total = 0
         if state:
             total = 0
             state = state.upper()
-            state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(state)
+            place = state
+            state_url = 'https://api.propublica.org/campaign-finance/v1/2016/president/states/{}.json'.format(place)
             state_response = requests.get(state_url, headers=headers).json()
             state_results = state_response['results']
             for item in state_results:
@@ -398,15 +402,12 @@ class LocalFinanceDeepListView(ListView):
                     contribution_count=item['contribution_count'],
                     state=item['state'],
                     )
-        zip_report = ZIPFinance.objects.filter(zip_code=zip_code)
-        state_report = StateFinance.objects.filter(state=state)
+            report = StateFinance.objects.filter(state=state)
         context = {
-            'zip_code': zip_code, # returning the get
-            'zip_report': zip_report,  # list
-            'total': total,  # a number
-            'state': state,
-            'state_report': state_report,
-            # 'state_total': state_total,
+            'place': place,
+            'report': report,
+            'total': total,
+            'party_id': party_id,
             }
         return context
 

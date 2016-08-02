@@ -25,12 +25,16 @@
    <div class="col-sm-5">
      <form>
         <input type="number" name="zip" maxlength="5">
-        <input type="submit" value="ZIP LookUp">
+        <input type="submit" value="ZIP LookUp"> (5 digits, such as 76067)
       </form>
      <br>
+     <form>
+        <input type="text" name="state" maxlength="2">
+        <input type="submit" value="State LookUp"> (2-letter abbreviation)
+      </form>
      <div>
-      <h3>Amount raised in {{ zip_code }}: ${{ total|floatformat:0 }}</h3>
-        {% for candidate in zip_report %}
+       <h3>Amount raised in {{ place }}: ${{ total|floatformat:0 }}</h3>
+        {% for candidate in report %}
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title">{{ candidate.full_name }}, {{ candidate.party }}</h3>
@@ -42,32 +46,9 @@
         {% endfor %}
      </div>
    </div>
- </div>
-  <div class="col-lg-5">
-    <form>
-       <input type="text" name="state" maxlength="2">
-       <input type="submit" value="State LookUp">
-     </form>
-    <br>
-    <div>
-     <h3>Amount raised in {{ state }}: ${{ total|floatformat:0 }}</h3>
-       {% for candidate in state_report %}
-       <div class="panel panel-default">
-         <div class="panel-heading">
-           <h3 class="panel-title">{{ candidate.full_name }}, {{ candidate.party }}</h3>
-         </div>
-         <div class="panel-body">
-           <h4>${{ candidate.total|floatformat:0 }}</h4>
-         </div>
-       </div>
-       {% endfor %}
-    </div>
-  </div>
-
-
   <div class="row">
     <div class="next2 col-md-12">
-      <a href='#'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+      <a href='{% url 'candidate_keynote_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
     </div>
   </div>
 {% endblock %}

@@ -10,46 +10,114 @@
     </div>
   </div>
 </div>
-<h1>TWEETS All the presidential tweets</h1>
+<h2>Popular tweets from candidates, running mates and commentators</h2>
+   <div class="row">
+       <div class="col-md-2">
+         {% for candidate in candidates %}
+            {% if candidate.office == 'President' %}
+
+         <div class="thumbnail">
+           <img src=" {{ candidate.photo_url }}" alt="">
+           <div class="caption">
+             <form class="" action="" >
+               <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
+             </form>
+               <h6>{{ candidate.affiliation }} for {{ candidate.office }}</h6>
+           </div>
+         </div>
+         {% endif %}
+       {% endfor %}
+
+       </div>
+   {% for candidate in candidates %}
+      {% if candidate.office == 'VP' %}
+       <div class="col-md-2">
+         <div class="thumbnail">
+           <img src=" {{ candidate.photo_url }}" alt="">
+           <div class="caption">
+             <form class="" action="" >
+               <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
+             </form>
+               <h6>{{ candidate.affiliation }} for {{ candidate.office }}</h6>
+           </div>
+         </div>
+       </div>
+     {% endif %}
+   {% endfor %}
+   {% for pundit in pundits %}
+       <div class="col-md-2">
+         <div class="thumbnail">
+           <img src=" {{ pundit.photo_url }}" alt="">
+           <div class="caption">
+             <form class="" action="" >
+               <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ pundit.twt_username }}">
+             </form>
+             <h6>Leans: {{ pundit.affiliation }}</h6>
+             <h6>Platforms: {{ pundit.employer }}</h6>
+            </div>
+         </div>
+       </div>
+   {% endfor %}
+   </div>
+
+
+
+
+{% autoescape off %}
+  {% for tweet in popular_tweets %}
+   {{ tweet }}
+  {% endfor %}
+{% endautoescape %}
 <div class="row">
   <div class="next2 col-md-12">
     <a href='{% url 'survey_create_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
   </div>
 </div>
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      {% for tweet in object_list %}
-           <div class="panel-heading">
-             <h3 class="panel-title">{{ tweet.username }} {{ tweet.created_at }}
-               {% timezone 'America/New_York' %} {{ tweet.created|time:"g:iA"|lower }} {% endtimezone %} EST
-             </h3>
-           </div>
-             <div class="panel-body">
-               <p>{{ tweet.text }}</p>
-             </div>
-       {% endfor %}
-     </div>
-   </div>
-   <h4>Click on a candidate to see their Top 5 most popular.</h4>
-      <div class="row">
-      {% for candidate in candidates %}
-         {% if candidate.office == 'President' %}
-          <div class="col-md-2">
-            <div class="thumbnail">
-              <img class="img-circle" src=" {{ candidate.photo_url }}" alt="">
-              <div class="caption">
-                <form class="" action="" >
-                  <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
-                </form>
-                <h5>
-                  {{ candidate.affiliation }}
-                </h5>
-              </div>
-            </div>
-          </div>
-        {% endif %}
-      {% endfor %}
-      </div>
-   <h6>(NOTE: Tweets are ranked with most popular at the top. Retweets and Likes are combined to give an overall measure)</h6>
-
 {% endblock %}
+<h4>Click on a candidate to see their Top 5 most popular.</h4>
+   <div class="row">
+   {% for candidate in candidates %}
+      {% if candidate.office == 'President' %}
+       <div class="col-md-2">
+         <div class="thumbnail">
+           <img class="img-circle" src=" {{ candidate.photo_url }}" alt="">
+           <div class="caption">
+             <form class="" action="" >
+               <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
+             </form>
+             <h5>
+               {{ candidate.affiliation }}
+             </h5>
+           </div>
+         </div>
+       </div>
+     {% endif %}
+   {% endfor %}
+   </div>
+   <h1>Click to view more popular tweets</h1>
+   <h6>(NOTE: Tweets are ranked with most popular at the top. Retweets and Likes are combined to give an overall measure)</h6>
+   <div class="row">
+     {% if candidates.name == 'Hillary Clinton' %}
+     <div class="col-sm-6 col-md-4">
+       <div class="thumbnail">
+         <img src="{{ clinton.photo_url }}" alt="...">
+         <div class="caption">
+           <h3>{{ candidates.name }}</h3>
+           <p>{{ candidates.party }}</p>
+           <p>   <form class="" action="" >
+            <input type="submit" name="clinton" value="Popular Tweets">
+          </form>   </p>
+         </div>
+       </div>
+     </div>
+     {% endif %}
+   </div>
+
+
+
+    <form class="" action="" >
+
+     <input type="submit" name="clinton" value="Popular Tweets">
+     <input type="submit" name="trump" value="Trump">
+     <input type="submit" name="stein" value="Stein">
+   </form>

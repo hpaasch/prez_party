@@ -408,8 +408,36 @@ class TweetListView(ListView):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
 
-        party = DinnerParty.objects.get(id=party_id)
-        top_tweets = popular_tweets(party.candidate.twt_username)
+        # clinton = self.request.GET.get('clinton')
+        # kaine = self.request.GET.get('kaine')
+        # trump = self.request.GET.get('trump')
+        # pence = self.request.GET.get('pence')
+        # stein = self.request.GET.get('stein')
+        # baraka = self.request.GET.get('baraka')
+        # johnson = self.request.GET.get('johnson')
+        # weld = self.request.GET.get('weld')
+        # tweeter = ''
+        top_tweets = []
+        # if self.request.GET.get('clinton'):
+        #     tweeter = 'HillaryClinton'
+        # if self.request.GET.get('kaine'):
+        #     tweeter = ''
+        # if self.request.GET.get('trump'):
+        #     tweeter = ''
+        # if self.request.GET.get('pence'):
+        #     tweeter = ''
+        # if self.request.GET.get('stein'):
+        #     tweeter = ''
+        # if self.request.GET.get('baraka'):
+        #     tweeter = ''
+        # if self.request.GET.get('johnson'):
+        #     tweeter = ''
+        # if self.request.GET.get('weld'):
+        #     tweeter = ''
+        candidate = self.request.GET.get('candidate')
+        if candidate:
+            candidate = candidate[1:]
+            top_tweets = popular_tweets(candidate)
         candidates = Candidate.objects.all()
         pundits = Pundit.objects.all()
         context = {

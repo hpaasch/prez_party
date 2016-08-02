@@ -135,7 +135,17 @@ class DinnerPartyUpdateView(UpdateView):
             'question_four', 'question_five', 'question_six', 'question_seven']
     widgets = {'question_one': forms.RadioSelect, 'question_two': forms.RadioSelect}
     success_url = reverse_lazy('party_over_view')
+    # success_url = reverse_lazy('party_over_view',args=(pk))
 
+    # def get_success_url(self, **kwargs):
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     party_id = self.kwargs.get('pk', None)
+    #     context = {
+    #         'party_id': party_id,
+    #         }
+    #     return context
     # def form_valid(self, form):
     #     quiz = form.save(commit=False)  #  half saves it
     #     quiz.host = self.request.user  #  attaches the user in the DB
@@ -407,33 +417,7 @@ class TweetListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         party_id = self.kwargs.get('pk', None)
-
-        # clinton = self.request.GET.get('clinton')
-        # kaine = self.request.GET.get('kaine')
-        # trump = self.request.GET.get('trump')
-        # pence = self.request.GET.get('pence')
-        # stein = self.request.GET.get('stein')
-        # baraka = self.request.GET.get('baraka')
-        # johnson = self.request.GET.get('johnson')
-        # weld = self.request.GET.get('weld')
-        # tweeter = ''
         top_tweets = []
-        # if self.request.GET.get('clinton'):
-        #     tweeter = 'HillaryClinton'
-        # if self.request.GET.get('kaine'):
-        #     tweeter = ''
-        # if self.request.GET.get('trump'):
-        #     tweeter = ''
-        # if self.request.GET.get('pence'):
-        #     tweeter = ''
-        # if self.request.GET.get('stein'):
-        #     tweeter = ''
-        # if self.request.GET.get('baraka'):
-        #     tweeter = ''
-        # if self.request.GET.get('johnson'):
-        #     tweeter = ''
-        # if self.request.GET.get('weld'):
-        #     tweeter = ''
         candidate = self.request.GET.get('candidate')
         if candidate:
             candidate = candidate[1:]
@@ -450,3 +434,11 @@ class TweetListView(ListView):
 
 class PartyOverView(TemplateView):
     template_name = 'party_over.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        party_id = self.kwargs.get('pk', None)
+        context = {
+            'party_id': party_id,
+            }
+        return context

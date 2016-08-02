@@ -12,24 +12,15 @@
   <div class="form-group">
   {% csrf_token %}
   <ol>
-    <li>{{ form.question_one }}</li>
-    <li>{{ form.question_two }}</li>
-    <li>{{ form.question_three }}</li>
-    <li>{{ form.question_four }}</li>
-    <li>{{ form.question_five }}</li>
-    <li>{{ form.question_six }}</li>
-    <li>{{ form.question_seven }}</li>
+    <li>Overall discussion intensity: {{ form.question_one }}</li>
+    <li>Topic with the best discussion: {{ form.question_two }}</li>
+    <li>This part helped people talk the most: {{ form.question_three }}</li>
+    <li>What made you laugh? What made you angry? {{ form.question_four }}</li>
+    <li>Something we learned: {{ form.question_five }}</li>
+    <li>Did anyone change their mind about an issue or candidate? {{ form.question_six }}</li>
+    <li>What would've improved the quality of the discussion? {{ form.question_seven }}</li>
   </ol>
   <input class='partybtn btn' type="submit" name="video_quiz" value="We're done!">
 </div>
 </form>
 {% endblock %}
-
-dinner
-host
-discussion_intensity
-change_mind
-what_changed
-made_choice
-who_choose
-top_topic

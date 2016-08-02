@@ -60,9 +60,6 @@
    {% endfor %}
    </div>
 
-
-
-
 {% autoescape off %}
   {% for tweet in popular_tweets %}
    {{ tweet }}
@@ -74,50 +71,3 @@
   </div>
 </div>
 {% endblock %}
-<h4>Click on a candidate to see their Top 5 most popular.</h4>
-   <div class="row">
-   {% for candidate in candidates %}
-      {% if candidate.office == 'President' %}
-       <div class="col-md-2">
-         <div class="thumbnail">
-           <img class="img-circle" src=" {{ candidate.photo_url }}" alt="">
-           <div class="caption">
-             <form class="" action="" >
-               <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
-             </form>
-             <h5>
-               {{ candidate.affiliation }}
-             </h5>
-           </div>
-         </div>
-       </div>
-     {% endif %}
-   {% endfor %}
-   </div>
-   <h1>Click to view more popular tweets</h1>
-   <h6>(NOTE: Tweets are ranked with most popular at the top. Retweets and Likes are combined to give an overall measure)</h6>
-   <div class="row">
-     {% if candidates.name == 'Hillary Clinton' %}
-     <div class="col-sm-6 col-md-4">
-       <div class="thumbnail">
-         <img src="{{ clinton.photo_url }}" alt="...">
-         <div class="caption">
-           <h3>{{ candidates.name }}</h3>
-           <p>{{ candidates.party }}</p>
-           <p>   <form class="" action="" >
-            <input type="submit" name="clinton" value="Popular Tweets">
-          </form>   </p>
-         </div>
-       </div>
-     </div>
-     {% endif %}
-   </div>
-
-
-
-    <form class="" action="" >
-
-     <input type="submit" name="clinton" value="Popular Tweets">
-     <input type="submit" name="trump" value="Trump">
-     <input type="submit" name="stein" value="Stein">
-   </form>

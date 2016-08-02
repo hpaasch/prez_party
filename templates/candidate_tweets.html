@@ -9,25 +9,23 @@
     </div>
   </div>
 </div>
-<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought">They all tweet. But what do they really say?</h4>
+<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought">Social media comments
+      can provoke or chastise or challenge. These are the most popular recent ones.</h4>
 <div class="row">
-
   <div class="talk col-sm-6">
-    <h3>Talk it over:</h3>
+    <h3>Talk it over: @{{ candidate }} on twitter</h3>
     <ol>
-      <li>Do you usually follow Twitter comments by candidates?</li>
-      <li>Describe the tone of comments?</li>
-      <li>How can this help shape voting?</li>
+      <li>Do you get any political news from social media?</li>
+      <li>Describe the tone of comments that you like the most.</li>
+      <li>How can social media improve decision-making?</li>
     </ol>
   </div>
 </div>
-
   {% autoescape off %}
     {% for tweet in popular_tweets %}
      {{ tweet }}
     {% endfor %}
   {% endautoescape %}
-
 <h3><a href="{% url 'tweet_list_view' party_id %}">Optional deep dive:</a> See more popular tweets from other candidates</h3>
 <div class="row">
   <div class="next2 col-md-12">

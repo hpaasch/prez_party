@@ -13,8 +13,7 @@ import requests
 import os
 
 from talk_app.models import (Tweet, Candidate, DinnerParty, Pundit, USFinance,
-                            StateFinance, ZIPFinance, Survey, Profile, Video)
-from talk_app.forms import VideoForm
+                            StateFinance, ZIPFinance, Profile)
 
 
 def popular_tweets(tweeter):

@@ -88,48 +88,6 @@ class Profile(models.Model):
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20, null=True, blank=True)
 
 
-# NOT USED YET
-class Video(models.Model):
-    name = models.CharField(max_length=30)
-    url = models.URLField()
-    host = models.ForeignKey('auth.User')
-
-    def __str__(self):
-        return self.name
-
-
-# NOT USED YET
-class Question(models.Model):
-    question_type = models.CharField(max_length=30)  # choices to come.
-    intensity = models.CharField(max_length=20)
-    wonk_level = models.CharField(max_length=20)
-    category = models.CharField(max_length=30)
-    text = models.TextField(null=True, blank=True)
-
-# NOT USED YET
-class Survey(models.Model):
-    DISCUSSION_CHOICES = (
-        (DEEP, 'Deep'),
-        (MEDIUM, 'Medium'),
-        (SHALLOW, 'Shallow'),
-    )
-    TOPIC_CHOICES = (
-        (VALUES, 'Values'),
-        (POLICY, 'Policy'),
-        (PERSONAL_QUALITIES, 'Personal qualities'),
-    )
-    host = models.ForeignKey('auth.User')
-    discussion_intensity = models.CharField(choices=DISCUSSION_CHOICES, default=MEDIUM, max_length=40)
-    change_mind = models.BooleanField()
-    what_changed = models.TextField(null=True, blank=True)
-    made_choice = models.BooleanField()
-    who_choose = models.TextField(null=True, blank=True)
-    top_topic = models.CharField(choices=TOPIC_CHOICES, default=POLICY, max_length=40)
-
-    def __str__(self):
-        return str(self.host)
-
-
 class DinnerParty(models.Model):
     DISCUSSION_CHOICES = (
         (DEEP, 'Deep'),

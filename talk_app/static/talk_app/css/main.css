@@ -18,6 +18,10 @@ body{
   margin: 0;
 }
 
+.thumbnail{
+  height: 300px;
+}
+
 div.container-fluid{
   padding-left: 0;
   padding-right: 0;
@@ -46,6 +50,20 @@ div.container-fluid{
   background-color: #d33d3d;
   border-color: #d33d3d;
   color: white;
+}
+
+.imgwrapper2{
+  height: 180px;
+  overflow: hidden;
+}
+
+.imgwrapper2 img{
+  width: 100%;
+}
+
+.photo{
+  height: 100px;
+  overflow: hidden;
 }
 
 .partybtnblue{

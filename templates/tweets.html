@@ -11,13 +11,15 @@
   </div>
 </div>
 <h2>Popular tweets from candidates, running mates and commentators</h2>
-   <div class="row">
-       <div class="col-md-2">
+   <div class="col-lg-4">
+       <div class="col-lg-6">
          {% for candidate in candidates %}
             {% if candidate.office == 'President' %}
 
          <div class="thumbnail">
-           <img src=" {{ candidate.photo_url }}" alt="">
+           <div class="imgwrapper2">
+             <img src=" {{ candidate.photo_url }}" alt="">
+           </div>
            <div class="caption">
              <form class="" action="" >
                <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
@@ -29,11 +31,14 @@
        {% endfor %}
 
        </div>
+
    {% for candidate in candidates %}
       {% if candidate.office == 'VP' %}
-       <div class="col-md-2">
+       <div class="col-lg-6">
          <div class="thumbnail">
-           <img src=" {{ candidate.photo_url }}" alt="">
+           <div class="imgwrapper2">
+             <img src=" {{ candidate.photo_url }}" alt="">
+           </div>
            <div class="caption">
              <form class="" action="" >
                <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ candidate.twt_username }}">
@@ -45,9 +50,11 @@
      {% endif %}
    {% endfor %}
    {% for pundit in pundits %}
-       <div class="col-md-2">
+       <div class="col-lg-6">
          <div class="thumbnail">
-           <img src=" {{ pundit.photo_url }}" alt="">
+           <div class="imgwrapper2">
+             <img src=" {{ pundit.photo_url }}" alt="">
+           </div>
            <div class="caption">
              <form class="" action="" >
                <input class='btn btn-primary btn-xs' type="submit" name="candidate" value="@{{ pundit.twt_username }}">
@@ -60,11 +67,14 @@
    {% endfor %}
    </div>
 
+<div class="col-lg-offset-1 col-lg-6">
 {% autoescape off %}
   {% for tweet in popular_tweets %}
    {{ tweet }}
   {% endfor %}
 {% endautoescape %}
+</div>
+
 <div class="row">
   <div class="next2 col-md-12">
     <a href='{% url 'survey_create_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>

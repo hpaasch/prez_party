@@ -36,6 +36,6 @@ urlpatterns = [
     url(r'^video/candidate/(?P<pk>\d+)/$', CandidateKeynoteView.as_view(), name='candidate_keynote_view'),
     url(r'^survey/(?P<pk>\d+)/$', DinnerPartyUpdateView.as_view(), name='survey_create_view'),
     url(r'^survey/review/(?P<pk>\d+)/$', SurveyDetailView.as_view(), name='survey_detail_view'),
-    url(r'^party/over/$', PartyOverView.as_view(), name='party_over_view'),
+    url(r'^party/over/(?P<pk>\d+)/$', PartyOverView.as_view(), name='party_over_view'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

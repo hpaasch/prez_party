@@ -154,10 +154,12 @@ class DinnerPartyUpdateView(UpdateView):
     fields = ['question_one', 'question_two', 'question_three',
             'question_four', 'question_five', 'question_six', 'question_seven']
     widgets = {'question_one': forms.RadioSelect, 'question_two': forms.RadioSelect}
-    success_url = reverse_lazy('party_over_view')
+    # success_url = reverse_lazy('party_over_view')
     # success_url = reverse_lazy('party_over_view',args=(pk))
 
-    # def get_success_url(self, **kwargs):
+    def get_success_url(self, **kwargs):
+        party_id = self.kwargs.get('pk', None)
+        return reverse_lazy('party_over_view', kwargs={'pk': party_id})
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
@@ -166,10 +168,6 @@ class DinnerPartyUpdateView(UpdateView):
     #         'party_id': party_id,
     #         }
     #     return context
-    # def form_valid(self, form):
-    #     quiz = form.save(commit=False)  #  half saves it
-    #     quiz.host = self.request.user  #  attaches the user in the DB
-    #     return super().form_valid(form)  #  fully saves and creates
 
 
 class SurveyDetailView(DetailView):

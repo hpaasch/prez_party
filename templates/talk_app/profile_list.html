@@ -8,6 +8,9 @@
       </div>
     </div>
   </div>
+
+<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought">
+  Party host's profile:
   <p>Occupation: {{ occupation }}</p>
   <p>Age: {{ age }}</p>
   <p>Registered to vote: {{ registered }}</p>
@@ -15,13 +18,18 @@
   <p>Email: {{ email }}</p>
   <p>City: {{ city }}</p>
   <p>State: {{ state }}</p>
-  <p></p>
-
-
-
-
-</p>
   <a class='btn btn-primary' role='button' href="{% url 'profile_update_view' %}">Update profile</a>
+</h4>
+<div class="row">
+  <div class="talk col-sm-6">
+    <h3>Create and host discussion parties </h3>
+      <ol>
+        <li>Create a party. Invite friends and (virtually) a candidate and a commentator.</li>
+        <li>Start the party. We will walk you through Tweets, videos and campaign finance.</li>
+        <li>Review your party. A quick survey for you to keep.</li>
+      </ol>
+  </div>
+</div>
 
   {% for party in object_list %}
     <div class="partylist">

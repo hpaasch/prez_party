@@ -60,7 +60,6 @@ class CreateAccountView(CreateView):
     success_url = reverse_lazy('login')
 
 class ProfileView(ListView):
-    model = Profile
     template_name = 'talk_app/profile_list.html'
 
     def get_queryset(self):
@@ -83,22 +82,11 @@ class ProfileView(ListView):
 
 
 class ProfileUpdateView(UpdateView):
-    # model = Profile
-    # template_name = 'talk_app/profile_update.html'
     success_url = reverse_lazy('profile_view')
     fields = ['occupation', 'age', 'affiliation', 'registered', 'email', 'city', 'state']
 
     def get_object(self, queryset=None):
         return self.request.user.profile
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["profile_form"] = EmployeeProfileUpdateForm(initial={
-    #         "nickname": self.request.user.employeeprofile.nickname,
-    #         "role": self.request.user.employeeprofile.role,
-    #         "preferred_language": self.request.user.employeeprofile.preferred_language,
-    #         })
-    #     return context
 
 
 class DinnerPartyCreateView(CreateView):

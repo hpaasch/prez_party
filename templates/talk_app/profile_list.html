@@ -1,60 +1,63 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="row">
+
     <div class="col-md-12">
       <div class="profile-header">
-        <h1 class="col-xs-12 col-md-6 col-lg-12">My Parties</h1>
+        <h1>My Parties</h1>
       </div>
     </div>
-  </div>
 
-<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought">
-  Party host's profile:
-  <img src="{{ photo }}" alt="" />
-  <p>Occupation: {{ occupation }}</p>
-  <p>Age: {{ age }}</p>
-  <p>Registered to vote: {{ registered_to_vote }}</p>
-  <p>Affiliation: {{ affiliation }}</p>
-  <p>Email: {{ email }}</p>
-  <p>City: {{ city }}</p>
-  <p>State: {{ state }}</p>
-  <a class='btn btn-primary' role='button' href="{% url 'profile_update_view' %}">Update profile</a>
-</h4>
-<div class="row">
-  <div class="talk col-sm-6">
+
+  <div class="col-xs-12 col-md-offset-3 col-md-6 profile">
+    <div class="imgwrapper">
+      <img src="{{ photo }}" alt="" />
+    </div>
+    <dl>
+      <dd>Occupation: {{ occupation }}</dd>
+      <dd>Age: {{ age }}</dd>
+      <dd>Registered to vote: {{ registered_to_vote }}</dd>
+      <dd>Affiliation: {{ affiliation }}</dd>
+      <dd>Email: {{ email }}</dd>
+      <dd>City: {{ city }}</dd>
+      <dd>State: {{ state }}</dd>
+    </dl>
+    <a class='profilebtn btn btn-primary' role='button' href="{% url 'profile_update_view' %}">Update profile</a>
+  </div>
+  <div class="col-xs-12 col-md-offset-3 col-md-6 talking">
     <h3>Create and host discussion parties </h3>
       <ol>
         <li>Create a party. Invite friends and (virtually) a candidate and a commentator.</li>
         <li>Start the party. We will walk you through Tweets, videos and campaign finance.</li>
         <li>Review your party. A quick survey for you to keep.</li>
       </ol>
+
   </div>
-</div>
 
   {% for party in object_list %}
-    <div class="partylist">
-      <div class="wrapper">
-        <div class="card col-md-3">
-          <dl>
-            <dd class="list"><h4>Name of your party: </h4> {{ party.party_name }}</dd>
-            <dd class="list"><h4>Candidate: </h4><a href='{{ item.candidate.website }}'>{{ party.candidate }}</a></dd>
-            <dd class="list"><h4>Pundit: </h4><a href="{{ item.pundit.website }}">{{ party.pundit }}</a></dd>
-            <dd class="list"><h4>Friends: </h4>{{ party.friend_names }}</dd>
-            <dd class="list"><h4>Friend mix: </h4>{{ party.friend_mix }} {{ party.host }}</dd>
-          </dl>
-          {% if party.question_one == None %}
-          <a href="{% url 'pundit_tweet_list_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Start this party!</a>
-          {% endif %}
-          {% if party.question_one != None %}
-          <a href="{% url 'survey_detail_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Review party survey</a>
-          {% endif %}
-        </div>
+
+      <div class="card col-xs-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+        <dl>
+          <dd class="list"><h4>Name of your party: </h4> {{ party.party_name }}</dd>
+          <dd class="list"><h4>Candidate: </h4><a href='{{ item.candidate.website }}'>{{ party.candidate }}</a></dd>
+          <dd class="list"><h4>Pundit: </h4><a href="{{ item.pundit.website }}">{{ party.pundit }}</a></dd>
+          <dd class="list"><h4>Friends: </h4>{{ party.friend_names }}</dd>
+          <dd class="list"><h4>Friend mix: </h4>{{ party.friend_mix }} {{ party.host }}</dd>
+        </dl>
+        {% if party.question_one == None %}
+        <a href="{% url 'pundit_tweet_list_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Start this party!</a>
+        {% endif %}
+        {% if party.question_one != None %}
+        <a href="{% url 'survey_detail_view' party.pk %}" class='partybtnblue btn btn-danger btn-sm'>Review party survey</a>
+        {% endif %}
       </div>
-    </div>
-  {% endfor %}
-    <div class="col-md-12">
-      <a href="{% url 'dinner_party_create_view' %}" id="newparty" class='partybtn newparty btn btn-warning btn-sm'>Make a new party!</a>
-    </div>
+
+
+<div class="row">
+</div>
+{% endfor %}
+  <div class="col-md-12">
+    <a href="{% url 'dinner_party_create_view' %}" id="newparty" class='partybtn newparty btn btn-warning btn-sm'>Make a new party!</a>
   </div>
+</div>
 {% endblock %}

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div class="login col-sm-12 col-lg-offset-1 col-lg-10">
   <h3>Choose your guests</h3>
   <form class="" action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input class="submitbtn" type="submit" name="party" value="Create party">
   </form>
+  <div>
 {% endblock %}

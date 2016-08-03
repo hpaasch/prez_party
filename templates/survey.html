@@ -8,11 +8,11 @@
     </div>
   </div>
 </div>
-<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought">Conversation
+<h4 class="col-xs-12 col-md-6 col-lg-6 thought">Conversation
   can be fun and challenging. Assessing the experience can help bring closure.
 </h4>
 <div class="row">
-  <div class="talk col-sm-6">
+  <div class="talk col-xs-12 col-md-6 col-lg-6 col-sm-6">
     <h3>Talk it over: Review your party </h3>
       <ol>
         <li>Answer the questions below as a group.</li>
@@ -21,18 +21,36 @@
       </ol>
   </div>
 </div>
-<form class="" action="" method="post">
-  <div class="form-group">
+<form class="login col-xs-12 col-md-offset-1 col-md-10" action="" method="post">
   {% csrf_token %}
-  <ol>
-    <li>Overall discussion intensity: {{ form.question_one }}</li>
-    <li>Topic with the best discussion: {{ form.question_two }}</li>
-    <li>This part helped people talk the most: {{ form.question_three }}</li>
-    <li>What made you laugh? What made you angry? {{ form.question_four }}</li>
-    <li>Something we learned: {{ form.question_five }}</li>
-    <li>Did anyone change their mind about an issue or candidate? {{ form.question_six }}</li>
-    <li>What would've improved the quality of the discussion? {{ form.question_seven }}</li>
-  </ol>
+  <div class="form-group">
+    <label for="intensity">Overall discussion intensity:</label><br />
+    {{ form.question_one }}
+  </div>
+  <div class="form-group">
+    <label for="topic">Topic with the best discussion:</label><br />
+    {{ form.question_two }}
+  </div>
+  <div class="form-group">
+    <label for="topic">This part helped people talk the most:</label><br />
+    {{ form.question_three }}
+  </div>
+  <div class="form-group">
+    <label for="topic">What made you laugh? What made you angry? </label><br />
+    {{ form.question_four }}
+  </div>
+  <div class="form-group">
+    <label for="topic">Something we learned: </label><br />
+    {{ form.question_five }}
+  </div>
+  <div class="form-group">
+    <label for="topic">Did anyone change their mind about an issue or candidate? </label><br />
+    {{ form.question_six }}
+  </div>
+  <div class="form-group">
+    <label for="topic">What would've improved the quality of the discussion? </label><br />
+    {{ form.question_seven }}
+  </div>
   <input class='partybtn btn' type="submit" name="video_quiz" value="We're done!">
 </div>
 </form>

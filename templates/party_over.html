@@ -10,21 +10,28 @@
     </div>
   </div>
 </div>
-<h1>Thanks for partying. We hope you've learned a little and laughed a little.</h1>
-<h2>Optional deep dives</h2>
-<h4><a href='{% url 'us_finance_deep_list_view' party_id %}'> National Finance</a></h4>
-<h4><a href='{% url 'video_list_view' party_id %}'> Video</a></h4>
-<h4><a href='{% url 'tweet_list_view' party_id %}'> Tweets</a></h4>
 
+<h2 class="thought col-md-offset-3 col-md-6">Thanks for partying. We hope you've learned a little and laughed a little.</h2>
+<div class="dives col-xs-12 col-md-offset-1 col-md-10">
+  <h2>Optional deep dives</h2>
+  <h4><a href='{% url 'us_finance_deep_list_view' party_id %}'> National Finance</a></h4>
+  <h4><a href='{% url 'video_list_view' party_id %}'> Video</a></h4>
+  <h4><a href='{% url 'tweet_list_view' party_id %}'> Tweets</a></h4>
+</div>
 
-<h2>Voter information</h2>
-<h4><a href="http://www.ncsbe.gov/">North Carolina Board of Elections</a></h4>
-<h4><a href="http://www.scvotes.org/">South Carolina Board of Elections</a></h4>
-<h4><a href="http://www.fec.gov/">Federal Election Commission</a></h4>
-<h4><a href="http://www.eac.gov/">United States Election Assistance Commission</a></h4>
-<h2>About this app</h2>
-<h4><a href="https://github.com/hpaasch">Hope E. Paasch</a> is a longtime journalist who is making the leap into coding. She
-believes people need to have more civilized and informed conversations about
-important subjects, such as who they elect to the White House. This app is written
-with Python and Django. Design by <a href="https://github.com/kirby-munson">Kirby Munson</a>.</h4>
-{% endblock %}
+<div class="voter col-xs-12 col-md-offset-1 col-md-10">
+  <h2>Voter information</h2>
+  <h4><a href="http://www.ncsbe.gov/">North Carolina Board of Elections</a></h4>
+  <h4><a href="http://www.scvotes.org/">South Carolina Board of Elections</a></h4>
+  <h4><a href="http://www.fec.gov/">Federal Election Commission</a></h4>
+  <h4><a href="http://www.eac.gov/">United States Election Assistance Commission</a></h4>
+</div>
+
+<div class="about col-xs-12 col-md-offset-1 col-md-10">
+  <h2>About this app</h2>
+  <h4><a href="https://github.com/hpaasch">Hope E. Paasch</a> is a longtime journalist who is making the leap into coding. She
+  believes people need to have more civilized and informed conversations about
+  important subjects, such as who they elect to the White House. This app is written
+  with Python and Django. Design by <a href="https://github.com/kirby-munson">Kirby Munson</a>.</h4>
+  {% endblock %}
+</div>

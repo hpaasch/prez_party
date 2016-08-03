@@ -9,10 +9,10 @@
     </div>
   </div>
 </div>
-<h4 class="col-sm-12 col-md-8 col-lg-offset-3 col-lg-4 thought">Social media comments
+<h4 class="col-xs-12 col-md-6 col-lg-6 thought">Social media comments
       can provoke or chastise or challenge. These are the most popular recent ones.</h4>
 <div class="row">
-  <div class="talk col-sm-6">
+  <div class="talk col-xs-12 col-md-6 col-lg-6 col-sm-6">
     <h3>Talk it over: @{{ candidate }} on twitter</h3>
     <ol>
       <li>Do you get any political news from social media?</li>
@@ -21,12 +21,16 @@
     </ol>
   </div>
 </div>
+<dl class="col-sm-12 col-md-offset-4 col-md-4">
   {% autoescape off %}
     {% for tweet in popular_tweets %}
      {{ tweet }}
     {% endfor %}
   {% endautoescape %}
-<h3><a href="{% url 'tweet_list_view' party_id %}">Optional deep dive:</a> See more popular tweets from other candidates and commentators</h3>
+</dl>
+<div class="row">
+<h3 class="col-xs-12"><a href="{% url 'tweet_list_view' party_id %}">Optional deep dive:</a> See more popular tweets from other candidates and commentators</h3>
+</div>
 <div class="row">
   <div class="next2 col-md-12">
     <a href='{% url 'survey_create_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>

@@ -10,10 +10,10 @@
 </div>
 
 
-  <h4 class="col-sm-12 col-md-8 col-lg-4 col-lg-offset-4 longer thought">What's a pundit?
-    Someone who thinks they know stuff that the rest of us should listen to. Sometimes they do. </h2>
+  <h4 class="col-xs-12 col-md-6 col-lg-6 thought">What's a pundit?
+    Someone who thinks they know stuff that the rest of us should listen to. Sometimes they do. </h4>
 <div class="row">
-  <div class="talk col-sm-6">
+  <div class="talk col-xs-12 col-md-6 col-lg-6 col-sm-6">
     <h3>Talk It Over: Top 5 tweets from @{{ pundit}}</h3>
     <ol>
       <li>What tone do these tweets set for your discussion??</li>
@@ -21,7 +21,7 @@
       <li>What role do you think social media should play in how people vote?</li>
     </ol>
   </div>
-  <dl class="col-sm-12">
+  <dl class="col-sm-12 col-md-offset-4 col-md-4">
     {% autoescape off %}
       {% for tweet in popular_tweets %}
        {{ tweet }}

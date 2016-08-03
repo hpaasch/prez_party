@@ -48,6 +48,13 @@ div.container-fluid{
   color: white;
 }
 
+.partybtnblue{
+  border-radius: 0;
+  background-color: #2d75bb;
+  border-color: #2d75bb;
+  color: white;
+}
+
 .user{
   float: left;
   color: white;
@@ -80,6 +87,82 @@ h4.longer{
   border-color: #2d75bb;
 }
 
+.dives{
+  background-color: #7499b7;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  color: white;
+  box-shadow: 5px 5px 2px #888888;
+}
+
+.dives a{
+  color: #d33d3d;
+}
+
+.voter a{
+  color: #d33d3d;
+}
+
+.about a{
+  color: #d33d3d;
+}
+
+.voter{
+  background-color: #7499b7;
+  margin-bottom: 20px;
+  color: white;
+  box-shadow: 5px 5px 2px #888888;
+}
+
+.about{
+  background-color: #7499b7;
+  margin-bottom: 20px;
+  color: white;
+  box-shadow: 5px 5px 2px #888888;
+}
+
+div.imgwrapper{
+  height: 200px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  float: left;
+  overflow: hidden;
+  border-radius: 5%;
+}
+
+a#newparty{
+  margin-bottom: 20px;
+}
+
+.imgwrapper img{
+  width: 300px;
+  border-radius: 5%;
+}
+
+.profile{
+  border: 2px solid black;
+  height: 250px;
+}
+
+.profile dl{
+  float: left;
+  margin-top: 30px;
+  padding: 10px;
+}
+
+.talking{
+  margin-top: 10px;
+  background-color: #7499b7;
+  margin-bottom: 10px;
+  color: white;
+  padding: 10px;
+}
+
+.profilebtn{
+  float: left;
+  margin-top: 190px;
+}
+
 .submitbtn{
   background-color: #d33d3d;
   border: none;
@@ -94,24 +177,31 @@ h4.longer{
   margin-top: 20px;
 }
 
+
 .thought{
   background-color: #e3e3e3;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 10px;
   vertical-align: middle;
   margin-top: 0px;
   font-size: 26px;
+  padding-top: 40px;
+  display: inline;
   height: 146px;
-  color: white;
+  color: #7499b7;
   font-family: 'Roboto Slab', serif;
+}
+
+.login{
+  border: 1px solid black;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .talk{
   background-color: #7499b7;
-  margin-left: 10px;
-  margin-right: 10px;
   padding: 10px;
+  height: 146px;
+  display: inline;
   color: white;
   margin-bottom: 40px;
   font-family: 'Roboto Slab', serif;
@@ -153,12 +243,23 @@ h4.longer{
 
 .homequote{
   font-family: 'Roboto Slab', serif;
-  background-color: #222222;
-  height: 200px;
-  color: white;
+  background-color: #ffffff;
+  height: 150px;
+  color: black;
 }
 
-.homequote h1{
+#step1{
+  padding-top: 20px;
+}
+
+#homelist{
+  background-color: #d33d3d;
+  height: 300px;
+  color: white;
+  margin-top: 0px;
+}
+
+.homequote h2{
   margin: 0;
   padding-top: 40px;
   padding-bottom: 20px;
@@ -179,6 +280,10 @@ img.header{
   width: 45%;
 }
 
+.thanks{
+  width: 35%;
+}
+
 .survey{
   width: 30%;
 }
@@ -187,6 +292,7 @@ img.header{
   margin: 20px;
   padding: 20px;
   border: 0.1px solid gray;
+  display: inline-block;
 }
 
 .next{
@@ -214,8 +320,45 @@ img.header{
     height: 100px;
   }
 
+  .homequote h2{
+    margin: 0;
+    padding-top: 40px;
+    padding-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .thought{
+    background-color: #e3e3e3;
+    vertical-align: middle;
+    margin-top: 10px;
+    font-size: 20px;
+    padding-top: 40px;
+    display: inline;
+    height: 146px;
+    color: #7499b7;
+    font-family: 'Roboto Slab', serif;
+  }
+
+  .talk{
+    background-color: #7499b7;
+    padding: 10px;
+    height: 146px;
+    display: inline;
+    color: white;
+    font-size: 10px;
+    margin-bottom: 5px;
+    font-family: 'Roboto Slab', serif;
+  }
+
+  .homequote h3{
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+  }
+
   .homequote{
-    height: 700px;
+    height: 150px;
   }
 
   .small{
@@ -242,13 +385,45 @@ img.header{
   .survey{
     width: 85%;
   }
-  .thought{
-    margin-top: 10px;
+
+  .thanks{
+    width: 80%;
+  }
+
+
+
+  .row{
+    margin-top: 0;
+  }
+
+  #homelist{
+    margin-top: 0;
+  }
+
+  h3#step1{
+    font-size: 12px;
   }
 
 
 }
+@media (min-width: 400px) and (max-width: 600px){
+  .header{
+    height: 180px;
+  }
+  .head{
+    width: 100%;
+  }
+  .imgwrapper img{
+    width: 100%;
+    border-radius: 5%;
+  }
 
+  div.imgwrapper{
+    width: 100px;
+  }
+
+  .small{
+  }
 @media (min-width: 601px) and (max-width: 800px){
   .header{
     height: 180px;
@@ -259,7 +434,6 @@ img.header{
   .small{
     display: none;
   }
-
 }
 
 @media (min-width: 801px) and (max-width: 1000px){
@@ -268,5 +442,16 @@ img.header{
   }
   .head{
     width: 80%;
+  }
+}
+
+@media (min-width: 1001px) and (max-width: 1500px){
+  .imgwrapper img{
+    width: 100%;
+    border-radius: 5%;
+  }
+
+  div.imgwrapper{
+    width: 200px;
   }
 }

@@ -1,5 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
+REGISTERED = 'I am currently registered to vote'
+NEVER_REGISTERED = 'I have never been registered'
+NOT_CURRENT = 'I was registered but am not now'
+NOT_ACCURATE = 'Registered but not fully accurate'
 CONSERVATIVE = 'Conservative'
 PROGESSIVE = 'Progressive'
 MIXED = 'Mixed'
@@ -40,7 +47,7 @@ class Candidate(models.Model):
     @property
     def photo_url(self):
         if self.photo:
-            return self.photo.url
+            return self.photo_url
         return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
 
 class Pundit(models.Model):
@@ -78,15 +85,27 @@ class Profile(models.Model):
         (LIBERTARIAN, 'Libertarian'),
         (GREENPARTY, 'GreenParty'),
         )
+    REGISTERED_CHOICES = (
+        (REGISTERED, 'I am currently registered to vote'),
+        (NEVER_REGISTERED, 'I have never been registered'),
+        (NOT_CURRENT, 'I was registered but am not now'),
+        (NOT_ACCURATE, 'Registered but not fully accurate'),
+        )
     user = models.OneToOneField('auth.User')
+    photo = models.ImageField(upload_to='photos', null=True, blank=True)
     occupation = models.CharField(max_length=30, null=True, blank=True)
     age = models.IntegerField(null=True, blank=True)
     city = models.CharField(max_length=30, null=True, blank=True)
     state = models.CharField(max_length=30, null=True, blank=True)
     email = models.EmailField(max_length=50, null=True, blank=True)
-    registered = models.BooleanField()
+    registered_to_vote = models.CharField(choices=REGISTERED_CHOICES, default='', max_length=50)
     affiliation = models.CharField(choices=AFFILIATION_CHOICES, max_length=20, null=True, blank=True)
 
+    @property
+    def photo_url(self):
+        if self.photo:
+            return self.photo.url
+        return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
 
 class DinnerParty(models.Model):
     DISCUSSION_CHOICES = (
@@ -115,11 +134,11 @@ class DinnerParty(models.Model):
     friend_mix = models.CharField(choices=AFFILIATION_CHOICES, default=MIXED, max_length=20)
     question_one = models.CharField(choices=DISCUSSION_CHOICES, max_length=60, null=True)
     question_two = models.CharField(choices=TOPIC_CHOICES, max_length=60, null=True)
-    question_three = models.CharField(max_length=60, null=True)
-    question_four = models.CharField(max_length=60, null=True)
-    question_five = models.CharField(max_length=60, null=True)
-    question_six = models.CharField(max_length=60, null=True)
-    question_seven = models.CharField(max_length=60, null=True)
+    question_three = models.CharField(max_length=200, null=True)
+    question_four = models.CharField(max_length=200, null=True)
+    question_five = models.CharField(max_length=200, null=True)
+    question_six = models.CharField(max_length=200, null=True)
+    question_seven = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return str(self.party_name)
@@ -180,3 +199,11 @@ class ZIPFinance(models.Model):
 
     def __str__(self):
         return self.full_name
+
+@receiver(post_save, sender='auth.User')
+def create_user_profile(**kwargs):
+    created = kwargs.get('created')
+    instance = kwargs.get('instance')
+
+    if created:
+        Profile.objects.create(user=instance)

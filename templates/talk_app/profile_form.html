@@ -1,15 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <form class="" action="" method="post">
+  <form class="" action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
-<p>{{ form.occupation }}</p>
-<p>{{ form.age }}</p>
-<p>{{ form.affiliation}}</p>
-<p>{{ form.registered}}</p>
-<p>{{ form.email }}</p>
-<p>{{ form.city }}</p>
-<p>{{ form.state }}</p>
+<p>Occupation: {{ form.occupation }}</p>
+<p>Upload a photo: {{ form.photo }}</p>
+<p>Age: {{ form.age }}</p>
+<p>Party identification: {{ form.affiliation}}</p>
+<p>Are you registered to vote? {{ form.registered_to_vote }}</p>
+<p>Your email address: {{ form.email }}</p>
+<p>City: {{ form.city }}</p>
+<p>State: {{ form.state }}</p>
 <input type="submit" name="profile_update" value="Update profile">
   </form>
 {% endblock %}

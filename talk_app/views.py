@@ -72,18 +72,19 @@ class ProfileView(ListView):
         context = super().get_context_data(**kwargs)
         context["user"] = self.request.user
         context["occupation"] = self.request.user.profile.occupation
+        context["photo"] = self.request.user.profile.photo_url
         context["age"] = self.request.user.profile.age
         context["city"] = self.request.user.profile.city
         context["state"] = self.request.user.profile.state
         context["email"] = self.request.user.profile.email
-        context["registered"] = self.request.user.profile.registered
+        context["registered"] = self.request.user.profile.registered_to_vote
         context["affiliation"] = self.request.user.profile.affiliation
         return context
 
 
 class ProfileUpdateView(UpdateView):
     success_url = reverse_lazy('profile_view')
-    fields = ['occupation', 'age', 'affiliation', 'registered', 'email', 'city', 'state']
+    fields = ['occupation', 'age', 'photo', 'affiliation', 'registered_to_vote', 'email', 'city', 'state']
 
     def get_object(self, queryset=None):
         return self.request.user.profile

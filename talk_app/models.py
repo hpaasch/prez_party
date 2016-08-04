@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.staticfiles.templatetags.staticfiles import static
+
 
 REGISTERED = 'I am currently registered to vote'
 NEVER_REGISTERED = 'I have never been registered'
@@ -48,7 +50,8 @@ class Candidate(models.Model):
     def photo_url(self):
         if self.photo:
             return self.photo.url
-        return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
+        return static('talk_app/img/flagA.jpg')
+        # return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
 
 class Pundit(models.Model):
     AFFILIATION_CHOICES = (
@@ -75,7 +78,8 @@ class Pundit(models.Model):
     def photo_url(self):
         if self.photo:
             return self.photo.url
-        return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
+        return static('talk_app/img/flagA.jpg')
+        # return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
 
 class Profile(models.Model):
     AFFILIATION_CHOICES = (
@@ -105,7 +109,9 @@ class Profile(models.Model):
     def photo_url(self):
         if self.photo:
             return self.photo.url
-        return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
+        # return 'http://firstviewconsultants.com/beetletheme/wp-content/uploads/2015/08/US-flag.jpg'
+        return static('talk_app/img/flagA.jpg')
+
 
 class DinnerParty(models.Model):
     DISCUSSION_CHOICES = (

@@ -96,6 +96,14 @@ h4.longer{
   height:200px;
 }
 
+.longer{
+  margin-top: 160px;
+}
+
+.longer2{
+  margin-top: 100px;
+}
+
 .user a:hover{
   color: #d33d3d;
 }

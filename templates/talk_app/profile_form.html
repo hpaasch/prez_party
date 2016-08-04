@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <form class="" action="" method="post" enctype="multipart/form-data">
+<div class="row">
+  <div class="col-md-12">
+    <div class="header">
+      <img class="thanks col-xs-12 col-md-6 col-lg-8" src="/static/talk_app/img/profile.png" />
+    </div>
+  </div>
+</div>
+  <form class="login col-xs-offset-1 col-xs-10" action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
 <div class="form-group">
   <label for="id_occupation">Occupation: </label>

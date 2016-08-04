@@ -3,14 +3,32 @@
 {% block content %}
   <form class="" action="" method="post" enctype="multipart/form-data">
 {% csrf_token %}
-<p>Occupation: {{ form.occupation }}</p>
-<p>Upload a photo: {{ form.photo }}</p>
-<p>Age: {{ form.age }}</p>
-<p>Party identification: {{ form.affiliation}}</p>
-<p>Are you registered to vote? {{ form.registered_to_vote }}</p>
-<p>Your email address: {{ form.email }}</p>
-<p>City: {{ form.city }}</p>
-<p>State: {{ form.state }}</p>
+<div class="form-group">
+  <label for="id_occupation">Occupation: </label>
+  {{ form.occupation }}
+</div><div class="form-group">
+  <label for="id_photo">Upload a photo:</label>
+  {{ form.photo }}
+</div><div class="form-group">
+  <label for="id_age">Age:</label>
+  {{ form.age }}
+</div><div class="form-group">
+  <label for="id_affiliation">Party identification:</label>
+  {{ form.affiliation }}
+</div><div class="form-group">
+  <label for="id_registered_to_vote">Are you registered to vote?</label>
+  {{ form.registered_to_vote }}
+</div><div class="form-group">
+  <label for="id_email">Your email address:</label>
+  {{ form.email }}
+</div><div class="form-group">
+  <label for="id_city">City:</label>
+  {{ form.city }}
+</div>
+</div><div class="form-group">
+  <label for="id_state">State:</label>
+  {{ form.state }}
+</div>
 <input type="submit" name="profile_update" value="Update profile">
   </form>
 {% endblock %}

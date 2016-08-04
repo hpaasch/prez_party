@@ -24,31 +24,31 @@
 <form class="login col-xs-12 col-md-offset-1 col-md-10" action="" method="post">
   {% csrf_token %}
   <div class="form-group">
-    <label for="intensity">Overall discussion intensity:</label><br />
+    <label for="id_question_one">Overall discussion intensity:</label><br />
     {{ form.question_one }}
   </div>
   <div class="form-group">
-    <label for="topic">Topic with the best discussion:</label><br />
+    <label for="id_question_two">Topic with the best discussion:</label><br />
     {{ form.question_two }}
   </div>
   <div class="form-group">
-    <label for="topic">This part helped people talk the most:</label><br />
+    <label for="id_question_three">This part helped people talk the most:</label><br />
     {{ form.question_three }}
   </div>
   <div class="form-group">
-    <label for="topic">What made you laugh? What made you angry? </label><br />
+    <label for="id_question_four">What made you laugh? What made you angry? </label><br />
     {{ form.question_four }}
   </div>
   <div class="form-group">
-    <label for="topic">Something we learned: </label><br />
+    <label for="id_question_five">Something we learned: </label><br />
     {{ form.question_five }}
   </div>
   <div class="form-group">
-    <label for="topic">Did anyone change their mind about an issue or candidate? </label><br />
+    <label for="id_question_six">Did anyone change their mind about an issue or candidate? </label><br />
     {{ form.question_six }}
   </div>
   <div class="form-group">
-    <label for="topic">What would've improved the quality of the discussion? </label><br />
+    <label for="id_question_seven">What would've improved the quality of the discussion? </label><br />
     {{ form.question_seven }}
   </div>
   <input class='partybtn btn' type="submit" name="video_quiz" value="We're done!">

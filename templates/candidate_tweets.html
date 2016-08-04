@@ -21,13 +21,15 @@
     </ol>
   </div>
 </div>
-<dl class="col-sm-12 col-md-offset-4 col-md-4">
+<div class="row">
   {% autoescape off %}
     {% for tweet in popular_tweets %}
-     {{ tweet }}
-    {% endfor %}
-  {% endautoescape %}
-</dl>
+    <div class="col-xs-6 col-md-3">
+       {{ tweet }}
+    </div>
+  {% endfor %}
+{% endautoescape %}
+</div>
 <div class="row">
 <h3 class="col-xs-12"><a href="{% url 'tweet_list_view' party_id %}">Optional deep dive:</a> See more popular tweets from other candidates and commentators</h3>
 </div>
@@ -37,3 +39,12 @@
   </div>
 </div>
 {% endblock %}
+
+
+<dl class="col-sm-12 col-md-offset-4 col-md-4">
+  {% autoescape off %}
+    {% for tweet in popular_tweets %}
+     {{ tweet }}
+    {% endfor %}
+  {% endautoescape %}
+</dl>

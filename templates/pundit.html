@@ -21,7 +21,24 @@
       <li>What role do you think social media should play in how people vote?</li>
     </ol>
   </div>
-  <dl class="col-sm-12 col-md-offset-4 col-md-4">
+</div>
+<div class="row">
+  {% autoescape off %}
+    {% for tweet in popular_tweets %}
+    <div class="col-xs-6 col-md-3">
+       {{ tweet }}
+    </div>
+  {% endfor %}
+{% endautoescape %}
+</div>
+  <div class="row">
+    <div class="move next2 col-sm-12">
+      <a href='{% url 'us_finance_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+    </div>
+  </div>
+{% endblock %}
+
+<dl class="col-sm-12 col-md-offset-4 col-md-4">
     {% autoescape off %}
       {% for tweet in popular_tweets %}
        {{ tweet }}
@@ -29,13 +46,3 @@
     {% endautoescape %}
 
   </dl>
-</div>
-
-
-
-  <div class="row">
-    <div class="move next2 col-sm-12">
-      <a href='{% url 'us_finance_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
-    </div>
-  </div>
-{% endblock %}

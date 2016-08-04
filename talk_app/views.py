@@ -37,7 +37,7 @@ def popular_tweets(tweeter):
             })
 
     popular = []
-    popular = Tweet.objects.filter(username=tweeter).order_by('-popular')[:5]
+    popular = Tweet.objects.filter(username=tweeter).order_by('-popular')[:8]
 
     tweet_ids = []  # collecting the IDs to feed into the twitter api
     for tweet in popular:

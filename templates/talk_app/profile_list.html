@@ -9,7 +9,7 @@
     </div>
   </div>
 </div>
-<div class="col-xs-12 col-md-offset-3 col-md-6 talking">
+<div class="col-xs-10 col-md-offset-3 col-md-6 talking">
   <h3>Create and host discussion parties </h3>
     <ol>
       <li>Create a party. Invite friends and (virtually) a candidate and a commentator.</li>
@@ -22,7 +22,7 @@
 
 </div>
 
-  <div class="col-xs-12 col-md-offset-3 col-md-6 profile">
+  <div class="col-xs-10 col-md-offset-3 col-md-6 profile">
     <div class="imgwrapper">
       <img src="{{ photo }}" alt="" />
     </div>
@@ -45,11 +45,11 @@
   {% for party in object_list %}
     <div class="card col-xs-8 col-md-offset-3 col-md-4 col-lg-offset-3 col-lg-3">
         <dl>
-          <dd class="list"><h4>Name of your party: </h4> {{ party.party_name }}</dd>
+          <dd class="list"><h4>Party name: </h4> {{ party.party_name }}</dd>
           <dd class="list"><h4>Candidate: </h4><a href='{{ item.candidate.website }}'>{{ party.candidate }}</a></dd>
-          <dd class="list"><h4>Pundit: </h4><a href="{{ item.pundit.website }}">{{ party.pundit }}</a></dd>
+          <dd class="list"><h4>Commentator: </h4><a href="{{ item.pundit.website }}">{{ party.pundit }}</a></dd>
           <dd class="list"><h4>Friends: </h4>{{ party.friend_names }}</dd>
-          <dd class="list"><h4>Friend mix: </h4>{{ party.friend_mix }} {{ party.host }}</dd>
+          <dd class="list"><h4>Friend mix: </h4>{{ party.friend_mix }}</dd>
         </dl>
         {% if party.question_one == None %}
         <a href="{% url 'pundit_tweet_list_view' party.pk %}" class='partybtn btn btn-danger btn-sm'>Start this party!</a>

@@ -2,14 +2,29 @@
 
 {% block content %}
 <div class="login col-xs-offset-1 col-xs-10">
-  <h3>Party name: {{ object.party_name }}</h3>
+  <h3>{{ object.party_name }}</h3>
 <h4>Friends: {{ object.friend_names }}</h4>
-<h4>Overall discussion intensity: {{ object.question_one }}</h4>
-<h4>Topic with the best discussion: {{ object.question_two }}</h4>
-<h4>This part helped people talk the most: {{ object.question_three }}</h4>
-<h4>What made you laugh? What made you angry? {{ object.question_four }}</h4>
-<h4>Something we learned: {{ object.question_five }}</h4>
-<h4>Did anyone change their mind about an issue or candidate? {{ object.question_six }}</h4>
-<h4>What would've improved the quality of the discussion? {{ object.question_seven }}</h4>
+<h4>1. Overall discussion intensity: {{ object.question_one }}</h4><br>
+<h4>2. Topic with the best discussion: {{ object.question_two }}</h4><br>
+<h4>3. This part helped people talk the most: </h4>
+<p>
+  {{ object.question_three }}
+</p><br>
+<h4>4. What made you laugh? What made you angry? </h4>
+<p>
+  {{ object.question_four }}
+</p><br>
+<h4>5. Something we learned: </h4>
+<p>
+  {{ object.question_five }}
+</p><br>
+<h4>6. Did anyone change their mind about an issue or candidate? </h4>
+<p>
+  {{ object.question_six }}
+</p><br>
+<h4>7. What would've improved the quality of the discussion? </h4>
+<p>
+  {{ object.question_seven }}
+</p>
 </div>
 {% endblock %}

@@ -9,7 +9,18 @@
     </div>
   </div>
 </div>
+<div class="col-xs-12 col-md-offset-3 col-md-6 talking">
+  <h3>Create and host discussion parties </h3>
+    <ol>
+      <li>Create a party. Invite friends and (virtually) a candidate and a commentator.</li>
+      <li>Start the party. We will walk you through Tweets, videos and campaign finance.</li>
+      <li>Review your party. A quick survey for you to keep.</li>
+      <br>
+      <a class="partybtn btn btn-default" href="{% url 'dinner_party_create_view' %}" >Make a new party!</a>
 
+    </ol>
+
+</div>
 
   <div class="col-xs-12 col-md-offset-3 col-md-6 profile">
     <div class="imgwrapper">
@@ -24,21 +35,15 @@
       <dd>City: {{ city }}</dd>
       <dd>State: {{ state }}</dd>
       <a class="partybtn2 btn btn-default" href="{% url 'profile_update_view' %}">Update profile</a>
+
     </dl>
   </div>
-  <div class="col-xs-12 col-md-offset-3 col-md-6 talking">
-    <h3>Create and host discussion parties </h3>
-      <ol>
-        <li>Create a party. Invite friends and (virtually) a candidate and a commentator.</li>
-        <li>Start the party. We will walk you through Tweets, videos and campaign finance.</li>
-        <li>Review your party. A quick survey for you to keep.</li>
-      </ol>
 
-  </div>
 
+
+<div class="row">
   {% for party in object_list %}
-
-      <div class="card col-xs-12 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+    <div class="card col-xs-8 col-md-offset-3 col-md-4 col-lg-offset-3 col-lg-3">
         <dl>
           <dd class="list"><h4>Name of your party: </h4> {{ party.party_name }}</dd>
           <dd class="list"><h4>Candidate: </h4><a href='{{ item.candidate.website }}'>{{ party.candidate }}</a></dd>
@@ -53,13 +58,6 @@
         <a href="{% url 'survey_detail_view' party.pk %}" class='partybtnblue btn btn-danger btn-sm'>Review party survey</a>
         {% endif %}
       </div>
-
-
-<div class="row">
-</div>
-{% endfor %}
-  <div class="col-md-12">
-    <a href="{% url 'dinner_party_create_view' %}" id="newparty" class='partybtn newparty btn btn-warning btn-sm'>Make a new party!</a>
-  </div>
+  {% endfor %}
 </div>
 {% endblock %}

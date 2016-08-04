@@ -1,18 +1,46 @@
 {% extends "base.html" %}
 
 {% block content %}
+<h4 class="col-xs-12 col-md-6 col-lg-6 thought">Conversation
+  on the leadership of our country can be fun and challenging.
+  The goal is to have a reasonably informed and civil discussion.
+</h4>
+<div class="row">
+  <div class="talk col-xs-12 col-md-6 col-lg-6 col-sm-6">
+    <h3>Create your dinner party </h3>
+      <ol>
+        <li>Invite real-life friends for a real dinner. With food.</li>
+        <li>Choose a candidate and commentator to highlight in your party.</li>
+        <li>Allow an hour to click through and talk as you go.</li>
+      </ol>
+  </div>
+</div>
 <div class="login col-sm-12 col-lg-offset-1 col-lg-10">
-  <h3>What kind of party do you want to host? Decide which friends you want to invite over.
-  Then pick a commentator and a candidate who will be highlighted in your dinner party. Put
-together a like-minded group, or mix it up. The goal is to have a reasonably informed
-and civil discussion. </h3>
+
   <form class="" action="" method="post">
     {% csrf_token %}
-    <p>Name your party: {{ form.party_name }}</p>
-    <p>Pick a commentator: {{ form.pundit }} (We'll pull this person's popular tweets.)</p>
-    <p>Pick a candidate: {{ form.candidate }} (A video with this candidate is your keynote dinner speech.)</p>
-    <p>Which friends will attend? {{ form.friend_names }}</p>
-    <p>What best describes your group of friends? {{ form.friend_mix }}</p>
+    <div class="form-group">
+      <label for="id_party_name">Name your party:</label><br />
+      {{ form.party_name }}
+    </div>
+    <div class="form-group">
+      <label for="id_pundit">
+        Pick a commentator whose most popular tweets will open your dinner:</label><br />
+      {{ form.pundit }}
+    </div>
+    <div class="form-group">
+      <label for="id_candidate">Pick a candidate whose video will be your keynote address:</label><br />
+      {{ form.candidate }}
+    </div>
+    <div class="form-group">
+      <label for="id_friend_names">Which friends will attend? </label><br />
+      {{ form.friend_names }}
+    </div>
+    <div class="form-group">
+      <label for="id_friend_mix">What best describes your group of friends?</label><br />
+      {{ form.friend_mix }}
+    </div>
+
     <input class="submitbtn" type="submit" name="party" value="Create party">
   </form>
   <div>

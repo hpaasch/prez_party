@@ -30,9 +30,14 @@
     <iframe class="embed-responsive-item" src='{{ video }}' ></iframe>
   </div>
   <h3 class="col-sm-12"><a href="{% url 'video_list_view' party_id %}">Optional deep dive:</a> See videos from other candidates and commentators</h3>
+
   <div class="row">
     <div class="next2 col-md-12">
-      <a href='{% url 'popular_tweet_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+      <a href='{% url 'popular_tweet_list_view' party_id %}'>
+        <div class="next">
+          <img class="arrow" src="/static/talk_app/img/next.png" />
+        </div>
+      </a>
     </div>
   </div>
 

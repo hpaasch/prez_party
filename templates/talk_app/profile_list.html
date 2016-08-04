@@ -23,8 +23,8 @@
       <dd>Email: {{ email }}</dd>
       <dd>City: {{ city }}</dd>
       <dd>State: {{ state }}</dd>
+      <a class="partybtn2 btn btn-default" href="{% url 'profile_update_view' %}">Update profile</a>
     </dl>
-    <a class='profilebtn btn btn-primary' role='button' href="{% url 'profile_update_view' %}">Update profile</a>
   </div>
   <div class="col-xs-12 col-md-offset-3 col-md-6 talking">
     <h3>Create and host discussion parties </h3>

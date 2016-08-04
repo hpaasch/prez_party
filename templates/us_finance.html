@@ -15,11 +15,11 @@
 <div class="row">
 
 <div class="talk col-xs-12 col-md-6 col-lg-6 col-sm-6">
-    <h3>Talk It Over: Candidates raise nearly $1 billion so far</h3>
+    <h3>Talk It Over: Candidates raise nearly $1 billion</h3>
       <ol>
         <li>What surprises you about the money that's been raised?</li>
-        <li>Do you have concerns about how money is raised?</li>
-        <li>Trump loaned his campaign $45 million. Clinton loaned her's zero. How should candidates use personal wealth?</li>
+        <li>How do motives vary from big donors to small ones?</li>
+        <li>Trump loaned his campaign $45 million. Is that a plus or not?</li>
       </ol>
   </div>
 </div>
@@ -84,8 +84,8 @@
       </div>
     {% endfor %}
   </div>
-<h6>FEC data as of June 30, 2016, sourced from ProPublica. Does not include other fundraising entities, such as PACs.</h6>
-<h3><a href="{% url 'us_finance_deep_list_view' party_id %}">Optional deep dive:</a> See how much was raised by all of the 2016 presidential candidates</h3>
+<h6 class="padding">FEC data as of June 30, 2016, sourced from ProPublica. Does not include other fundraising entities, such as PACs.</h6>
+<h3 class="padding"><a href="{% url 'us_finance_deep_list_view' party_id %}">Optional deep dive:</a> See how much was raised by all of the 2016 presidential candidates</h3>
 <div class="row">
   <div class="move next2 col-md-12">
     <a href='{% url 'local_finance_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>

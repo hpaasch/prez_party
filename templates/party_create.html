@@ -2,10 +2,17 @@
 
 {% block content %}
 <div class="login col-sm-12 col-lg-offset-1 col-lg-10">
-  <h3>Choose your guests</h3>
+  <h3>What kind of party do you want to host? Decide which friends you want to invite over.
+  Then pick a commentator and a candidate who will be highlighted in your dinner party. Put
+together a like-minded group, or mix it up. The goal is to have a reasonably informed
+and civil discussion. </h3>
   <form class="" action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <p>Name your party: {{ form.party_name }}</p>
+    <p>Pick a commentator: {{ form.pundit }} (We'll pull this person's popular tweets.)</p>
+    <p>Pick a candidate: {{ form.candidate }} (A video with this candidate is your keynote dinner speech.)</p>
+    <p>Which friends will attend? {{ form.friend_names }}</p>
+    <p>What best describes your group of friends? {{ form.friend_mix }}</p>
     <input class="submitbtn" type="submit" name="party" value="Create party">
   </form>
   <div>

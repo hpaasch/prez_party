@@ -46,8 +46,8 @@
     <div class="card col-xs-8 col-md-offset-3 col-md-4 col-lg-offset-3 col-lg-3">
         <dl>
           <dd class="list"><h4>Party name: </h4> {{ party.party_name }}</dd>
-          <dd class="list"><h4>Candidate: </h4><a href='{{ item.candidate.website }}'>{{ party.candidate }}</a></dd>
-          <dd class="list"><h4>Commentator: </h4><a href="{{ item.pundit.website }}">{{ party.pundit }}</a></dd>
+          <dd class="list"><h4>Candidate: </h4><a href='{{ party.candidate.website }}'>{{ party.candidate }}</a></dd>
+          <dd class="list"><h4>Commentator: </h4><a href="{{ party.pundit.website }}">{{ party.pundit }}</a></dd>
           <dd class="list"><h4>Friends: </h4>{{ party.friend_names }}</dd>
           <dd class="list"><h4>Friend mix: </h4>{{ party.friend_mix }}</dd>
         </dl>

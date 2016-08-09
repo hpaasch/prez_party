@@ -17,8 +17,8 @@
     <h3>Talk It Over: Top tweets from @{{ pundit}}</h3>
     <ol>
       <li>What tone do these tweets set for your discussion??</li>
-      <li>Any surprises you about the reaction to @{{ pundit }}'s tweets'?</li>
-      <li>What role do you think social media should play in how people vote?</li>
+      <li>Why are these particular tweets so popular?</li>
+      <li>What role should social media should play in elections?</li>
     </ol>
   </div>
 </div>
@@ -33,16 +33,11 @@
 </div>
   <div class="row">
     <div class="move next2 col-sm-12">
-      <a href='{% url 'us_finance_list_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+      <a href='{% url 'us_finance_list_view' party_id %}'>
+        <div class="next">
+          <img class="arrow" src="/static/talk_app/img/next.png" />
+        </div>
+      </a>
     </div>
   </div>
 {% endblock %}
-
-<dl class="col-sm-12 col-md-offset-4 col-md-4">
-    {% autoescape off %}
-      {% for tweet in popular_tweets %}
-       {{ tweet }}
-      {% endfor %}
-    {% endautoescape %}
-
-  </dl>

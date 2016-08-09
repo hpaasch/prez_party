@@ -12,15 +12,14 @@
   of the money raised by Trump and Clinton is from the Carolinas.</h2>
 
 <div class="row">
-
-<div class="talk col-xs-12 col-md-12 col-lg-6">
-  <h3>Talk It Over: Clinton leads in the Carolinas</h3>
-  <ol>
-    <li>Do you know anyone who has contributed to a candidate?</li>
-    <li>Are you surprised that Hillary Clinton leads in the Carolinas?</li>
-    <li>What role does money have in affecting whether people vote?</li>
-  </ol>
-</div>
+  <div class="talk col-xs-12 col-md-12 col-lg-6">
+    <h3>Talk It Over: Clinton leads in the Carolinas</h3>
+    <ol>
+      <li>Do you know anyone who has contributed to a candidate?</li>
+      <li>Are you surprised that Hillary Clinton leads in the Carolinas?</li>
+      <li>What role does money have in affecting whether people vote?</li>
+    </ol>
+  </div>
 </div>
   <div class="col-md-6">
     <div class="panel panel-default">
@@ -86,7 +85,11 @@
 <h3 class="padding"><a href="{% url 'local_finance_deep_list_view' party_id %}">Optional deep dive:</a> See how much was contributed in any ZIP Code or state</h3>
 <div class="row">
   <div class="next2 col-md-12">
-    <a href='{% url 'candidate_keynote_view' party_id %}'><div class="next"><img class="arrow" src="/static/talk_app/img/next.png" /></div></a>
+    <a href='{% url 'candidate_keynote_view' party_id %}'>
+      <div class="next">
+        <img class="arrow" src="/static/talk_app/img/next.png" />
+      </div>
+    </a>
   </div>
 </div>
 {% endblock %}

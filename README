@@ -1,0 +1,34 @@
+This project is deployed at http://www.presidentialdinnerparty.com/
+
+This is my final project for the Backend Engineering with Python & Django bootcamp.
+Design assistance from a front-end student, in exchange for me providing the
+database and API endpoints for her project.
+
+The concept is based on a need for people to have more fact-based conversations
+about important subjects, such as who is running for president. Given how common
+it is for people to avoid such conversations, this application provides an
+inviting structure.
+
+A person creates an account, and creates as many dinner parties as they want to
+host. In real life, the person invites friends over. In the app, the person
+invites a commentator and a candidate. The app then guides the party host and
+their guests through a discussion. It ends with a survey, which the party host
+keeps.
+
+The project uses the Twitter API and uses a ProPublica API of Federal Elections
+Commission data. The project stores tweets and campaign finance info in a database,
+and performs additional calculations on that data.
+
+
+
+Project meets the official course requirements:
+1. Include a web application written in Python/Django.
+2. Use data stored in a database.
+3. Integrate with at least one "outside" data store or API.
+4. Be useful in some way, not just a direct clone of something that already
+exists. Add value or a niche to an existing application.
+5. Use at least one technology or package not covered in class.
+6. Integrate a form of image upload and storage.
+7. Be achievable in the three-week project period.
+8. Have code available in github.
+9. Be deployed on the public Internet, with a service like Heroku.

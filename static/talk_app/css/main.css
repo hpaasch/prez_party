@@ -7,6 +7,15 @@ body{
   font-family: 'Noto Sans', sans-serif;
 }
 
+.page-wrap {
+  min-height: 100%;
+  margin-bottom: -20px;
+}
+
+.page-wrap:after {
+  content: "";
+  display: block;
+}
 
 .logo{
   width: 100%;

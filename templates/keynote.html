@@ -2,6 +2,8 @@
 {% load tz static %}
 
 {% block content %}
+<div class="page-wrap">
+
 <div class="row">
   <div class="col-md-12">
     <div class="header">
@@ -28,14 +30,15 @@
   <div class="col-sm-12 col-md-offset-1 col-md-10  embed-responsive embed-responsive-16by9">
     <iframe class="embed-responsive-item" src='{{ video }}' ></iframe>
   </div>
-  <h3 class="col-sm-12"><a href="{% url 'video_list_view' party_id %}">Optional deep dive:</a> See videos from other candidates and commentators</h3>
+  <h3 class="padding"><a href="{% url 'video_list_view' party_id %}">Optional deep dive:</a> See videos from other candidates and commentators</h3>
+</div>
 
   <div class="row">
     <div class="move next2 col-md-12">
       <a href='{% url 'popular_tweet_list_view' party_id %}'>
         <div class="next">
           <h5>&copy;2016. Built by Hope E. Paasch, www.hepaasch.com</h5>
-          
+
           <img class="arrow" src="/static/talk_app/img/next.png" />
         </div>
       </a>

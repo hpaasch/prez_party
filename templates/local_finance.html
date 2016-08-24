@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <div class="row">
   <div class="col-md-12">
     <div class="header">
@@ -12,7 +13,7 @@
   at all levels. In some ZIP Codes, a candidate may raise only a few hundred dollars.</h4>
  <div class="row">
 
- <div class="talk col-xs-12 col-md-12 col-lg-6">
+   <div class="talk col-xs-12 col-md-12 col-lg-6">
      <h3>Talk It Over: Close to home</h3>
        <ol>
          <li>Looking at your own ZIP Code, what do you find interesting?</li>
@@ -22,7 +23,7 @@
    </div>
  </div>
 
-   <div class="col-sm-5">
+   <div class="col-md-6">
      <form>
         <input type="number" name="zip" maxlength="5">
         <input type="submit" value="ZIP LookUp"> (5 digits, such as 76067)
@@ -47,12 +48,15 @@
      </div>
    </div>
    <h3 class='padding'></h3>
+
+
+
   <div class="row">
     <div class="move next2 col-md-12">
       <a href='{% url 'candidate_keynote_view' party_id %}'>
         <div class="next">
           <h5>&copy;2016. Built by Hope E. Paasch, www.hepaasch.com</h5>
-          
+
           <img class="arrow" src="/static/talk_app/img/next.png" />
         </div>
       </a>

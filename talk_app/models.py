@@ -182,7 +182,7 @@ class USFinance(models.Model):
     class Meta:
         ordering = ['-cash_on_hand']
 
-
+ 
 class StateFinance(models.Model):
     full_name = models.CharField(max_length=30)
     candidate = models.CharField(max_length=30)

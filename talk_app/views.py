@@ -14,7 +14,7 @@ import os
 
 from talk_app.models import (Tweet, Candidate, DinnerParty, Pundit, USFinance,
                             StateFinance, ZIPFinance, Profile)
- 
+
 
 def popular_tweets(tweeter):
     tw_consumer_key = os.getenv("tw_consumer_key")

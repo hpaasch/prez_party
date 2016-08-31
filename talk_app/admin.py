@@ -5,7 +5,7 @@ from talk_app.models import (Tweet, DinnerParty, Candidate, Pundit, Profile,
 
 
 class StateFinanceAdmin(admin.ModelAdmin):
-        list_display = ['full_name', 'state', 'total']
+        list_display = ['full_name', 'state', 'contribution_count', 'total']
         search_fields = ['full_name', 'state']
 
 class ZIPFinanceAdmin(admin.ModelAdmin):

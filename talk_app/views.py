@@ -158,6 +158,9 @@ class DinnerPartyUpdateView(UpdateView):
     # success_url = reverse_lazy('party_over_view')
     # success_url = reverse_lazy('party_over_view',args=(pk))
 
+    def get_queryset(self):
+        return DinnerParty.objects.filter(host=self.request.user)
+
     def get_success_url(self, **kwargs):
         party_id = self.kwargs.get('pk', None)
         return reverse_lazy('party_over_view', kwargs={'pk': party_id})
@@ -177,7 +180,7 @@ class SurveyDetailView(DetailView):
 
     def get_queryset(self, **kwargs):
         survey_id = self.kwargs.get('pk', None)
-        return DinnerParty.objects.filter(pk=survey_id)
+        return DinnerParty.objects.filter(pk=survey_id, host=self.request.user)
 
 
 class USFinanceDeepListView(ListView):

@@ -21,8 +21,12 @@ class TweetAdmin(admin.ModelAdmin):
         search_fields = ['username']
 
 
+class DinnerPartyAdmin(admin.ModelAdmin):
+        list_display = ['id', 'party_name', 'host']
+
+
 admin.site.register(Tweet, TweetAdmin)
-admin.site.register(DinnerParty)
+admin.site.register(DinnerParty, DinnerPartyAdmin)
 admin.site.register(Candidate)
 admin.site.register(Pundit)
 admin.site.register(Profile)

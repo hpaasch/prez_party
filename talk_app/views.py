@@ -37,7 +37,7 @@ def popular_tweets(tweeter):
             })
 
     popular = []
-    popular = Tweet.objects.filter(username=tweeter).order_by('-popular')[:8]
+    popular = Tweet.objects.filter(username=tweeter).order_by('-popular')[:20]
 
     tweet_ids = []  # collecting the IDs to feed into the twitter api
     for tweet in popular:
@@ -53,6 +53,8 @@ def popular_tweets(tweeter):
 class IndexView(TemplateView):
     template_name = 'index.html'
     # add a little more explanation
+
+
 
 class CreateAccountView(CreateView):
     model = User
@@ -432,6 +434,21 @@ class PopularTweetListView(TemplateView):
         return context
 
 
+class TrumpTweetListView(ListView):
+    model = Tweet
+    template_name = 'trump_tweets.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        top_tweets = popular_tweets('realDonaldTrump')
+
+        context = {
+
+            'popular_tweets': top_tweets,
+            }
+        return context
+
+
 class TweetListView(ListView):
     model = Tweet
     template_name = 'tweets.html'
@@ -453,6 +470,7 @@ class TweetListView(ListView):
             'popular_tweets': top_tweets,
             }
         return context
+
 
 class PartyOverView(TemplateView):
     template_name = 'party_over.html'

@@ -1,0 +1,12 @@
+
+<h1 > Donald Trump's 20 Most Popular Tweets</h1>
+<h4> ('Most Popular' = Retweets and Favorites combined)</h4>
+
+{% autoescape off %}
+  {% for tweet in popular_tweets %}
+   {{ tweet }}
+  {% endfor %}
+{% endautoescape %}
+
+<h3 class="padding"><br>&nbsp;</h3>
+<h5>&copy;2016. Built by Hope E. Paasch, www.hepaasch.com</h5>

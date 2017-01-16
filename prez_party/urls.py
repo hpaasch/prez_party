@@ -12,7 +12,7 @@ from talk_app.views import (CreateAccountView, ProfileView, IndexView,
                             LocalFinanceListView, LocalFinanceDeepListView,
                             TweetListView, PopularTweetListView, DinnerPartyUpdateView,
                             SurveyDetailView, VideoListView, CandidateKeynoteView,
-                            PartyOverView, TrumpTweetListView)
+                            PartyOverView)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -22,8 +22,8 @@ urlpatterns = [
     url(r'^create_account/$', CreateAccountView.as_view(), name='create_account_view'),
     url(r'accounts/profile/$', ProfileView.as_view(), name='profile_view'),
     url(r'accounts/profile/update$', ProfileUpdateView.as_view(), name='profile_update_view'),
-    url(r'^$', TrumpTweetListView.as_view(), name='index_view'),
-    # changed this to make trump_tweets url(r'^$', IndexView.as_view(), name='index_view'),
+    # url(r'^$', TrumpTweetListView.as_view(), name='index_view'),
+    url(r'^$', IndexView.as_view(), name='index_view'),
     url(r'^party/create/$', DinnerPartyCreateView.as_view(), name='dinner_party_create_view'),
     # url(r'^party/view/$', DinnerPartyListView.as_view(), name='dinner_party_list_view'),
     url(r'^opening/(?P<pk>\d+)/$', PunditTweetListView.as_view(), name='pundit_tweet_list_view'),
